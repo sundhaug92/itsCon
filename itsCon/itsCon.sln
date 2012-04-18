@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 11
+Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "itsCon", "bin\Debug\itsCon.exe", "{C56943E8-6EE9-43EF-9CF2-2C54A2919E8E}"
+	ProjectSection(DebuggerProjectSystem) = preProject
+		AttachLaunchAction = No
+		Environment = Default
+		Executable = C:\Users\Martin\Documents\Visual Studio 11\Projects\itsCon\itsCon\bin\Debug\itsCon.exe
+		LaunchSQLEngine = No
+		LaunchingEngine = 00000000-0000-0000-0000-000000000000
+		PortSupplier = 00000000-0000-0000-0000-000000000000
+		RemoteMachine = W8X64CP-HEAVEN
+		StartingDirectory = C:\Users\Martin\Documents\Visual Studio 11\Projects\itsCon\itsCon\bin\Debug
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C56943E8-6EE9-43EF-9CF2-2C54A2919E8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

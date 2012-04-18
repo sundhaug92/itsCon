@@ -1,0 +1,10 @@
+c:\Users\Martin\documents\visual studio 11\Projects\itsCon\ItsExporter\bin\ItsExporter.dll
+c:\Users\Martin\documents\visual studio 11\Projects\itsCon\ItsExporter\bin\ItsExporter.pdb
+c:\Users\Martin\documents\visual studio 11\Projects\itsCon\ItsExporter\bin\itsLib.dll
+c:\Users\Martin\documents\visual studio 11\Projects\itsCon\ItsExporter\bin\itsLib.pdb
+c:\Users\Martin\documents\visual studio 11\Projects\itsCon\ItsExporter\obj\Debug\ItsExporter.csprojResolveAssemblyReference.cache
+c:\Users\Martin\documents\visual studio 11\Projects\itsCon\ItsExporter\obj\Debug\ItsExporter.dll
+c:\Users\Martin\documents\visual studio 11\Projects\itsCon\ItsExporter\obj\Debug\ItsExporter.pdb
+C:\Users\Martin\documents\visual studio 11\Projects\itsCon\ItsExporter\bin\HtmlAgilityPack.dll
+C:\Users\Martin\documents\visual studio 11\Projects\itsCon\ItsExporter\bin\HtmlAgilityPack.pdb
+C:\Users\Martin\documents\visual studio 11\Projects\itsCon\ItsExporter\bin\HtmlAgilityPack.xml
