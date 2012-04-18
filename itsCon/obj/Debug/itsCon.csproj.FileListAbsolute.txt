@@ -9,3 +9,5 @@ C:\Users\Martin\Documents\Visual Studio 11\Projects\itsCon\itsCon\bin\Debug\Html
 C:\Users\Martin\Documents\Visual Studio 11\Projects\itsCon\itsCon\obj\Debug\itsCon.csprojResolveAssemblyReference.cache
 C:\Users\Martin\Documents\Visual Studio 11\Projects\itsCon\itsCon\obj\Debug\itsCon.exe
 C:\Users\Martin\Documents\Visual Studio 11\Projects\itsCon\itsCon\obj\Debug\itsCon.pdb
+C:\Users\Martin\Documents\Visual Studio 11\Projects\itsCon\itsCon\bin\Debug\itsCon.exe.CodeAnalysisLog.xml
+C:\Users\Martin\Documents\Visual Studio 11\Projects\itsCon\itsCon\bin\Debug\itsCon.exe.lastcodeanalysissucceeded

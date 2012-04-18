@@ -8,3 +8,4 @@ C:\Users\Martin\Documents\Visual Studio 11\Projects\itsCon\itsLib\bin\Debug\Html
 C:\Users\Martin\Documents\Visual Studio 11\Projects\itsCon\itsLib\bin\Debug\HtmlAgilityPack.xml
 C:\Users\Martin\Documents\Visual Studio 11\Projects\itsCon\itsLib\obj\Debug\itsLib.dll
 C:\Users\Martin\Documents\Visual Studio 11\Projects\itsCon\itsLib\obj\Debug\itsLib.pdb
+C:\Users\Martin\Documents\Visual Studio 11\Projects\itsCon\itsLib\obj\Debug\itsLib.csprojResolveAssemblyReference.cache
