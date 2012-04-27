@@ -46,7 +46,7 @@ namespace itsLib
                 //Console.WriteLine("SendKeepAlive Waiting");
                 HttpWebResponse resp = (HttpWebResponse)hwr.GetResponse();
                 //Console.WriteLine("SKA Done");
-                if (!resp.ResponseUri.ToString().Contains(Properties.Settings.Default.Domain + "/XmlHttp/KeepAlive.asmx/OnlineInfo")) throw new Exception("KA FAIL");
+                if (!resp.ResponseUri.ToString().Contains(Properties.Settings.Default.urlBase + "/XmlHttp/KeepAlive.asmx/OnlineInfo")) throw new Exception("KA FAIL");
                 XElement xdoc = XElement.Load(resp.GetResponseStream());
                 int newOnlineUsers = int.Parse((from xml in xdoc.Descendants() where xml.Name.LocalName == "OnlineUsers" select xml.Value).First());
                 int newUnreadMessages = int.Parse((from xml in xdoc.Descendants() where xml.Name.LocalName == "UnreadMessages" select xml.Value).First());
@@ -100,11 +100,11 @@ namespace itsLib
                     try
                     {
                         HttpWebRequest hwr = Parent.GetHttpWebRequest("/OnlineUsers.aspx?Status=" + value);
-                        hwr.Referer = Properties.Settings.Default.Domain + "/OnlineUsers.aspx?Status=" + ((value == 0) ? 1 : 0).ToString();
+                        hwr.Referer = Properties.Settings.Default.urlBase + "/OnlineUsers.aspx?Status=" + ((value == 0) ? 1 : 0).ToString();
                         //Console.WriteLine("MessengerStatus (MS) waiting for response");
                         HttpWebResponse resp = (HttpWebResponse)hwr.GetResponse();
                         //Console.WriteLine("MS Done");
-                        if (resp.ResponseUri.OriginalString != Properties.Settings.Default.Domain + "/OnlineUsers.aspx?Status=" + value) throw new Exception("MessengerStatus error");
+                        if (resp.ResponseUri.OriginalString != Properties.Settings.Default.urlBase + "/OnlineUsers.aspx?Status=" + value) throw new Exception("MessengerStatus error");
                         resp.Close();
                         SendKeepAlive();
                     }

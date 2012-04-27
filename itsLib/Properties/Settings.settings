@@ -5,7 +5,7 @@
     <Setting Name="UA_String" Type="System.String" Scope="Application">
       <Value Profile="(Default)">External API from https://github.com/sundhaug92/itsCon</Value>
     </Setting>
-    <Setting Name="Domain" Type="System.String" Scope="Application">
+    <Setting Name="urlBase" Type="System.String" Scope="Application">
       <Value Profile="(Default)">https://www.itslearning.com</Value>
     </Setting>
   </Settings>

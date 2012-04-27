@@ -31,7 +31,7 @@ namespace itsLib
             HttpWebResponse resp = (HttpWebResponse)hwr.GetResponse();
             top_menu.Load(resp.GetResponseStream());
             var e = from element in top_menu.DocumentNode.Descendants("a") where element.GetAttributeValue("class", "") == "user_name" select element.GetAttributeValue("href", "");
-            Uri user_info_Uri = new Uri(Properties.Settings.Default.Domain + e.First());
+            Uri user_info_Uri = new Uri(Properties.Settings.Default.urlBase + e.First());
             Uid = int.Parse(HttpUtility.ParseQueryString(user_info_Uri.Query).Get("PersonId"));
             resp.Close();
             return fromUid(sess, Uid);

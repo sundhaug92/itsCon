@@ -56,7 +56,7 @@ namespace itsLib
 
         public HttpWebRequest GetHttpWebRequest(string p)
         {
-            Uri uri = new Uri(Properties.Settings.Default.Domain + p);
+            Uri uri = new Uri(Properties.Settings.Default.urlBase + p);
             HttpWebRequest hwr = (HttpWebRequest)HttpWebRequest.Create(uri);
             hwr.UserAgent = UserAgent;
 
@@ -78,8 +78,8 @@ namespace itsLib
 
         public void Login(string Username, string Password)
         {
-            HttpWebRequest InitialLoginRequest = (HttpWebRequest)HttpWebRequest.Create(Properties.Settings.Default.Domain + "/");
-            Cookies.Add(new Cookie("login", "CustomerId=" + Customer.Id + "&LanguageId=0&ssl=True", "/", Properties.Settings.Default.Domain.Substring("https://".Length)));
+            HttpWebRequest InitialLoginRequest = (HttpWebRequest)HttpWebRequest.Create(Properties.Settings.Default.urlBase + "/");
+            Cookies.Add(new Cookie("login", "CustomerId=" + Customer.Id + "&LanguageId=0&ssl=True", "/", Properties.Settings.Default.urlBase.Substring("https://".Length)));
             InitialLoginRequest.CookieContainer = Cookies;
             InitialLoginRequest.UserAgent = UserAgent;
             HtmlDocument initialLoginScreen = new HtmlDocument();
@@ -109,7 +109,7 @@ namespace itsLib
                         //Console.WriteLine(inp.Key + "=" + WebUtility.UrlEncode(inp.Value));
                     }
                     LoginFormData = NewLoginFormData;
-                    string LoginUrl = Properties.Settings.Default.Domain;
+                    string LoginUrl = Properties.Settings.Default.urlBase;
                     LoginUrl += Form.GetAttributeValue("action", "")[0] != '/' ? "/" + Form.GetAttributeValue("action", "") : Form.GetAttributeValue("action", "");
                     HttpWebRequest secondRequest = (HttpWebRequest)HttpWebRequest.Create(LoginUrl);
                     secondRequest.CookieContainer = Cookies;

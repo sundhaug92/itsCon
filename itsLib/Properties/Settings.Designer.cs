@@ -35,9 +35,9 @@ namespace itsLib.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("https://www.itslearning.com")]
-        public string Domain {
+        public string urlBase {
             get {
-                return ((string)(this["Domain"]));
+                return ((string)(this["urlBase"]));
             }
         }
     }

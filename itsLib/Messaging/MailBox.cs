@@ -38,7 +38,7 @@ namespace itsLib.Messaging
                             NewLoginFormData.Add(inp.Key, WebUtility.UrlEncode(inp.Value));
                         }
                         FormData = NewLoginFormData;
-                        string LoginUrl = Properties.Settings.Default.Domain;
+                        string LoginUrl = Properties.Settings.Default.urlBase;
                         LoginUrl += Form.GetAttributeValue("action", "")[0] != '/' ? "/" + Form.GetAttributeValue("action", "") : Form.GetAttributeValue("action", "");
                         HttpWebRequest secondRequest = Session.GetHttpWebRequest("/Messages/InternalMessages.aspx?MessageFolderId=" + MessageFolderId.ToString());
                         secondRequest.Method = "POST";

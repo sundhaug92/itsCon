@@ -17,7 +17,7 @@ namespace itsLib
         {
             HtmlDocument Doc = new HtmlDocument();
             _Id = Id;
-            HttpWebRequest hwr = (HttpWebRequest)HttpWebRequest.Create(Properties.Settings.Default.Domain);
+            HttpWebRequest hwr = (HttpWebRequest)HttpWebRequest.Create(Properties.Settings.Default.urlBase);
             hwr.Timeout = 1 * 60 * 1000;
             hwr.ContinueTimeout = 1 * 60 * 1000;
             hwr.UserAgent = Properties.Settings.Default.UA_String;
