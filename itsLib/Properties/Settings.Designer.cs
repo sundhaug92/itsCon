@@ -25,7 +25,7 @@ namespace itsLib.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Sundhaug Connector System")]
+        [global::System.Configuration.DefaultSettingValueAttribute("External API from https://github.com/sundhaug92/itsCon")]
         public string UA_String {
             get {
                 return ((string)(this["UA_String"]));
