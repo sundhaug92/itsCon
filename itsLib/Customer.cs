@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
-using System.Net;
 
 namespace itsLib
 {
@@ -29,6 +29,7 @@ namespace itsLib
             }
             if ((_Name == null) || (_Name == "")) throw new ArgumentException("No customer found", "Id");
         }
+
         public string Name
         {
             get
@@ -36,6 +37,7 @@ namespace itsLib
                 return _Name;
             }
         }
+
         public uint Id
         {
             get

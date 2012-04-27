@@ -44,7 +44,7 @@ namespace itsLib
 
         public Session()
         {
-            MakeHttpGetRequestGetCookies("/");
+            MakeHttpGetRequestGetCookies("/XmlHttp/SessionLessApi.aspx");
         }
 
         private void MakeHttpGetRequestGetCookies(string p)
@@ -58,7 +58,7 @@ namespace itsLib
         {
             Uri uri = new Uri(Properties.Settings.Default.Domain + p);
             HttpWebRequest hwr = (HttpWebRequest)HttpWebRequest.Create(uri);
-            hwr.UserAgent = Properties.Settings.Default.UA_String;
+            hwr.UserAgent = UserAgent;
 
             hwr.Timeout = 60 * 1000;
             hwr.ContinueTimeout = 60 * 1000;
@@ -81,7 +81,7 @@ namespace itsLib
             HttpWebRequest InitialLoginRequest = (HttpWebRequest)HttpWebRequest.Create(Properties.Settings.Default.Domain + "/");
             Cookies.Add(new Cookie("login", "CustomerId=" + Customer.Id + "&LanguageId=0&ssl=True", "/", Properties.Settings.Default.Domain.Substring("https://".Length)));
             InitialLoginRequest.CookieContainer = Cookies;
-            InitialLoginRequest.UserAgent = Properties.Settings.Default.UA_String;
+            InitialLoginRequest.UserAgent = UserAgent;
             HtmlDocument initialLoginScreen = new HtmlDocument();
             HttpWebResponse FirstResponse = (HttpWebResponse)InitialLoginRequest.GetResponse();
             initialLoginScreen.Load(FirstResponse.GetResponseStream());
@@ -113,7 +113,7 @@ namespace itsLib
                     LoginUrl += Form.GetAttributeValue("action", "")[0] != '/' ? "/" + Form.GetAttributeValue("action", "") : Form.GetAttributeValue("action", "");
                     HttpWebRequest secondRequest = (HttpWebRequest)HttpWebRequest.Create(LoginUrl);
                     secondRequest.CookieContainer = Cookies;
-                    secondRequest.UserAgent = UserAgent
+                    secondRequest.UserAgent = UserAgent;
                     secondRequest.Method = "POST";
                     secondRequest.ContentType = "application/x-www-form-urlencoded";
                     string data = "";
@@ -135,7 +135,7 @@ namespace itsLib
                     }
                     loginResp.Close();
                 }
-                    throw new Exception("Login failed");
+                throw new Exception("Login failed");
             }
         }
 

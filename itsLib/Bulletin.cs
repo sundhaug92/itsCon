@@ -8,5 +8,19 @@ namespace itsLib
 {
     class Bulletin
     {
+        int _Id = 0;
+        Bulletin(int Id)
+        {
+            _Id = Id;
+        }
+        public string Text
+        {
+            get
+            {
+                string r = "";
+
+                return r;
+            }
+        }
     }
 }

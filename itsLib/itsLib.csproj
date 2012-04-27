@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bulletin.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="KeepAlive.cs">
       <SubType>Component</SubType>
