@@ -31,8 +31,12 @@ namespace itsCon
             User Me = itsLib.User.Me(sess);
             for (int i = -5; i <= 5; i++)
             {
-                itsLib.Messaging.MailBox MailBox = new itsLib.Messaging.MailBox(sess, i);
-                Console.WriteLine("Mailbox \"" + MailBox.Name + "\"");
+                try
+                {
+                    itsLib.Messaging.MailBox MailBox = new itsLib.Messaging.MailBox(sess, i);
+                    Console.WriteLine("Mailbox \"" + MailBox.Name + "\"");
+                }
+                catch (Exception) { Console.WriteLine("Error looking for MailBox with id=" + i.ToString()); }
             }
 
             while (true)
