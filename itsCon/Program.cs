@@ -29,6 +29,7 @@ namespace itsCon
             string Password = Console.ReadLine();
             sess.Login(Username, Password);
             User Me = itsLib.User.Me(sess);
+            Console.Write("Testing MailBox.Id");
             for (int i = -5; i <= 5; i++)
             {
                 try
@@ -38,6 +39,7 @@ namespace itsCon
                 }
                 catch (Exception) { Console.WriteLine("Error looking for MailBox with id=" + i.ToString()); }
             }
+            Console.WriteLine("Tested");
 
             while (true)
             {
