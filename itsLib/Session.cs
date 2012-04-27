@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net;
 using System.IO;
-using HtmlAgilityPack;
+using System.Linq;
+using System.Net;
+using System.Text;
 using System.Web.Script.Serialization;
 using System.Xml.Linq;
+using HtmlAgilityPack;
 
 namespace itsLib
 {
@@ -15,10 +15,25 @@ namespace itsLib
         string _Id = "";
         public CookieContainer Cookies = new CookieContainer();
         KeepAlive _KeepAlive;
+        string _UserAgent = Properties.Settings.Default.UA_String;
+
+        public string UserAgent
+        {
+            get
+            {
+                return _UserAgent;
+            }
+            set
+            {
+                _UserAgent = value;
+            }
+        }
+
         public KeepAlive KeepAlive
         {
             get { return _KeepAlive; }
         }
+
         public string Id
         {
             get
@@ -26,6 +41,7 @@ namespace itsLib
                 return _Id;
             }
         }
+
         public Session()
         {
             MakeHttpGetRequestGetCookies("/");
@@ -37,6 +53,7 @@ namespace itsLib
             _Id = resp.Cookies["ASP.NET_SessionId"].Value;
             resp.Close();
         }
+
         public HttpWebRequest GetHttpWebRequest(string p)
         {
             Uri uri = new Uri(Properties.Settings.Default.Domain + p);
@@ -48,7 +65,9 @@ namespace itsLib
             hwr.CookieContainer = Cookies;
             return hwr;
         }
+
         public Customer Customer;
+
         public User Me
         {
             get
@@ -73,14 +92,13 @@ namespace itsLib
             LoginFormData.Add("ctl03$Login$username$input", Username);
             LoginFormData.Add("ctl03$Login$password$input", Password);
 
-
             foreach (var Form in initialLoginScreen.DocumentNode.Descendants("form"))
             {
                 if (Form.GetAttributeValue("id", "") == "Form")
                 {
                     Dictionary<string, string> NewLoginFormData = new Dictionary<string, string>();
                     //Console.WriteLine("<form method=\"" + Form.GetAttributeValue("method", "") + "\" action=\"" + Form.GetAttributeValue("action", "") + "\" id=\"" + Form.GetAttributeValue("id", "")+"\">");
-                    
+
                     foreach (var inp in initialLoginScreen.DocumentNode.Descendants("input"))
                     {
                         if (!LoginFormData.ContainsKey(inp.GetAttributeValue("name", ""))) LoginFormData.Add(inp.GetAttributeValue("name", ""), inp.GetAttributeValue("value", ""));
@@ -95,7 +113,7 @@ namespace itsLib
                     LoginUrl += Form.GetAttributeValue("action", "")[0] != '/' ? "/" + Form.GetAttributeValue("action", "") : Form.GetAttributeValue("action", "");
                     HttpWebRequest secondRequest = (HttpWebRequest)HttpWebRequest.Create(LoginUrl);
                     secondRequest.CookieContainer = Cookies;
-                    secondRequest.UserAgent = Properties.Settings.Default.UA_String;
+                    secondRequest.UserAgent = UserAgent
                     secondRequest.Method = "POST";
                     secondRequest.ContentType = "application/x-www-form-urlencoded";
                     string data = "";
@@ -120,7 +138,6 @@ namespace itsLib
                     throw new Exception("Login failed");
             }
         }
-
 
         // System.Timers.Timer KeepAliveTimer;
         bool _LoggedIn = false, _AutoKeepAlive = false;
