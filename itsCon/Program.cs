@@ -32,16 +32,20 @@ namespace itsCon
             Console.WriteLine("Welcome, " + Me.Name);
             while (true)
             {
-                Console.Write(".");
-                string order = Console.ReadLine();
-                string[] orders = order.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                orders[0] = orders[0].ToLower();
-                if ((orders[0] == "exit") || (orders[0] == "quit") || (orders[0] == "break")) break;
-                if (orders[0] == "project")
+                try
                 {
-                    if (orders[1] == "set-active") ;
-                    if (orders[1] == "get-active") ;
+                    Console.Write(".");
+                    string order = Console.ReadLine();
+                    string[] orders = order.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    orders[0] = orders[0].ToLower();
+                    if ((orders[0] == "exit") || (orders[0] == "quit") || (orders[0] == "break")) break;
+                    if (orders[0] == "project")
+                    {
+                        if (orders[1] == "set-active") new Project(sess, int.Parse(orders[2])).setActive();
+                        if (orders[1] == "get-active") ;
+                    }
                 }
+                catch (Exception e) { Console.WriteLine(e.Message); }
             }
         }
     }
