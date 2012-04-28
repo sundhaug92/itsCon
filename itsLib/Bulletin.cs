@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 
 namespace itsLib
 {
-    class Bulletin
+    internal class Bulletin
     {
         int _Id = 0;
-        Bulletin(int Id)
+
+        private Bulletin(int Id)
         {
             _Id = Id;
         }
+
         public string Text
         {
             get
@@ -21,6 +23,16 @@ namespace itsLib
 
                 return r;
             }
+        }
+
+        private static Bulletin[] inProject(Project Project)
+        {
+            return inPath(Project.DashboardPath);
+        }
+
+        private static Bulletin[] inPath(string path)
+        {
+            throw new NotImplementedException();
         }
     }
 }
