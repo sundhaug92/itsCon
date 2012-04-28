@@ -17,11 +17,16 @@ namespace itsLib
             this.Session = Session;
         }
 
+        public void setActive()
+        {
+            Session.GetHttpWebRequest("/main.aspx?ProjectID=" + Id).GetResponse().Close();
+        }
+
         public string DashboardPath
         {
             get
             {
-                Session.GetHttpWebRequest("/main.aspx?ProjectID=" + Id).GetResponse().Close();
+                setActive();
                 return "/Project/project.aspx";
             }
         }
