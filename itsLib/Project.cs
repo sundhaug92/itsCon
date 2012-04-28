@@ -8,11 +8,21 @@ namespace itsLib
 {
     internal class Project
     {
+        int Id;
+        Session Session;
+
+        public Project(Session Session, int Id)
+        {
+            this.Id = Id;
+            this.Session = Session;
+        }
+
         public string DashboardPath
         {
             get
             {
-                throw new NotImplementedException();
+                Session.GetHttpWebRequest("/main.aspx?ProjectID=" + Id).GetResponse().Close();
+                return "/Project/project.aspx";
             }
         }
     }
