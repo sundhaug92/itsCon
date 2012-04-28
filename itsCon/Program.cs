@@ -30,23 +30,18 @@ namespace itsCon
             sess.Login(Username, Password);
             User Me = itsLib.User.Me(sess);
             Console.WriteLine("Welcome, " + Me.Name);
-            Console.WriteLine("Testing MailBox.Id");
-            for (int i = -5; i <= 5; i++)
-            {
-                try
-                {
-                    itsLib.Messaging.MailBox MailBox = new itsLib.Messaging.MailBox(sess, i);
-                    Console.WriteLine("Mailbox \"" + MailBox.Name + "\"");
-                }
-                catch (Exception) { Console.WriteLine("Error looking for MailBox with id=" + i.ToString()); }
-            }
-            Console.WriteLine("Tested");
-
             while (true)
             {
-                Console.ReadKey(true);
-                if (sess.KeepAlive.MessengerStatus == 1) sess.KeepAlive.MessengerStatus = 0;
-                else sess.KeepAlive.MessengerStatus = 1;
+                Console.Write(".");
+                string order = Console.ReadLine();
+                string[] orders = order.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                orders[0] = orders[0].ToLower();
+                if ((orders[0] == "exit") || (orders[0] == "quit") || (orders[0] == "break")) break;
+                if (orders[0] == "project")
+                {
+                    if (orders[1] == "set-active") ;
+                    if (orders[1] == "get-active") ;
+                }
             }
         }
     }

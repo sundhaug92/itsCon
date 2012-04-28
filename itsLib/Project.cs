@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace itsLib
 {
-    internal class Project
+    public class Project
     {
         int Id;
         Session Session;
