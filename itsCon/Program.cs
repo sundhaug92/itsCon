@@ -40,6 +40,17 @@ namespace itsCon
                             else Console.WriteLine("Active context is not a project");
                         }
                     }
+                    if (orders[0] == "keepalive")
+                    {
+                        if (orders[1] == "get-messenger-status")
+                        {
+                            Console.WriteLine(sess.KeepAlive.MessengerStatus);
+                        }
+                        if (orders[1] == "set-messenger-status")
+                        {
+                            sess.KeepAlive.MessengerStatus = int.Parse(orders[2]);
+                        }
+                    }
                 }
                 catch (Exception e) { Console.WriteLine(e.Message); }
             }
