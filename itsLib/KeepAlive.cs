@@ -41,14 +41,10 @@ namespace itsLib
             try
             {
                 HttpWebRequest hwr = Session.GetHttpWebRequest("/XmlHttp/KeepAlive.asmx/OnlineInfo");
-                //hwr.Accept = "application/json, text/javascript, */*; q=0.01";
                 hwr.ContentLength = 2;
-                //hwr.ContentType = "application/json; charset=utf-8";
                 hwr.Method = "POST";
                 hwr.GetRequestStream().Write(new byte[] { Convert.ToByte('{'), Convert.ToByte('}') }, 0, 2);
-                //Console.WriteLine("SendKeepAlive Waiting");
                 HttpWebResponse resp = (HttpWebResponse)hwr.GetResponse();
-                //Console.WriteLine("SKA Done");
                 if (!resp.ResponseUri.ToString().Contains(Properties.Settings.Default.urlBase + "/XmlHttp/KeepAlive.asmx/OnlineInfo")) throw new Exception("KA FAIL");
                 XElement xdoc = XElement.Load(resp.GetResponseStream());
                 int newOnlineUsers = int.Parse((from xml in xdoc.Descendants() where xml.Name.LocalName == "OnlineUsers" select xml.Value).First());
@@ -67,7 +63,6 @@ namespace itsLib
                 _UnreadCloudEmailMessages = newUnreadCloudEmailMessages;
 
                 resp.Close();
-                //Console.WriteLine("OnlineUsers:" + OnlineUsers.ToString() + " UnreadMessages:" + UnreadMessages.ToString() + " MessengerStatus:" + MessengerStatus.ToString() + " UnreadCloudEmailMessages:" + UnreadCloudEmailMessages.ToString());
             }
             catch (WebException) { }
         }
@@ -75,7 +70,6 @@ namespace itsLib
         private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             this.Stop();
-            //Console.WriteLine("KeepAliveTimer Elapsed");
             this.SendKeepAlive();
             this.Start();
         }
@@ -108,9 +102,7 @@ namespace itsLib
                     {
                         HttpWebRequest hwr = Session.GetHttpWebRequest("/OnlineUsers.aspx?Status=" + value);
                         hwr.Referer = Properties.Settings.Default.urlBase + "/OnlineUsers.aspx?Status=" + ((value == 0) ? 1 : 0).ToString();
-                        //Console.WriteLine("MessengerStatus (MS) waiting for response");
                         HttpWebResponse resp = (HttpWebResponse)hwr.GetResponse();
-                        //Console.WriteLine("MS Done");
                         if (resp.ResponseUri.OriginalString != Properties.Settings.Default.urlBase + "/OnlineUsers.aspx?Status=" + value) throw new Exception("MessengerStatus error");
                         resp.Close();
                         SendKeepAlive();

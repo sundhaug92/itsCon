@@ -25,7 +25,6 @@ namespace itsLib.Messaging
                     if (Form.GetAttributeValue("id", "") == "ctl03")
                     {
                         Dictionary<string, string> NewLoginFormData = new Dictionary<string, string>();
-                        //Console.WriteLine("<form method=\"" + Form.GetAttributeValue("method", "") + "\" action=\"" + Form.GetAttributeValue("action", "") + "\" id=\"" + Form.GetAttributeValue("id", "")+"\">");
 
                         foreach (var inp in doc.DocumentNode.Descendants("input"))
                         {

@@ -113,7 +113,6 @@ namespace itsLib
                 if (Form.GetAttributeValue("id", "") == "Form")
                 {
                     Dictionary<string, string> NewLoginFormData = new Dictionary<string, string>();
-                    //Console.WriteLine("<form method=\"" + Form.GetAttributeValue("method", "") + "\" action=\"" + Form.GetAttributeValue("action", "") + "\" id=\"" + Form.GetAttributeValue("id", "")+"\">");
 
                     foreach (var inp in initialLoginScreen.DocumentNode.Descendants("input"))
                     {
@@ -122,7 +121,6 @@ namespace itsLib
                     foreach (var inp in LoginFormData)
                     {
                         NewLoginFormData.Add(inp.Key, WebUtility.UrlEncode(inp.Value));
-                        //Console.WriteLine(inp.Key + "=" + WebUtility.UrlEncode(inp.Value));
                     }
                     LoginFormData = NewLoginFormData;
                     string LoginUrl = Properties.Settings.Default.urlBase;
