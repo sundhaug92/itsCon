@@ -160,8 +160,7 @@ namespace itsLib
             }
         }
 
-        // System.Timers.Timer KeepAliveTimer;
-        bool _LoggedIn = false, _AutoKeepAlive = false;
+        bool _LoggedIn = false;
 
         public bool LoggedIn
         {
