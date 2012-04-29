@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Web;
 using System.Web.Script.Serialization;
 using System.Xml.Linq;
 using HtmlAgilityPack;
@@ -54,9 +55,22 @@ namespace itsLib
             resp.Close();
         }
 
+        string _ActiveContext = "";
+
+        private string ActiveContext
+        {
+            get
+            {
+                return _ActiveContext;
+            }
+        }
+
         public HttpWebRequest GetHttpWebRequest(string p)
         {
             Console.WriteLine("Navigating to " + p);
+            if (p.StartsWith("/Main.aspx?CourseID=")) _ActiveContext = "C" + HttpUtility.ParseQueryString(new Uri(p).Query)["CourseID"];
+            if (p.StartsWith("/Main.aspx?ProjectID=")) _ActiveContext = "P" + HttpUtility.ParseQueryString(new Uri(p).Query)["CourseID"];
+
             Uri uri = new Uri(Properties.Settings.Default.urlBase + p);
             HttpWebRequest hwr = (HttpWebRequest)HttpWebRequest.Create(uri);
             hwr.UserAgent = UserAgent;
