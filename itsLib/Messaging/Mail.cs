@@ -43,7 +43,11 @@ namespace itsLib.Messaging
 
         public string Contents
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                var contents = from node in Document.DocumentNode.DescendantNodes() where node.Name == "div" && node.GetAttributeValue("class", "") == "userinput" select node;
+                return contents.First().InnerHtml;
+            }
         }
 
         public string Subject
