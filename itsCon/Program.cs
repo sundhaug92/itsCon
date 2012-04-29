@@ -1,6 +1,7 @@
 ﻿using System;
 
 using itsLib;
+using itsLib.Messaging;
 
 namespace itsCon
 {
@@ -72,7 +73,11 @@ namespace itsCon
                         {
                             itsLib.Messaging.MailBox mb = new itsLib.Messaging.MailBox(sess, int.Parse(orders[2]));
                             Console.WriteLine("Messages in folder \"" + mb.Name + "\"");
-                            mb.GetMails();
+                            Mail[] mails = mb.GetMails();
+                            foreach (Mail Mail in mails)
+                            {
+                                Console.WriteLine("From: " + Mail.From.Name);
+                            }
                         }
                     }
                 }
