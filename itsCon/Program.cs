@@ -70,7 +70,7 @@ namespace itsCon
                     {
                         if (orders[1] == "get-in-folder")
                         {
-                            itsLib.Messaging.MailBox mb = new itsLib.Messaging.MailBox(sess, int.Parse(orders[2]));
+                            itsLib.Messaging.MailBox mb = new itsLib.Messaging.MailBox(sess, uint.Parse(orders[2]));
                             Console.WriteLine("Messages in folder \"" + mb.Name + "\"");
                             mb.GetMails();
                         }

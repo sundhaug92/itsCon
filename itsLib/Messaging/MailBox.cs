@@ -9,7 +9,7 @@ namespace itsLib.Messaging
     public class MailBox
     {
         Session Session;
-        int MessageFolderId;
+        uint MessageFolderId;
 
         public int Pagesize
         {
@@ -57,7 +57,7 @@ namespace itsLib.Messaging
             }
         }
 
-        public MailBox(Session Session, int MessageFolderId)
+        public MailBox(Session Session, uint MessageFolderId)
         {
             this.Session = Session;
             this.MessageFolderId = MessageFolderId;
@@ -73,9 +73,11 @@ namespace itsLib.Messaging
             foreach (var v in Nodes)
             {
                 Console.Write(v.GetAttributeValue("id", "") + "\t");
-                Console.WriteLine(v.ChildNodes[5].GetAttributeValue("onclick", ""));
+                Console.Write(v.GetAttributeValue("id", "").Substring("_table_".Length) + "\t");
+                Console.WriteLine(v.ChildNodes[5].GetAttributeValue("onclick", "").Split(new string[] { "'" }, StringSplitOptions.RemoveEmptyEntries)[1] + "\t");
+                Mails[uint.Parse(v.GetAttributeValue("id", "").Substring("_table_".Length)) - 1] = new Mail(uint.Parse(v.ChildNodes[5].GetAttributeValue("onclick", "").Split(new string[] { "'" }, StringSplitOptions.RemoveEmptyEntries)[1]), MessageFolderId);
             }
-            throw new NotImplementedException();
+            return Mails;
         }
 
         public string Name
