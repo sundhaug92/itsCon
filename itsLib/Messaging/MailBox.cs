@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using HtmlAgilityPack;
 
@@ -67,11 +68,10 @@ namespace itsLib.Messaging
             HttpWebResponse resp = (HttpWebResponse)Session.GetHttpWebRequest("/Messages/InternalMessages.aspx?MessageFolderId=" + MessageFolderId).GetResponse();
             HtmlDocument Document = new HtmlDocument();
             Document.Load(resp.GetResponseStream());
-            foreach (var v in Document.DocumentNode.DescendantNodes())
+            var Nodes = from m in Document.DocumentNode.DescendantNodes() where (m.Name == "tr") && (m.GetAttributeValue("id", "").StartsWith("_table_")) && (m.GetAttributeValue("id", "") != "_table_0") select m;
+            Mail[] Mails = new Mail[Nodes.Count()];
+            foreach (var v in Nodes)
             {
-                if (v.Name != "tr") continue;
-                if (!v.GetAttributeValue("id", "").StartsWith("_table_")) continue;
-                if (v.GetAttributeValue("id", "") == "_table_0") continue;
                 Console.Write(v.GetAttributeValue("id", "") + "\t");
                 Console.WriteLine(v.ChildNodes[5].GetAttributeValue("onclick", ""));
             }
