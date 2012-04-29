@@ -73,8 +73,8 @@ namespace itsLib
             {
                 Debug.WriteLine("Navigating to " + p);
                 NameValueCollection NVC = HttpUtility.ParseQueryString(p.Substring(p.IndexOf("?")));
-                if (p.StartsWith("/main.aspx?CourseID=")) _ActiveContext = "C" + NVC["CourseID"];
-                if (p.StartsWith("/main.aspx?ProjectID=")) _ActiveContext = "P" + NVC["ProjectID"];
+                if (NVC["CourseID"] != null) _ActiveContext = "C" + NVC["CourseID"];
+                if (NVC["ProjectID"] != null) _ActiveContext = "P" + NVC["ProjectID"];
             }
 
             Uri uri = new Uri(Properties.Settings.Default.urlBase + p);
