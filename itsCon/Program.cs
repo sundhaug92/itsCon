@@ -21,7 +21,7 @@ namespace itsCon
             Console.WriteLine("ASP.NET_Id: [" + sess.Id + "]");
             Console.Write("CustomerId? ");
             uint CustomerId = uint.Parse(Console.ReadLine());
-            sess.Customer = new Customer(CustomerId);
+            sess.Customer = new Customer(sess, CustomerId);
             Console.WriteLine("Customer: " + sess.Customer.Name);
             Console.Write("Username: ");
             string Username = Console.ReadLine();

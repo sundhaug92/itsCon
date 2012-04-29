@@ -13,14 +13,11 @@ namespace itsLib
         uint _Id;
         string _Name;
 
-        public Customer(uint Id)
+        public Customer(Session Session, uint Id)
         {
             HtmlDocument Doc = new HtmlDocument();
             _Id = Id;
-            HttpWebRequest hwr = (HttpWebRequest)HttpWebRequest.Create(Properties.Settings.Default.urlBase);
-            hwr.Timeout = 1 * 60 * 1000;
-            hwr.ContinueTimeout = 1 * 60 * 1000;
-            hwr.UserAgent = Properties.Settings.Default.UA_String;
+            HttpWebRequest hwr = (HttpWebRequest)Session.GetHttpWebRequest("/");
             Doc.Load(hwr.GetResponse().GetResponseStream());
             foreach (var v in Doc.DocumentNode.Descendants("option"))
             {
