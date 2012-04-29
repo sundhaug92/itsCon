@@ -48,7 +48,11 @@ namespace itsLib.Messaging
 
         public string Subject
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                var titles = from node in Document.DocumentNode.DescendantNodes() where node.Name == "span" && node.GetAttributeValue("id", "") == "ctl05_TT" select node;
+                return titles.First().InnerText;
+            }
         }
     }
 }
