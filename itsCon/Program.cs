@@ -40,6 +40,15 @@ namespace itsCon
                             else Console.WriteLine("Active context is not a project");
                         }
                     }
+                    if (orders[0] == "course")
+                    {
+                        if (orders[1] == "set-active") new Course(sess, int.Parse(orders[2])).setActive();
+                        if (orders[1] == "get-active")
+                        {
+                            if (sess.ActiveContext.StartsWith("C")) Console.WriteLine(sess.ActiveContext);
+                            else Console.WriteLine("Active context is not a course");
+                        }
+                    }
                     if (orders[0] == "keepalive")
                     {
                         if (orders[1] == "get-messenger-status")
