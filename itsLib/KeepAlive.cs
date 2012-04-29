@@ -1,25 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Timers;
 using System.Net;
+using System.Timers;
 using System.Xml.Linq;
 
 namespace itsLib
 {
-    public class KeepAlive:Timer
+    public class KeepAlive : Timer
     {
         public delegate void valueChangedEventHandler(object o, int e);
 
-        event valueChangedEventHandler OnlineUsersChange;
-        event valueChangedEventHandler MessengerStatusChange;
-        event valueChangedEventHandler UnreadMessagesChange;
-        event valueChangedEventHandler UnreadCloudEmailMessagesChange;
+        private event valueChangedEventHandler OnlineUsersChange;
+
+        private event valueChangedEventHandler MessengerStatusChange;
+
+        private event valueChangedEventHandler UnreadMessagesChange;
+
+        private event valueChangedEventHandler UnreadCloudEmailMessagesChange;
 
         Session _Parent;
-        public Session Parent{
+
+        public Session Parent
+        {
             get
             {
                 return _Parent;
@@ -33,6 +35,7 @@ namespace itsLib
             this.Elapsed += Timer_Elapsed;
             this.AutoReset = true;
         }
+
         public void SendKeepAlive()
         {
             try
@@ -53,7 +56,7 @@ namespace itsLib
                 int newMessengerStatus = int.Parse((from xml in xdoc.Descendants() where xml.Name.LocalName == "MessengerStatus" select xml.Value).First());
                 int newUnreadCloudEmailMessages = int.Parse((from xml in xdoc.Descendants() where xml.Name.LocalName == "UnreadCloudEmailMessages" select xml.Value).First());
 
-                if (OnlineUsers != newOnlineUsers)if(OnlineUsersChange != null) OnlineUsersChange(this, newOnlineUsers);
+                if (OnlineUsers != newOnlineUsers) if (OnlineUsersChange != null) OnlineUsersChange(this, newOnlineUsers);
                 if (UnreadMessages != newUnreadMessages) if (UnreadMessagesChange != null) UnreadMessagesChange(this, newOnlineUsers);
                 if (MessengerStatus != newOnlineUsers) if (MessengerStatusChange != null) MessengerStatusChange(this, newOnlineUsers);
                 if (UnreadCloudEmailMessages != newOnlineUsers) if (UnreadCloudEmailMessagesChange != null) UnreadCloudEmailMessagesChange(this, newOnlineUsers);
@@ -68,7 +71,8 @@ namespace itsLib
             }
             catch (WebException) { }
         }
-        void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+
+        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             this.Stop();
             //Console.WriteLine("KeepAliveTimer Elapsed");
@@ -77,6 +81,7 @@ namespace itsLib
         }
 
         int _OnlineUsers, _UnreadMessages, _MessengerStatus, _UnreadCloudEmailMessages;
+
         public int OnlineUsers
         {
             get
@@ -84,6 +89,7 @@ namespace itsLib
                 return _OnlineUsers;
             }
         }
+
         public int UnreadMessages
         {
             get
@@ -91,6 +97,7 @@ namespace itsLib
                 return _UnreadMessages;
             }
         }
+
         public int MessengerStatus
         {
             set
@@ -116,6 +123,7 @@ namespace itsLib
                 return _MessengerStatus;
             }
         }
+
         public int UnreadCloudEmailMessages
         {
             get
@@ -123,7 +131,5 @@ namespace itsLib
                 return _UnreadCloudEmailMessages;
             }
         }
-
-
     }
 }

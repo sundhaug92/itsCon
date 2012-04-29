@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net;
 using HtmlAgilityPack;
 
@@ -12,6 +9,7 @@ namespace itsLib.Messaging
     {
         Session Session;
         int MessageFolderId;
+
         public int Pagesize
         {
             set
@@ -58,15 +56,18 @@ namespace itsLib.Messaging
                 }
             }
         }
+
         public MailBox(Session Session, int MessageFolderId)
         {
             this.Session = Session;
             this.MessageFolderId = MessageFolderId;
         }
+
         public Mail[] GetMails()
         {
             throw new NotImplementedException();
         }
+
         public string Name
         {
             get
@@ -79,7 +80,6 @@ namespace itsLib.Messaging
                     Doc.Load(resp.GetResponseStream());
                     foreach (var v in Doc.DocumentNode.DescendantNodes())
                     {
-
                         if (v.Name != "span") continue;
                         if (v.Id == "ctl05_TT") return v.InnerText;
                     }
@@ -91,6 +91,5 @@ namespace itsLib.Messaging
                 }
             }
         }
-
     }
 }
