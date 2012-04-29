@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -57,7 +58,7 @@ namespace itsLib
 
         string _ActiveContext = "";
 
-        private string ActiveContext
+        public string ActiveContext
         {
             get
             {
@@ -67,7 +68,7 @@ namespace itsLib
 
         public HttpWebRequest GetHttpWebRequest(string p)
         {
-            Console.WriteLine("Navigating to " + p);
+            Debug.WriteLine("Navigating to " + p);
             if (p.StartsWith("/Main.aspx?CourseID=")) _ActiveContext = "C" + HttpUtility.ParseQueryString(new Uri(p).Query)["CourseID"];
             if (p.StartsWith("/Main.aspx?ProjectID=")) _ActiveContext = "P" + HttpUtility.ParseQueryString(new Uri(p).Query)["CourseID"];
 

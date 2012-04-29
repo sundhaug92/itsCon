@@ -43,7 +43,11 @@ namespace itsCon
                     if (orders[0] == "project")
                     {
                         if (orders[1] == "set-active") new Project(sess, int.Parse(orders[2])).setActive();
-                        if (orders[1] == "get-active") ;
+                        if (orders[1] == "get-active")
+                        {
+                            if (sess.ActiveContext.StartsWith("P")) Console.WriteLine(sess.ActiveContext);
+                            else Console.WriteLine("Active context is not a project");
+                        }
                     }
                 }
                 catch (Exception e) { Console.WriteLine(e.Message); }
