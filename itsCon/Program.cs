@@ -51,6 +51,7 @@ namespace itsCon
                             sess.KeepAlive.MessengerStatus = int.Parse(orders[2]);
                         }
                     }
+                    if (orders[0] == "make-http-request") sess.GetHttpWebRequest(orders[1]).GetResponse().Close();
                 }
                 catch (Exception e) { Console.WriteLine(e.Message); }
             }
