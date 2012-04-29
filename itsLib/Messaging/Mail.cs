@@ -4,8 +4,11 @@ namespace itsLib.Messaging
 {
     public class Mail
     {
+        string _Path = "";
+
         public Mail(string Path)
         {
+            _Path = Path;
         }
 
         public Mail(uint Id, uint FolderId)
