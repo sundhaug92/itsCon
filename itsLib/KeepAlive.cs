@@ -8,15 +8,16 @@ namespace itsLib
 {
     public class KeepAlive : Timer
     {
-        public delegate void valueChangedEventHandler(object o, int e);
+        public delegate void uintChangedEventHandler(object o, uint e);
+        public delegate void intChangedEventHandler(object o, uint e);
 
-        private event valueChangedEventHandler OnlineUsersChange;
+        private event uintChangedEventHandler OnlineUsersChange;
 
-        private event valueChangedEventHandler MessengerStatusChange;
+        private event uintChangedEventHandler MessengerStatusChange;
 
-        private event valueChangedEventHandler UnreadMessagesChange;
+        private event uintChangedEventHandler UnreadMessagesChange;
 
-        private event valueChangedEventHandler UnreadCloudEmailMessagesChange;
+        private event intChangedEventHandler UnreadCloudEmailMessagesChange;
 
         Session _Session;
 
@@ -47,9 +48,9 @@ namespace itsLib
                 HttpWebResponse resp = (HttpWebResponse)hwr.GetResponse();
                 if (!resp.ResponseUri.ToString().Contains(Properties.Settings.Default.urlBase + "/XmlHttp/KeepAlive.asmx/OnlineInfo")) throw new Exception("KA FAIL");
                 XElement xdoc = XElement.Load(resp.GetResponseStream());
-                int newOnlineUsers = int.Parse((from xml in xdoc.Descendants() where xml.Name.LocalName == "OnlineUsers" select xml.Value).First());
-                int newUnreadMessages = int.Parse((from xml in xdoc.Descendants() where xml.Name.LocalName == "UnreadMessages" select xml.Value).First());
-                int newMessengerStatus = int.Parse((from xml in xdoc.Descendants() where xml.Name.LocalName == "MessengerStatus" select xml.Value).First());
+                uint newOnlineUsers = uint.Parse((from xml in xdoc.Descendants() where xml.Name.LocalName == "OnlineUsers" select xml.Value).First());
+                uint newUnreadMessages = uint.Parse((from xml in xdoc.Descendants() where xml.Name.LocalName == "UnreadMessages" select xml.Value).First());
+                uint newMessengerStatus = uint.Parse((from xml in xdoc.Descendants() where xml.Name.LocalName == "MessengerStatus" select xml.Value).First());
                 int newUnreadCloudEmailMessages = int.Parse((from xml in xdoc.Descendants() where xml.Name.LocalName == "UnreadCloudEmailMessages" select xml.Value).First());
 
                 if (OnlineUsers != newOnlineUsers) if (OnlineUsersChange != null) OnlineUsersChange(this, newOnlineUsers);
@@ -74,9 +75,10 @@ namespace itsLib
             this.Start();
         }
 
-        int _OnlineUsers, _UnreadMessages, _MessengerStatus, _UnreadCloudEmailMessages;
+        uint _OnlineUsers, _UnreadMessages, _MessengerStatus;
+        int _UnreadCloudEmailMessages;
 
-        public int OnlineUsers
+        public uint OnlineUsers
         {
             get
             {
@@ -84,7 +86,7 @@ namespace itsLib
             }
         }
 
-        public int UnreadMessages
+        public uint UnreadMessages
         {
             get
             {
@@ -92,7 +94,7 @@ namespace itsLib
             }
         }
 
-        public int MessengerStatus
+        public uint MessengerStatus
         {
             set
             {

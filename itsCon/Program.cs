@@ -57,7 +57,7 @@ namespace itsCon
                         }
                         if (orders[1] == "set-messenger-status")
                         {
-                            sess.KeepAlive.MessengerStatus = int.Parse(orders[2]);
+                            sess.KeepAlive.MessengerStatus = uint.Parse(orders[2]);
                         }
                     }
                     if (orders[0] == "make-http-request") sess.GetHttpWebRequest(orders[1]).GetResponse().Close();
