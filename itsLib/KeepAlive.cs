@@ -24,7 +24,7 @@ namespace itsLib
         {
             get
             {
-                return Session;
+                return _Session;
             }
         }
 
