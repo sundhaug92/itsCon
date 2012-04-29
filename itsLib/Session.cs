@@ -162,5 +162,10 @@ namespace itsLib
                 return _LoggedIn;
             }
         }
+
+        public void Logout()
+        {
+            GetHttpWebRequest("/log_out.aspx").GetResponse().Close();
+        }
     }
 }
