@@ -9,9 +9,9 @@ namespace itsLib.Messaging
     public class MailBox
     {
         Session Session;
-        uint MessageFolderId;
+        int MessageFolderId;
 
-        public int Pagesize
+        public uint Pagesize
         {
             set
             {
@@ -57,7 +57,7 @@ namespace itsLib.Messaging
             }
         }
 
-        public MailBox(Session Session, uint MessageFolderId)
+        public MailBox(Session Session, int MessageFolderId)
         {
             this.Session = Session;
             this.MessageFolderId = MessageFolderId;

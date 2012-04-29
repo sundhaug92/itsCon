@@ -11,7 +11,7 @@ namespace itsLib.Messaging
             _Path = Path;
         }
 
-        public Mail(uint Id, uint FolderId)
+        public Mail(uint Id, int FolderId)
             : this("/Messages/View_Message.aspx?MessageFolderID=" + FolderId.ToString() + "&MessageID=" + Id.ToString())
         {
         }

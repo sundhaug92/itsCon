@@ -8,10 +8,10 @@ namespace itsLib
 {
     public class Course
     {
-        int Id;
+        uint Id;
         Session Session;
 
-        public Course(Session Session, int Id)
+        public Course(Session Session, uint Id)
         {
             this.Id = Id;
             this.Session = Session;

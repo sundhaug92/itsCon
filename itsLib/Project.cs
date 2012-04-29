@@ -2,10 +2,10 @@
 {
     public class Project
     {
-        int Id;
+        uint Id;
         Session Session;
 
-        public Project(Session Session, int Id)
+        public Project(Session Session, uint Id)
         {
             this.Id = Id;
             this.Session = Session;

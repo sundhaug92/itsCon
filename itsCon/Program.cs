@@ -33,7 +33,7 @@ namespace itsCon
                     if ((orders[0] == "exit") || (orders[0] == "quit") || (orders[0] == "break")) break;
                     if (orders[0] == "project")
                     {
-                        if (orders[1] == "set-active") new Project(sess, int.Parse(orders[2])).setActive();
+                        if (orders[1] == "set-active") new Project(sess, uint.Parse(orders[2])).setActive();
                         if (orders[1] == "get-active")
                         {
                             if (sess.ActiveContext.StartsWith("P")) Console.WriteLine(sess.ActiveContext);
@@ -42,7 +42,7 @@ namespace itsCon
                     }
                     if (orders[0] == "course")
                     {
-                        if (orders[1] == "set-active") new Course(sess, int.Parse(orders[2])).setActive();
+                        if (orders[1] == "set-active") new Course(sess, uint.Parse(orders[2])).setActive();
                         if (orders[1] == "get-active")
                         {
                             if (sess.ActiveContext.StartsWith("C")) Console.WriteLine(sess.ActiveContext);
@@ -70,7 +70,7 @@ namespace itsCon
                     {
                         if (orders[1] == "get-in-folder")
                         {
-                            itsLib.Messaging.MailBox mb = new itsLib.Messaging.MailBox(sess, uint.Parse(orders[2]));
+                            itsLib.Messaging.MailBox mb = new itsLib.Messaging.MailBox(sess, int.Parse(orders[2]));
                             Console.WriteLine("Messages in folder \"" + mb.Name + "\"");
                             mb.GetMails();
                         }
