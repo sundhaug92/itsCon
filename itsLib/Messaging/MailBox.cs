@@ -69,7 +69,11 @@ namespace itsLib.Messaging
             Document.Load(resp.GetResponseStream());
             foreach (var v in Document.DocumentNode.DescendantNodes())
             {
-                Console.WriteLine(v);
+                if (v.Name != "tr") continue;
+                if (!v.GetAttributeValue("id", "").StartsWith("_table_")) continue;
+                if (v.GetAttributeValue("id", "") == "_table_0") continue;
+                Console.Write(v.GetAttributeValue("id", "") + "\t");
+                Console.WriteLine(v.ChildNodes[5].GetAttributeValue("onclick", ""));
             }
             throw new NotImplementedException();
         }
