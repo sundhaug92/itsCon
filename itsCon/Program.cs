@@ -52,6 +52,11 @@ namespace itsCon
                         }
                     }
                     if (orders[0] == "make-http-request") sess.GetHttpWebRequest(orders[1]).GetResponse().Close();
+                    if (orders[0] == "session")
+                    {
+                        if (orders[1] == "logout") sess.Logout();
+                        if (orders[1] == "login") sess.Login(orders[2], orders[3]);
+                    }
                 }
                 catch (Exception e) { Console.WriteLine(e.Message); }
             }

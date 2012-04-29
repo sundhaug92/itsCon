@@ -67,9 +67,15 @@ namespace itsLib
             if (!(p.Contains("XmlHttp") || (p == "/")))
             {
                 Debug.WriteLine("Navigating to " + p);
-                NameValueCollection NVC = HttpUtility.ParseQueryString(p.Substring(p.IndexOf("?")));
-                if (NVC["CourseID"] != null) _ActiveContext = "C" + NVC["CourseID"];
-                if (NVC["ProjectID"] != null) _ActiveContext = "P" + NVC["ProjectID"];
+                NameValueCollection NVC = (p.IndexOf("?") >= 0) ? HttpUtility.ParseQueryString(p.Substring(p.IndexOf("?"))) : HttpUtility.ParseQueryString(p);
+                if (NVC != null)
+                {
+                    if (NVC.Count != 0)
+                    {
+                        if (NVC["CourseID"] != null) _ActiveContext = "C" + NVC["CourseID"];
+                        if (NVC["ProjectID"] != null) _ActiveContext = "P" + NVC["ProjectID"];
+                    }
+                }
             }
 
             Uri uri = new Uri(Properties.Settings.Default.urlBase + p);
@@ -166,6 +172,7 @@ namespace itsLib
         public void Logout()
         {
             GetHttpWebRequest("/log_out.aspx").GetResponse().Close();
+            _LoggedIn = false;
         }
     }
 }
