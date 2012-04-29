@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -68,9 +69,13 @@ namespace itsLib
 
         public HttpWebRequest GetHttpWebRequest(string p)
         {
-            Debug.WriteLine("Navigating to " + p);
-            if (p.StartsWith("/Main.aspx?CourseID=")) _ActiveContext = "C" + HttpUtility.ParseQueryString(new Uri(p).Query)["CourseID"];
-            if (p.StartsWith("/Main.aspx?ProjectID=")) _ActiveContext = "P" + HttpUtility.ParseQueryString(new Uri(p).Query)["CourseID"];
+            if (!(p.Contains("XmlHttp") || (p == "/")))
+            {
+                Debug.WriteLine("Navigating to " + p);
+                NameValueCollection NVC = HttpUtility.ParseQueryString(p.Substring(p.IndexOf("?")));
+                if (p.StartsWith("/main.aspx?CourseID=")) _ActiveContext = "C" + NVC["CourseID"];
+                if (p.StartsWith("/main.aspx?ProjectID=")) _ActiveContext = "P" + NVC["ProjectID"];
+            }
 
             Uri uri = new Uri(Properties.Settings.Default.urlBase + p);
             HttpWebRequest hwr = (HttpWebRequest)HttpWebRequest.Create(uri);
