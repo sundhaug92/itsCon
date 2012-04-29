@@ -64,6 +64,13 @@ namespace itsLib.Messaging
 
         public Mail[] GetMails()
         {
+            HttpWebResponse resp = (HttpWebResponse)Session.GetHttpWebRequest("/Messages/InternalMessages.aspx?MessageFolderId=" + MessageFolderId).GetResponse();
+            HtmlDocument Document = new HtmlDocument();
+            Document.Load(resp.GetResponseStream());
+            foreach (var v in Document.DocumentNode.DescendantNodes())
+            {
+                Console.WriteLine(v);
+            }
             throw new NotImplementedException();
         }
 

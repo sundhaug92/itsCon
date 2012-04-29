@@ -66,6 +66,15 @@ namespace itsCon
                         if (orders[1] == "logout") sess.Logout();
                         if (orders[1] == "login") sess.Login(orders[2], orders[3]);
                     }
+                    if (orders[0] == "mail")
+                    {
+                        if (orders[1] == "get-in-folder")
+                        {
+                            itsLib.Messaging.MailBox mb = new itsLib.Messaging.MailBox(sess, int.Parse(orders[2]));
+                            Console.WriteLine("Messages in folder \"" + mb.Name + "\"");
+                            mb.GetMails();
+                        }
+                    }
                 }
                 catch (Exception e) { Console.WriteLine(e.Message); }
             }
