@@ -56,6 +56,7 @@ namespace itsLib
 
         public HttpWebRequest GetHttpWebRequest(string p)
         {
+            Console.WriteLine("Navigating to " + p);
             Uri uri = new Uri(Properties.Settings.Default.urlBase + p);
             HttpWebRequest hwr = (HttpWebRequest)HttpWebRequest.Create(uri);
             hwr.UserAgent = UserAgent;
