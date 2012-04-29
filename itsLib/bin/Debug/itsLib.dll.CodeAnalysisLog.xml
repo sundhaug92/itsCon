@@ -10,7 +10,7 @@
        <Types>
         <Type Name="Session" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2012-04-29 18:09:30Z" FixCategory="DependsOnFix">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2012-04-29 18:17:20Z" FixCategory="DependsOnFix">
            <Issue Name="DependsOnFix" Certainty="95" Level="CriticalError">Implement IDisposable on 'Session' because it creates members of the following IDisposable types: 'KeepAlive'. If 'Session' has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.</Issue>
           </Message>
          </Messages>
@@ -25,8 +25,19 @@
            <Accessors>
             <Accessor Name="#get_Contents()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
              <Messages>
-              <Message TypeName="DoNotRaiseExceptionsInUnexpectedLocations" Category="Microsoft.Design" CheckId="CA1065" Status="Active" Created="2012-04-29 18:09:30Z" FixCategory="Breaking">
+              <Message TypeName="DoNotRaiseExceptionsInUnexpectedLocations" Category="Microsoft.Design" CheckId="CA1065" Status="Active" Created="2012-04-29 18:17:20Z" FixCategory="Breaking">
                <Issue Name="PropertyGetter" Certainty="90" Level="Warning" Path="c:\Users\Martin\Documents\Visual Studio 11\Projects\itsCon\itsLib\Messaging" File="Mail.cs" Line="46">'Mail.Contents.get()' creates an exception of type 'NotImplementedException', an exception type that should not be raised in a property. If this exception instance might be raised, use a different exception type, convert this property into a method, or change this property's logic so that it no longer raises an exception.</Issue>
+              </Message>
+             </Messages>
+            </Accessor>
+           </Accessors>
+          </Member>
+          <Member Name="#Subject" Kind="Property" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Accessors>
+            <Accessor Name="#get_Subject()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+             <Messages>
+              <Message TypeName="DoNotRaiseExceptionsInUnexpectedLocations" Category="Microsoft.Design" CheckId="CA1065" Status="Active" Created="2012-04-29 18:17:20Z" FixCategory="Breaking">
+               <Issue Name="PropertyGetter" Certainty="90" Level="Warning" Path="c:\Users\Martin\Documents\Visual Studio 11\Projects\itsCon\itsLib\Messaging" File="Mail.cs" Line="51">'Mail.Subject.get()' creates an exception of type 'NotImplementedException', an exception type that should not be raised in a property. If this exception instance might be raised, use a different exception type, convert this property into a method, or change this property's logic so that it no longer raises an exception.</Issue>
               </Message>
              </Messages>
             </Accessor>
@@ -36,7 +47,7 @@
            <Accessors>
             <Accessor Name="#get_To()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
              <Messages>
-              <Message TypeName="DoNotRaiseExceptionsInUnexpectedLocations" Category="Microsoft.Design" CheckId="CA1065" Status="Active" Created="2012-04-29 18:09:30Z" FixCategory="Breaking">
+              <Message TypeName="DoNotRaiseExceptionsInUnexpectedLocations" Category="Microsoft.Design" CheckId="CA1065" Status="Active" Created="2012-04-29 18:17:20Z" FixCategory="Breaking">
                <Issue Name="PropertyGetter" Certainty="90" Level="Warning" Path="c:\Users\Martin\Documents\Visual Studio 11\Projects\itsCon\itsLib\Messaging" File="Mail.cs" Line="41">'Mail.To.get()' creates an exception of type 'NotImplementedException', an exception type that should not be raised in a property. If this exception instance might be raised, use a different exception type, convert this property into a method, or change this property's logic so that it no longer raises an exception.</Issue>
               </Message>
              </Messages>
@@ -51,7 +62,7 @@
            <Accessors>
             <Accessor Name="#get_Name()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
              <Messages>
-              <Message TypeName="DoNotRaiseExceptionsInUnexpectedLocations" Category="Microsoft.Design" CheckId="CA1065" Status="Active" Created="2012-04-29 18:09:30Z" FixCategory="Breaking">
+              <Message TypeName="DoNotRaiseExceptionsInUnexpectedLocations" Category="Microsoft.Design" CheckId="CA1065" Status="Active" Created="2012-04-29 18:17:20Z" FixCategory="Breaking">
                <Issue Name="PropertyGetter" Certainty="90" Level="Warning" Path="c:\Users\Martin\Documents\Visual Studio 11\Projects\itsCon\itsLib\Messaging" File="MailBox.cs" Line="96">'MailBox.Name.get()' creates an exception of type 'Exception', an exception type that should not be raised in a property. If this exception instance might be raised, use a different exception type, convert this property into a method, or change this property's logic so that it no longer raises an exception.</Issue>
               </Message>
              </Messages>

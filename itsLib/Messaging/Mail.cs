@@ -36,12 +36,17 @@ namespace itsLib.Messaging
             }
         }
 
-        public string To
+        public User[] To
         {
             get { throw new NotImplementedException(); }
         }
 
         public string Contents
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public string Subject
         {
             get { throw new NotImplementedException(); }
         }

@@ -76,7 +76,12 @@ namespace itsCon
                             Mail[] mails = mb.GetMails();
                             foreach (Mail Mail in mails)
                             {
-                                Console.WriteLine("From: " + Mail.From.Name);
+                                Console.Write("From: " + Mail.From.Name + "\t\t");
+                                foreach (User Person in Mail.To)
+                                {
+                                    Console.Write(Person.Name + "\t\t");
+                                }
+                                Console.WriteLine(Mail.Subject);
                             }
                         }
                     }
