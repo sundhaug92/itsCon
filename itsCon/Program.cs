@@ -23,6 +23,7 @@ namespace itsCon
             uint CustomerId = uint.Parse(Console.ReadLine());
             sess.Customer = new Customer(sess, CustomerId);
             Console.WriteLine("Customer: " + sess.Customer.Name);
+            System.Diagnostics.Debug.Assert((new Customer(sess, sess.Customer.Name).Id == CustomerId) && (new Customer(sess, sess.Customer.Name).Name == sess.Customer.Name));
             Console.Write("Username: ");
             string Username = Console.ReadLine();
             Console.Write("Password: ");
