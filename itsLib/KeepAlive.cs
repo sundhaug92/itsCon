@@ -18,20 +18,20 @@ namespace itsLib
 
         private event valueChangedEventHandler UnreadCloudEmailMessagesChange;
 
-        Session _Parent;
+        Session _Session;
 
-        public Session Parent
+        public Session Session
         {
             get
             {
-                return _Parent;
+                return Session;
             }
         }
 
-        public KeepAlive(Session Parent)
+        public KeepAlive(Session Session)
             : base(100)
         {
-            this._Parent = Parent;
+            this._Session = Session;
             this.Elapsed += Timer_Elapsed;
             this.AutoReset = true;
         }
@@ -40,7 +40,7 @@ namespace itsLib
         {
             try
             {
-                HttpWebRequest hwr = Parent.GetHttpWebRequest("/XmlHttp/KeepAlive.asmx/OnlineInfo");
+                HttpWebRequest hwr = Session.GetHttpWebRequest("/XmlHttp/KeepAlive.asmx/OnlineInfo");
                 //hwr.Accept = "application/json, text/javascript, */*; q=0.01";
                 hwr.ContentLength = 2;
                 //hwr.ContentType = "application/json; charset=utf-8";
@@ -106,7 +106,7 @@ namespace itsLib
                 {
                     try
                     {
-                        HttpWebRequest hwr = Parent.GetHttpWebRequest("/OnlineUsers.aspx?Status=" + value);
+                        HttpWebRequest hwr = Session.GetHttpWebRequest("/OnlineUsers.aspx?Status=" + value);
                         hwr.Referer = Properties.Settings.Default.urlBase + "/OnlineUsers.aspx?Status=" + ((value == 0) ? 1 : 0).ToString();
                         //Console.WriteLine("MessengerStatus (MS) waiting for response");
                         HttpWebResponse resp = (HttpWebResponse)hwr.GetResponse();
