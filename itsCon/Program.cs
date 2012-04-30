@@ -21,7 +21,7 @@ namespace itsCon
             Console.Write("Password: ");
             string Password = Console.ReadLine();
             sess.Login(Username, Password);
-            User Me = itsLib.User.Me(sess);
+            Person Me = itsLib.Person.Me(sess);
             Console.WriteLine("Welcome, " + Me.Name);
             while (true)
             {
@@ -77,7 +77,7 @@ namespace itsCon
                             foreach (Mail Mail in mails)
                             {
                                 Console.Write("From: " + Mail.From.Name + "\t\t");
-                                foreach (User Person in Mail.To)
+                                foreach (Person Person in Mail.To)
                                 {
                                     Console.Write(Person.Name + "\t\t");
                                 }

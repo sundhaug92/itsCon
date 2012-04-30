@@ -90,11 +90,11 @@ namespace itsLib
 
         public Customer Customer;
 
-        public User Me
+        public Person Me
         {
             get
             {
-                return User.Me(this);
+                return Person.Me(this);
             }
         }
 

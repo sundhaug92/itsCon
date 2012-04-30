@@ -6,7 +6,7 @@ using HtmlAgilityPack;
 
 namespace itsLib
 {
-    public class User
+    public class Person
     {
         Customer _Customer;
         string _Name;
@@ -16,13 +16,13 @@ namespace itsLib
             get { return _Name; }
         }
 
-        public User(Customer customer, string Name)
+        public Person(Customer customer, string Name)
         {
             this._Customer = customer;
             this._Name = Name;
         }
 
-        public static User Me(Session sess)
+        public static Person Me(Session sess)
         {
             int Uid = 0;
 
@@ -37,7 +37,7 @@ namespace itsLib
             return fromUid(sess, Uid);
         }
 
-        public static User fromUid(Session sess, int Uid)
+        public static Person fromUid(Session sess, int Uid)
         {
             HttpWebRequest hwr = sess.GetHttpWebRequest("/Person/show_person.aspx?PersonId=" + Uid.ToString() + "&Customer=" + sess.Customer.Id);
             HttpWebResponse resp = (HttpWebResponse)hwr.GetResponse();
@@ -50,7 +50,7 @@ namespace itsLib
                 Name = Name.Substring(0, Name.IndexOf('('));
             }
             while (Name.EndsWith(" ")) Name = Name.Substring(0, Name.Length - 1);
-            return new User(sess.Customer, Name);
+            return new Person(sess.Customer, Name);
         }
     }
 }

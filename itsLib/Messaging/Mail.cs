@@ -26,28 +26,28 @@ namespace itsLib.Messaging
         {
         }
 
-        public User From
+        public Person From
         {
             get
             {
                 var nodesWithJSOnclick = from node in Document.DocumentNode.DescendantNodes() where node.GetAttributeValue("onclick", "").StartsWith("javascript:") select node;
                 var nodesWithJSOnclickToPersons = from node in nodesWithJSOnclick where node.GetAttributeValue("onclick", "").StartsWith("javascript:window.open('/Person/show_person.aspx") select node;
-                return User.fromUid(_Session, int.Parse(nodesWithJSOnclickToPersons.First().GetAttributeValue("onclick", "").Substring("javascript:window.open('/Person/show_person.aspx?".Length).Split(new char[] { '=', '&' })[1]));
+                return Person.fromUid(_Session, int.Parse(nodesWithJSOnclickToPersons.First().GetAttributeValue("onclick", "").Substring("javascript:window.open('/Person/show_person.aspx?".Length).Split(new char[] { '=', '&' })[1]));
             }
         }
 
-        public User[] To
+        public Person[] To
         {
             get
             {
                 var recipients = (from node in Document.DocumentNode.DescendantNodes() where node.Name == "table" && node.GetAttributeValue("class", "") == "description" select node).First();
                 var recipientList = (from node in recipients.DescendantNodes() where node.Name == "td" select node.InnerText).Last();
                 string[] Names = recipientList.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-                User[] r = new User[Names.Length];
+                Person[] r = new Person[Names.Length];
                 int i = 0;
                 foreach (string s in Names)
                 {
-                    r[i++] = new User(_Session.Customer, s.Trim());
+                    r[i++] = new Person(_Session.Customer, s.Trim());
                 }
                 return r;
             }
