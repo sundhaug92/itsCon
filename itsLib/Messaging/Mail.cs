@@ -38,7 +38,19 @@ namespace itsLib.Messaging
 
         public User[] To
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                var recipients = (from node in Document.DocumentNode.DescendantNodes() where node.Name == "table" && node.GetAttributeValue("class", "") == "description" select node).First();
+                var recipientList = (from node in recipients.DescendantNodes() where node.Name == "td" select node.InnerText).Last();
+                string[] Names = recipientList.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                User[] r = new User[Names.Length];
+                int i = 0;
+                foreach (string s in Names)
+                {
+                    r[i++] = new User(_Session.Customer, s.Trim());
+                }
+                return r;
+            }
         }
 
         public string Contents
