@@ -4,11 +4,14 @@ namespace itsLib
 {
     internal class Bulletin
     {
-        int _Id = 0;
+        int Id = 0;
+        Session Session; ICourseProjectCommons Parent;
 
-        private Bulletin(int Id)
+        private Bulletin(Session Session, ICourseProjectCommons Parent, int Id)
         {
-            _Id = Id;
+            this.Id = Id;
+            this.Session = Session;
+            this.Parent = Parent;
         }
 
         public string Text
