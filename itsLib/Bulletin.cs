@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Linq;
+using System.Net;
+using HtmlAgilityPack;
 
 namespace itsLib
 {
@@ -19,9 +22,14 @@ namespace itsLib
         {
             get
             {
+                Parent.setActive();
+                HtmlDocument Document = new HtmlDocument();
                 string r = "";
-
-                return r;
+                WebResponse resp = Session.GetHttpWebRequest("/Bulletin/View.aspx?BulletinId=" + Id.ToString() + "&LocationType=2").GetResponse();
+                Document.Load(resp.GetResponseStream());
+                resp.Close();
+                var userinput = from node in Document.DocumentNode.DescendantNodes() where node.GetAttributeValue("class", "") == "userinput" && node.Name == "div" select node;
+                return userinput.First().InnerHtml;
             }
         }
 
