@@ -9,3 +9,5 @@ TemporaryGeneratedFile_*
 *.dll.*
 */bin/*
 */obj/*
+*.psess
+*.vsp
