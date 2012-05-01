@@ -6,12 +6,7 @@ using System.Threading.Tasks;
 
 namespace itsLib
 {
-    public interface ICourseProjectCommons
+    public class Directory
     {
-        void setActive();
-
-        string getDashboardPath();
-
-        Directory getRootDirectory();
     }
 }

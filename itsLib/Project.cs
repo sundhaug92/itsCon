@@ -1,4 +1,6 @@
-﻿namespace itsLib
+﻿using System;
+
+namespace itsLib
 {
     public class Project : ICourseProjectCommons
     {
@@ -20,6 +22,11 @@
         {
             setActive();
             return "/Project/project.aspx";
+        }
+
+        public Directory getRootDirectory()
+        {
+            throw new NotImplementedException();
         }
     }
 }

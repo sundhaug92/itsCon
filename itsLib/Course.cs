@@ -27,5 +27,10 @@ namespace itsLib
             setActive();
             return "/Course/course.aspx";
         }
+
+        public Directory getRootDirectory()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
