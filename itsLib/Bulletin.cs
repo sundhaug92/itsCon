@@ -2,12 +2,13 @@
 
 namespace itsLib
 {
-    internal class Bulletin
+    public class Bulletin
     {
         int Id = 0;
-        Session Session; ICourseProjectCommons Parent;
+        Session Session;
+        ICourseProjectCommons Parent;
 
-        private Bulletin(Session Session, ICourseProjectCommons Parent, int Id)
+        public Bulletin(Session Session, ICourseProjectCommons Parent, int Id)
         {
             this.Id = Id;
             this.Session = Session;
