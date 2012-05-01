@@ -61,6 +61,7 @@
     <Compile Include="Bulletin.cs" />
     <Compile Include="Course.cs" />
     <Compile Include="Customer.cs" />
+    <Compile Include="ICourseProjectCommons.cs" />
     <Compile Include="KeepAlive.cs">
       <SubType>Component</SubType>
     </Compile>

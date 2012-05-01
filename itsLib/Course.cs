@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace itsLib
 {
-    public class Course
+    public class Course : ICourseProjectCommons
     {
         uint Id;
         Session Session;
@@ -22,13 +22,10 @@ namespace itsLib
             Session.GetHttpWebRequest("/main.aspx?CourseID=" + Id).GetResponse().Close();
         }
 
-        public string DashboardPath
+        public string getDashboardPath()
         {
-            get
-            {
-                setActive();
-                return "/Course/course.aspx";
-            }
+            setActive();
+            return "/Course/course.aspx";
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace itsLib
 {
-    public class Project
+    public class Project : ICourseProjectCommons
     {
         uint Id;
         Session Session;
@@ -16,13 +16,10 @@
             Session.GetHttpWebRequest("/main.aspx?ProjectID=" + Id).GetResponse().Close();
         }
 
-        public string DashboardPath
+        public string getDashboardPath()
         {
-            get
-            {
-                setActive();
-                return "/Project/project.aspx";
-            }
+            setActive();
+            return "/Project/project.aspx";
         }
     }
 }

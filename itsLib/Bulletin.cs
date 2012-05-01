@@ -23,7 +23,7 @@ namespace itsLib
 
         private static Bulletin[] inProject(Project Project)
         {
-            return inPath(Project.DashboardPath);
+            return inPath(Project.getDashboardPath());
         }
 
         private static Bulletin[] inPath(string path)
