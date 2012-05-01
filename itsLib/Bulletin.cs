@@ -26,6 +26,11 @@ namespace itsLib
             return inPath(Project.getDashboardPath());
         }
 
+        private static Bulletin[] inCourse(Course Course)
+        {
+            return inPath(Course.getDashboardPath());
+        }
+
         private static Bulletin[] inPath(string path)
         {
             throw new NotImplementedException();
