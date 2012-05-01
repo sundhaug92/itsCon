@@ -1,2 +1,8 @@
-*/bin/*
-*/obj/*
+*.exe
+*.dll
+*.pdb
+*.cache
+*.csproj.*
+TemporaryGeneratedFile_*
+*.manifest
+*.exe.xml

@@ -24,7 +24,6 @@ namespace itsLib
             {
                 Parent.setActive();
                 HtmlDocument Document = new HtmlDocument();
-                string r = "";
                 WebResponse resp = Session.GetHttpWebRequest("/Bulletin/View.aspx?BulletinId=" + Id.ToString() + "&LocationType=2").GetResponse();
                 Document.Load(resp.GetResponseStream());
                 resp.Close();
@@ -33,17 +32,32 @@ namespace itsLib
             }
         }
 
-        private static Bulletin[] inProject(Project Project)
+        public Person By
+        {
+            get
+            {
+                Parent.setActive();
+                HtmlDocument Document = new HtmlDocument();
+                WebResponse resp = Session.GetHttpWebRequest("/Bulletin/View.aspx?BulletinId=" + Id.ToString() + "&LocationType=2").GetResponse();
+                Document.Load(resp.GetResponseStream());
+                resp.Close();
+                var nodesWithJSOnclick = from node in Document.DocumentNode.DescendantNodes() where node.GetAttributeValue("onclick", "").StartsWith("javascript:") select node;
+                var nodesWithJSOnclickToPersons = from node in nodesWithJSOnclick where node.GetAttributeValue("onclick", "").StartsWith("javascript:window.open('/Person/show_person.aspx") select node;
+                return Person.fromUid(Session, int.Parse(nodesWithJSOnclickToPersons.First().GetAttributeValue("onclick", "").Substring("javascript:window.open('/Person/show_person.aspx?".Length).Split(new char[] { '=', '&' })[1]));
+            }
+        }
+
+        public static Bulletin[] inProject(Project Project)
         {
             return inPath(Project.getDashboardPath());
         }
 
-        private static Bulletin[] inCourse(Course Course)
+        public static Bulletin[] inCourse(Course Course)
         {
             return inPath(Course.getDashboardPath());
         }
 
-        private static Bulletin[] inPath(string path)
+        public static Bulletin[] inPath(string path)
         {
             throw new NotImplementedException();
         }
