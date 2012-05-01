@@ -7,3 +7,5 @@ TemporaryGeneratedFile_*
 *.manifest
 *.exe.*
 *.dll.*
+bin/*
+obj/*
