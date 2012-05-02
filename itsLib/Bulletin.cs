@@ -22,6 +22,25 @@ namespace itsLib
             this.Parent = Parent;
         }
 
+        public string Title
+        {
+            get
+            {
+                Parent.setActive();
+                HtmlDocument Document = new HtmlDocument();
+                WebResponse resp = Session.GetHttpWebRequest("/Bulletin/View.aspx?BulletinId=" + Id.ToString() + "&LocationType=2").GetResponse();
+                Document.Load(resp.GetResponseStream());
+                resp.Close();
+                try
+                {
+                    var ctl05_TT = from node in Document.DocumentNode.DescendantNodes() where node.GetAttributeValue("id", "") == "ctl05_TT" && node.Name == "span" select node;
+                    return ctl05_TT.First().InnerText;
+                }
+                catch (InvalidOperationException) { }
+                return "";
+            }
+        }
+
         public string Text
         {
             get

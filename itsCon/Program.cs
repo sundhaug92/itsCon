@@ -94,7 +94,7 @@ namespace itsCon
                             else bulletins = Bulletin.inCP(sess, new Project(sess, uint.Parse(sess.ActiveContext.Substring(1))));
                             foreach (Bulletin bulletin in bulletins)
                             {
-                                Console.WriteLine(bulletin.Text);
+                                Console.WriteLine(bulletin.By.Name + ":" + bulletin.Title + ":" + bulletin.Text);
                             }
                         }
                     }
