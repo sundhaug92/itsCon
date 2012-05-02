@@ -85,6 +85,19 @@ namespace itsCon
                             }
                         }
                     }
+                    if (orders[0] == "bulletin")
+                    {
+                        if (orders[1] == "in-active")
+                        {
+                            Bulletin[] bulletins;
+                            if (sess.ActiveContext.StartsWith("C")) bulletins = Bulletin.inCP(sess, new Course(sess, uint.Parse(sess.ActiveContext.Substring(1))));
+                            else bulletins = Bulletin.inCP(sess, new Project(sess, uint.Parse(sess.ActiveContext.Substring(1))));
+                            foreach (Bulletin bulletin in bulletins)
+                            {
+                                Console.WriteLine(bulletin.Text);
+                            }
+                        }
+                    }
                 }
                 catch (Exception e) { Console.WriteLine(e.Message); }
             }

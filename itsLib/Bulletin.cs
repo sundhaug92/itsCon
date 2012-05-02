@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Net;
+
+using System.Net;
+
+using System.Web;
 using HtmlAgilityPack;
 
 namespace itsLib
@@ -27,8 +31,13 @@ namespace itsLib
                 WebResponse resp = Session.GetHttpWebRequest("/Bulletin/View.aspx?BulletinId=" + Id.ToString() + "&LocationType=2").GetResponse();
                 Document.Load(resp.GetResponseStream());
                 resp.Close();
-                var userinput = from node in Document.DocumentNode.DescendantNodes() where node.GetAttributeValue("class", "") == "userinput" && node.Name == "div" select node;
-                return userinput.First().InnerHtml;
+                try
+                {
+                    var userinput = from node in Document.DocumentNode.DescendantNodes() where node.GetAttributeValue("class", "") == "userinput" && node.Name == "div" select node;
+                    return userinput.First().InnerHtml.Trim();
+                }
+                catch (InvalidOperationException) { }
+                return "<p></p>";
             }
         }
 
@@ -47,19 +56,32 @@ namespace itsLib
             }
         }
 
-        public static Bulletin[] inProject(Project Project)
+        public static Bulletin[] inProject(Session Session, Project Project)
         {
-            return inPath(Project.getDashboardPath());
+            return inCP(Session, Project);
         }
 
-        public static Bulletin[] inCourse(Course Course)
+        public static Bulletin[] inCourse(Session Session, Course Course)
         {
-            return inPath(Course.getDashboardPath());
+            return inCP(Session, Course);
         }
 
-        public static Bulletin[] inPath(string path)
+        public static Bulletin[] inCP(Session Session, ICourseProjectCommons CPs)
         {
-            throw new NotImplementedException();
+            string path = CPs.getDashboardPath();
+            HtmlDocument Document = new HtmlDocument();
+            WebResponse resp = Session.GetHttpWebRequest(path).GetResponse();
+            Document.Load(resp.GetResponseStream());
+            resp.Close();
+            var nodesWithHrefToBulletin = from node in Document.DocumentNode.DescendantNodes() where node.Name == "a" && node.GetAttributeValue("href", "").Contains("/Bulletin/View") select node.GetAttributeValue("href", "");
+            Bulletin[] Bulletins = new Bulletin[nodesWithHrefToBulletin.Count()];
+            int i = 0;
+            foreach (string uri_string in nodesWithHrefToBulletin)
+            {
+                Uri uri = uri_string.StartsWith("/") ? new Uri(Properties.Settings.Default.urlBase + uri_string) : new Uri(uri_string);
+                Bulletins[i++] = new Bulletin(Session, CPs, int.Parse(HttpUtility.ParseQueryString(uri.Query).Get("BulletinId")));
+            }
+            return Bulletins;
         }
     }
 }
