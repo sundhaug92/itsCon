@@ -40,6 +40,11 @@ namespace itsCon
                             if (sess.ActiveContext.StartsWith("P")) Console.WriteLine(sess.ActiveContext);
                             else Console.WriteLine("Active context is not a project");
                         }
+                        if (orders[1] == "active-toggle-archive")
+                        {
+                            if (sess.ActiveContext.StartsWith("P")) new Project(sess, uint.Parse(sess.ActiveContext.Substring(1))).toArchive();
+                            else Console.WriteLine("Active context is not a project");
+                        }
                     }
                     if (orders[0] == "course")
                     {

@@ -28,5 +28,11 @@ namespace itsLib
         {
             throw new NotImplementedException();
         }
+
+        public void toArchive()
+        {
+            setActive();
+            Session.GetHttpWebRequest("/project/about.aspx?Archive=toggle").GetResponse().Close();
+        }
     }
 }
