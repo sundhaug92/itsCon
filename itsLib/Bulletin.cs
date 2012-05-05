@@ -85,9 +85,9 @@ namespace itsLib
             return inCP(Session, Course);
         }
 
-        public static Bulletin[] inCP(Session Session, ICourseProjectCommons CPs)
+        public static Bulletin[] inCP(Session Session, ICourseProjectCommons Parent)
         {
-            string path = CPs.getDashboardPath();
+            string path = Parent.getDashboardPath();
             HtmlDocument Document = new HtmlDocument();
             WebResponse resp = Session.GetHttpWebRequest(path).GetResponse();
             Document.Load(resp.GetResponseStream());
@@ -98,7 +98,7 @@ namespace itsLib
             foreach (string uri_string in nodesWithHrefToBulletin)
             {
                 Uri uri = uri_string.StartsWith("/") ? new Uri(Properties.Settings.Default.urlBase + uri_string) : new Uri(uri_string);
-                Bulletins[i++] = new Bulletin(Session, CPs, int.Parse(HttpUtility.ParseQueryString(uri.Query).Get("BulletinId")));
+                Bulletins[i++] = new Bulletin(Session, Parent, int.Parse(HttpUtility.ParseQueryString(uri.Query).Get("BulletinId")));
             }
             return Bulletins;
         }
