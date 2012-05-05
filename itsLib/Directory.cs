@@ -22,6 +22,14 @@ namespace itsLib
             this.Id = Id;
         }
 
+        public string Name
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public Directory[] Subdirectories()
         {
             HtmlDocument Document = new HtmlDocument();
