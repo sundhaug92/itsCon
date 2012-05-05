@@ -11,11 +11,11 @@ namespace itsLib
 {
     public class Bulletin
     {
-        int Id = 0;
+        uint Id = 0;
         Session Session;
         ICourseProjectCommons Parent;
 
-        public Bulletin(Session Session, ICourseProjectCommons Parent, int Id)
+        public Bulletin(Session Session, ICourseProjectCommons Parent, uint Id)
         {
             this.Id = Id;
             this.Session = Session;
@@ -71,7 +71,7 @@ namespace itsLib
                 resp.Close();
                 var nodesWithJSOnclick = from node in Document.DocumentNode.DescendantNodes() where node.GetAttributeValue("onclick", "").StartsWith("javascript:") select node;
                 var nodesWithJSOnclickToPersons = from node in nodesWithJSOnclick where node.GetAttributeValue("onclick", "").StartsWith("javascript:window.open('/Person/show_person.aspx") select node;
-                return Person.fromUid(Session, int.Parse(nodesWithJSOnclickToPersons.First().GetAttributeValue("onclick", "").Substring("javascript:window.open('/Person/show_person.aspx?".Length).Split(new char[] { '=', '&' })[1]));
+                return Person.fromUid(Session, uint.Parse(nodesWithJSOnclickToPersons.First().GetAttributeValue("onclick", "").Substring("javascript:window.open('/Person/show_person.aspx?".Length).Split(new char[] { '=', '&' })[1]));
             }
         }
 
@@ -98,7 +98,7 @@ namespace itsLib
             foreach (string uri_string in nodesWithHrefToBulletin)
             {
                 Uri uri = uri_string.StartsWith("/") ? new Uri(Properties.Settings.Default.urlBase + uri_string) : new Uri(uri_string);
-                Bulletins[i++] = new Bulletin(Session, Parent, int.Parse(HttpUtility.ParseQueryString(uri.Query).Get("BulletinId")));
+                Bulletins[i++] = new Bulletin(Session, Parent, uint.Parse(HttpUtility.ParseQueryString(uri.Query).Get("BulletinId")));
             }
             return Bulletins;
         }

@@ -24,7 +24,7 @@ namespace itsLib
 
         public static Person Me(Session sess)
         {
-            int Uid = 0;
+            uint Uid = 0;
 
             HttpWebRequest hwr = sess.GetHttpWebRequest("/TopMenu.aspx?Course=&CPHFrame=1&item=menu_intranet");
             HtmlDocument top_menu = new HtmlDocument();
@@ -32,12 +32,12 @@ namespace itsLib
             top_menu.Load(resp.GetResponseStream());
             var e = from element in top_menu.DocumentNode.Descendants("a") where element.GetAttributeValue("class", "") == "user_name" select element.GetAttributeValue("href", "");
             Uri user_info_Uri = new Uri(Properties.Settings.Default.urlBase + e.First());
-            Uid = int.Parse(HttpUtility.ParseQueryString(user_info_Uri.Query).Get("PersonId"));
+            Uid = uint.Parse(HttpUtility.ParseQueryString(user_info_Uri.Query).Get("PersonId"));
             resp.Close();
             return fromUid(sess, Uid);
         }
 
-        public static Person fromUid(Session sess, int Uid)
+        public static Person fromUid(Session sess, uint Uid)
         {
             HttpWebRequest hwr = sess.GetHttpWebRequest("/Person/show_person.aspx?PersonId=" + Uid.ToString() + "&Customer=" + sess.Customer.Id);
             HttpWebResponse resp = (HttpWebResponse)hwr.GetResponse();
