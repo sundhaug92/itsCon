@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using HtmlAgilityPack;
 
-namespace itsLib
+namespace itsLib.fs
 {
     public class Directory
     {

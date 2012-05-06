@@ -61,7 +61,9 @@
     <Compile Include="Bulletin.cs" />
     <Compile Include="Course.cs" />
     <Compile Include="Customer.cs" />
-    <Compile Include="Directory.cs" />
+    <Compile Include="fs\Directory.cs" />
+    <Compile Include="fs\file.cs" />
+    <Compile Include="fs\note.cs" />
     <Compile Include="ICourseProjectCommons.cs" />
     <Compile Include="KeepAlive.cs">
       <SubType>Component</SubType>
