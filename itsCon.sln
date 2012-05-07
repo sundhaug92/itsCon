@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "itsLib", "itsLib\itsLib.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BD688F2E-D411-4957-A657-CDBF60AC9D2A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xporter", "Xporter\Xporter.csproj", "{4D0F0181-1CA2-42E1-9519-CB8BAD40FC64}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -29,6 +31,16 @@ Global
 		{0321ED53-1275-4F33-8F14-84B4FB887B40}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0321ED53-1275-4F33-8F14-84B4FB887B40}.Release|x64.ActiveCfg = Release|Any CPU
 		{0321ED53-1275-4F33-8F14-84B4FB887B40}.Release|x86.ActiveCfg = Release|Any CPU
+		{4D0F0181-1CA2-42E1-9519-CB8BAD40FC64}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{4D0F0181-1CA2-42E1-9519-CB8BAD40FC64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D0F0181-1CA2-42E1-9519-CB8BAD40FC64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D0F0181-1CA2-42E1-9519-CB8BAD40FC64}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4D0F0181-1CA2-42E1-9519-CB8BAD40FC64}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4D0F0181-1CA2-42E1-9519-CB8BAD40FC64}.Release|ARM.ActiveCfg = Release|Any CPU
+		{4D0F0181-1CA2-42E1-9519-CB8BAD40FC64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D0F0181-1CA2-42E1-9519-CB8BAD40FC64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D0F0181-1CA2-42E1-9519-CB8BAD40FC64}.Release|x64.ActiveCfg = Release|Any CPU
+		{4D0F0181-1CA2-42E1-9519-CB8BAD40FC64}.Release|x86.ActiveCfg = Release|Any CPU
 		{C310486F-C87D-4418-80FA-1CE65BA36045}.Debug|ARM.ActiveCfg = Debug|Any CPU
 		{C310486F-C87D-4418-80FA-1CE65BA36045}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C310486F-C87D-4418-80FA-1CE65BA36045}.Debug|Any CPU.Build.0 = Debug|Any CPU
