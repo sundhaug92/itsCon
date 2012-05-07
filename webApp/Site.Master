@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <title>
         <%: Page.Title %>
-        - My ASP.NET Application</title>
+        - webApp</title>
     <link href="~/Content/themes/base/jquery.ui.all.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
@@ -65,9 +65,11 @@
     <footer>
         <div class="content-wrapper">
             <div class="float-left">
-                <p>&copy;
+                <p>
+                    &copy;
                     <%: DateTime.Now.Year %>
-                    - webApp</p>
+                    - webApp
+                </p>
             </div>
             <div class="float-right">
                 <ul id="social">
