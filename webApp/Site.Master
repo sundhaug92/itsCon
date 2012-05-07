@@ -67,7 +67,7 @@
             <div class="float-left">
                 <p>&copy;
                     <%: DateTime.Now.Year %>
-                    - My ASP.NET Application</p>
+                    - webApp</p>
             </div>
             <div class="float-right">
                 <ul id="social">
