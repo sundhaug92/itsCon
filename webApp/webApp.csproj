@@ -104,6 +104,7 @@
     <Content Include="Images\bullet.png" />
     <Content Include="Images\facebook.png" />
     <Content Include="Images\findHosting.png" />
+    <Content Include="Images\github.png" />
     <Content Include="Images\heroAccent.png" />
     <Content Include="Images\NuGetGallery.png" />
     <Content Include="Images\orderedListOne.png" />

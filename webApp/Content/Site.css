@@ -14,8 +14,7 @@ body {
     padding: 0;
 }
 
-a:link, a:visited,
-a:active, a:hover {
+a:link, a:visited, a:active, a:hover {
     color: #333;
     outline: none;
     padding-left: 3px;
@@ -27,8 +26,7 @@ a:hover {
     background-color: #c7d1d6;
 }
 
-header, footer, hgroup,
-nav, section {
+header, footer, hgroup, nav, section {
     display: block;
 }
 
@@ -54,8 +52,7 @@ nav, section {
     visibility: hidden;
 }
 
-h1, h2, h3,
-h4, h5, h6 {
+h1, h2, h3, h4, h5, h6 {
     color: #000;
     margin-bottom: 0;
     padding-bottom: 0;
@@ -81,7 +78,6 @@ h5, h6 {
     font-size: 1em;
 }
 
-
 /* main layout
 ----------------------------------------------------------*/
 .content-wrapper {
@@ -95,15 +91,15 @@ h5, h6 {
     padding-bottom: 35px;
 }
 
-    .main-content {
-        background: url("../Images/accent.png") no-repeat;
-        padding-left: 10px;
-        padding-top: 30px;
-    }
+.main-content {
+    background: url("../Images/accent.png") no-repeat;
+    padding-left: 10px;
+    padding-top: 30px;
+}
 
-    .featured + .main-content {
-        background: url("../Images/heroAccent.png") no-repeat;
-    }
+.featured + .main-content {
+    background: url("../Images/heroAccent.png") no-repeat;
+}
 
 footer {
     clear: both;
@@ -111,7 +107,6 @@ footer {
     font-size: .8em;
     height: 100px;
 }
-
 
 /* site title
 ----------------------------------------------------------*/
@@ -122,13 +117,12 @@ footer {
     margin: 20px 0;
 }
 
-.site-title a, .site-title a:hover, .site-title a:active {
-    background: none;
-    color: #c8c8c8;
-    outline: none;
-    text-decoration: none;
-}
-
+    .site-title a, .site-title a:hover, .site-title a:active {
+        background: none;
+        color: #c8c8c8;
+        outline: none;
+        text-decoration: none;
+    }
 
 /* login
 ----------------------------------------------------------*/
@@ -147,11 +141,11 @@ footer {
         text-decoration: none;
     }
 
-    #login a.username {
-        background: none;
-        margin-left: 0px;
-        text-decoration: underline;
-    }
+        #login a.username {
+            background: none;
+            margin-left: 0px;
+            text-decoration: underline;
+        }
 
     #login ul {
         margin: 0;
@@ -161,7 +155,6 @@ footer {
         display: inline;
         list-style: none;
     }
-
 
 /* menu
 ----------------------------------------------------------*/
@@ -184,11 +177,10 @@ ul#menu {
             text-decoration: none;
         }
 
-        ul#menu li a:hover {
-            color: #333;
-            text-decoration: none;
-        }
-
+            ul#menu li a:hover {
+                color: #333;
+                text-decoration: none;
+            }
 
 /* page elements
 ----------------------------------------------------------*/
@@ -208,27 +200,27 @@ ul#menu {
         padding: 20px 40px 30px 40px;
     }
 
-        .featured hgroup.title h1, .featured hgroup.title h2 {
-            color: #fff;
-        }
+    .featured hgroup.title h1, .featured hgroup.title h2 {
+        color: #fff;
+    }
 
-        .featured p {
-            font-size: 1.1em;
-        }
+    .featured p {
+        font-size: 1.1em;
+    }
 
 /* page titles */
 hgroup.title {
     margin-bottom: 10px;
 }
 
-hgroup.title h1, hgroup.title h2 {
-    display: inline;
-}
+    hgroup.title h1, hgroup.title h2 {
+        display: inline;
+    }
 
-hgroup.title h2 {
-    font-weight: normal;
-    margin-left: 3px;
-}
+    hgroup.title h2 {
+        font-weight: normal;
+        margin-left: 3px;
+    }
 
 /* features */
 section.feature {
@@ -327,7 +319,7 @@ fieldset {
     fieldset legend {
         display: none;
     }
-    
+
     fieldset ol {
         padding: 0;
         list-style: none;
@@ -343,12 +335,11 @@ fieldset {
         font-weight: 600;
     }
 
-    fieldset label.checkbox {
-        display: inline;
-    }
+        fieldset label.checkbox {
+            display: inline;
+        }
 
-    fieldset input[type="text"],
-    fieldset input[type="password"] {
+    fieldset input[type="text"], fieldset input[type="password"] {
         border: 1px solid #e2e2e2;
         color: #333;
         font-size: 1.2em;
@@ -357,8 +348,7 @@ fieldset {
         width: 300px;
     }
 
-        fieldset input[type="text"]:focus,
-        fieldset input[type="password"]:focus {
+        fieldset input[type="text"]:focus, fieldset input[type="password"]:focus {
             border: 1px solid #7ac0da;
         }
 
@@ -376,8 +366,7 @@ fieldset {
     font-size: 0.7em;
 }
 
-    .modal-popup input[type="text"],
-    .modal-popup input[type="password"] {
+    .modal-popup input[type="text"], .modal-popup input[type="password"] {
         width: 90%;
     }
 
@@ -417,8 +406,7 @@ fieldset {
     display: none;
 }
 
-input[type="text"].input-validation-error,
-input[type="password"].input-validation-error {
+input[type="text"].input-validation-error, input[type="password"].input-validation-error {
     border: 1px solid #e80c4d;
 }
 
@@ -442,33 +430,34 @@ ul#social li {
         text-decoration: none;
     }
 
-    a.facebook, a.twitter {
-        display: block;
-        float: left;
-        height: 24px;
-        padding-left: 17px;
-        text-indent: -9999px;
-        width: 16px;
-    }
+a.facebook, a.twitter, a.github {
+    display: block;
+    float: left;
+    height: 24px;
+    padding-left: 17px;
+    text-indent: -9999px;
+    width: 16px;
+}
 
-    a.facebook {
-        background: url("../Images/facebook.png") no-repeat;
-    }
+a.facebook {
+    background: url("../Images/facebook.png") no-repeat;
+}
 
-    a.twitter {
-        background: url("../Images/twitter.png") no-repeat;
-    }
+a.twitter {
+    background: url("../Images/twitter.png") no-repeat;
+}
 
+a.github {
+    background: url("../Images/github.png") no-repeat;
+}
 
 /********************
 *   Mobile Styles   *
 ********************/
 @media only screen and (max-width: 850px) {
-
     /* header
     ----------------------------------------------------------*/
-    header .float-left,
-    header .float-right {
+    header .float-left, header .float-right {
         float: none;
     }
 
@@ -505,9 +494,9 @@ ul#social li {
             padding: 0;
         }
 
-        #login a:hover {
-            color: #333;
-        }
+            #login a:hover {
+                color: #333;
+            }
 
     /* menu */
     nav {
@@ -525,11 +514,9 @@ ul#social li {
             padding: 0;
         }
 
-
     /* main layout
     ----------------------------------------------------------*/
-    .main-content,
-    .featured + .main-content {
+    .main-content, .featured + .main-content {
         background-position: 10px 0;
     }
 
@@ -559,18 +546,16 @@ ul#social li {
             margin: 25px 0;
         }
 
-            ol.round li.one,
-            ol.round li.two,
-            ol.round li.three {
+            ol.round li.one, ol.round li.two, ol.round li.three {
                 background: none;
             }
 
-     /* features */
-     section.feature {
+    /* features */
+    section.feature {
         float: none;
         padding: 10px;
         width: auto;
-     }
+    }
 
         section.feature img {
             color: #999;
@@ -580,8 +565,7 @@ ul#social li {
         }
 
     /* forms */
-    fieldset input[type="text"],
-    fieldset input[type="password"] {
+    fieldset input[type="text"], fieldset input[type="password"] {
         width: 90%;
     }
 
@@ -605,8 +589,7 @@ ul#social li {
 
     /* footer
     ----------------------------------------------------------*/
-    footer .float-left,
-    footer .float-right {
+    footer .float-left, footer .float-right {
         float: none;
     }
 
@@ -620,18 +603,18 @@ ul#social li {
             margin: 0;
         }
 
-        ul#social {
-            padding: 0;
-            margin: 0;
-        }
+    ul#social {
+        padding: 0;
+        margin: 0;
+    }
 
-        a.facebook, a.twitter {
-            background: none;
-            display: inline;
-            float: none;
-            height: auto;
-            padding-left: 0;
-            text-indent: 0;
-            width: auto;
-        }
+    a.facebook, a.twitter {
+        background: none;
+        display: inline;
+        float: none;
+        height: auto;
+        padding-left: 0;
+        text-indent: 0;
+        width: auto;
+    }
 }
