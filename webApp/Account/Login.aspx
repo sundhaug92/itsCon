@@ -5,7 +5,7 @@
         <h1><%:Page.Title %>.</h1>
         <h2>Enter your user name and password below.</h2>
     </hgroup>
-    
+
     <asp:Login runat="server" ViewStateMode="Disabled" RenderOuterTable="false">
         <LayoutTemplate>
             <p class="validation-summary-errors">
@@ -35,7 +35,4 @@
             </fieldset>
         </LayoutTemplate>
     </asp:Login>
-    <p>
-        <asp:HyperLink runat="server" ID="RegisterHyperLink" ViewStateMode="Disabled">Register</asp:HyperLink> if you don't have an account.
-    </p>
 </asp:Content>

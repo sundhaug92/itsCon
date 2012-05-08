@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Security;
 using itsLib;
+using System.Web.SessionState;
 
 namespace itsLibMembershipProvider
 {
