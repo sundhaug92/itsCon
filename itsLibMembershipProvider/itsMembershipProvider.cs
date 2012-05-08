@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Security;
+using itsLib;
 
 namespace itsLibMembershipProvider
 {
@@ -100,7 +101,8 @@ namespace itsLibMembershipProvider
         }
         public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, Object providerUserKey, out MembershipCreateStatus status)
         {
-            throw new NotImplementedException();
+            status = MembershipCreateStatus.ProviderError;
+            return null;
         }
         public override bool ChangePassword(string username, string oldPassword, string newPassword)
         {
@@ -128,7 +130,16 @@ namespace itsLibMembershipProvider
         }
         public override bool ValidateUser(string username, string password)
         {
-            throw new NotImplementedException();
+            Session sess = new Session();
+            string realUsername = username.Substring(username.IndexOf("\\") + 1);
+            uint CustomerId = uint.Parse(username.Substring(0, username.IndexOf("\\")));
+            sess.Customer = new Customer(sess, CustomerId);
+            try
+            {
+                sess.Login(realUsername, password);
+            }
+            catch (Exception) { return false; }
+            return sess.LoggedIn;
         }
         public override int GetNumberOfUsersOnline()
         {
