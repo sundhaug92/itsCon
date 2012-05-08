@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xporter", "Xporter\Xporter.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webApp", "webApp\webApp.csproj", "{BFFA2BED-6E8E-478C-8761-C62A7180009D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "itsLibMembershipProvider", "itsLibMembershipProvider\itsLibMembershipProvider.csproj", "{532D23B0-B567-4A3C-8CEA-99A44EDF2DCB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -43,6 +45,16 @@ Global
 		{4D0F0181-1CA2-42E1-9519-CB8BAD40FC64}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4D0F0181-1CA2-42E1-9519-CB8BAD40FC64}.Release|x64.ActiveCfg = Release|Any CPU
 		{4D0F0181-1CA2-42E1-9519-CB8BAD40FC64}.Release|x86.ActiveCfg = Release|Any CPU
+		{532D23B0-B567-4A3C-8CEA-99A44EDF2DCB}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{532D23B0-B567-4A3C-8CEA-99A44EDF2DCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{532D23B0-B567-4A3C-8CEA-99A44EDF2DCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{532D23B0-B567-4A3C-8CEA-99A44EDF2DCB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{532D23B0-B567-4A3C-8CEA-99A44EDF2DCB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{532D23B0-B567-4A3C-8CEA-99A44EDF2DCB}.Release|ARM.ActiveCfg = Release|Any CPU
+		{532D23B0-B567-4A3C-8CEA-99A44EDF2DCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{532D23B0-B567-4A3C-8CEA-99A44EDF2DCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{532D23B0-B567-4A3C-8CEA-99A44EDF2DCB}.Release|x64.ActiveCfg = Release|Any CPU
+		{532D23B0-B567-4A3C-8CEA-99A44EDF2DCB}.Release|x86.ActiveCfg = Release|Any CPU
 		{BFFA2BED-6E8E-478C-8761-C62A7180009D}.Debug|ARM.ActiveCfg = Debug|Any CPU
 		{BFFA2BED-6E8E-478C-8761-C62A7180009D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BFFA2BED-6E8E-478C-8761-C62A7180009D}.Debug|Any CPU.Build.0 = Debug|Any CPU

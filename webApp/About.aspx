@@ -5,7 +5,7 @@
     <hgroup class="title">
         <h1>
             <%: Page.Title %>.</h1>
-        <h2>The Xporter webApp</h2>
+        <h2>Xporter webApp</h2>
     </hgroup>
     <article>
         <p>
