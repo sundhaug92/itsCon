@@ -11,11 +11,9 @@
  * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
  * http://docs.jquery.com/UI/Autocomplete#theming
  */
-.ui-autocomplete { position: absolute; cursor: default; }	
-
+.ui-autocomplete { position: absolute; cursor: default; }
 /* workarounds */
 * html .ui-autocomplete { width:1px; } /* without this, the menu expands to 100% in IE6 */
-
 /*
  * Note: While Microsoft is not the author of this file, Microsoft is
  * offering you a license subject to the terms of the Microsoft Software

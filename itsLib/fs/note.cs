@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace itsLib.fs
+﻿namespace itsLib.fs
 {
-    class note
+    internal class note
     {
     }
 }

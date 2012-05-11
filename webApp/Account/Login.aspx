@@ -1,11 +1,12 @@
-﻿<%@ Page Title="Log in" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="webApp.Account.Login" %>
+﻿<%@ Page Title="Log in" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
+    CodeBehind="Login.aspx.cs" Inherits="webApp.Account.Login" %>
 
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
     <hgroup class="title">
-        <h1><%:Page.Title %>.</h1>
+        <h1>
+            <%:Page.Title %>.</h1>
         <h2>Enter your user name and password below.</h2>
     </hgroup>
-
     <asp:Login runat="server" ViewStateMode="Disabled" RenderOuterTable="false">
         <LayoutTemplate>
             <p class="validation-summary-errors">
@@ -17,14 +18,14 @@
                     <li>
                         <asp:Label runat="server" AssociatedControlID="UserName">User name</asp:Label>
                         <asp:TextBox runat="server" ID="UserName" />
-                        <asp:RequiredFieldValidator runat="server" ControlToValidate="UserName"
-                             CssClass="field-validation-error" ErrorMessage="The user name field is required." />
+                        <asp:RequiredFieldValidator runat="server" ControlToValidate="UserName" CssClass="field-validation-error"
+                            ErrorMessage="The user name field is required." />
                     </li>
                     <li>
                         <asp:Label runat="server" AssociatedControlID="Password">Password</asp:Label>
                         <asp:TextBox runat="server" ID="Password" TextMode="Password" />
-                        <asp:RequiredFieldValidator runat="server" ControlToValidate="Password"
-                             CssClass="field-validation-error" ErrorMessage="The password field is required." />
+                        <asp:RequiredFieldValidator runat="server" ControlToValidate="Password" CssClass="field-validation-error"
+                            ErrorMessage="The password field is required." />
                     </li>
                     <li>
                         <asp:CheckBox runat="server" ID="RememberMe" />

@@ -7,6 +7,53 @@ namespace itsCon
 {
     internal class Program
     {
+        private static string getPassword()
+        {
+            string s = "";
+            int pos = 0;
+            while (true)
+            {
+                ConsoleKeyInfo cki = Console.ReadKey(true);
+                if (cki.Key == ConsoleKey.Backspace)
+                {
+                    if (pos > 0)
+                    {
+                        pos--;
+                        s = s.Substring(0, pos) + s.Substring(pos + 1);
+                    }
+                    continue;
+                }
+                if (cki.Key == ConsoleKey.Enter)
+                {
+                    Console.WriteLine();
+                    return s;
+                }
+                if (cki.Key == ConsoleKey.RightArrow)
+                {
+                    if (pos < (s.Length - 1)) pos++;
+                    continue;
+                }
+                if (cki.Key == ConsoleKey.LeftArrow)
+                {
+                    if (pos > 0) pos--;
+                    continue;
+                }
+                if (s.Length == pos)
+                {
+                    s += cki.KeyChar.ToString();
+                }
+                else if ((s.Length != pos) && (pos == 0))
+                {
+                    s = cki.KeyChar.ToString() + s;
+                }
+                else if ((s.Length != pos) && (pos != 0))
+                {
+                    s = s.Substring(0, pos) + cki.KeyChar.ToString() + s.Substring(pos);
+                }
+                pos++;
+            }
+        }
+
         private static void Main(string[] args)
         {
             Session sess = new Session();
@@ -19,7 +66,7 @@ namespace itsCon
             Console.Write("Username: ");
             string Username = Console.ReadLine();
             Console.Write("Password: ");
-            string Password = Console.ReadLine();
+            string Password = getPassword();
             sess.Login(Username, Password);
             Person Me = itsLib.Person.Me(sess);
             Console.WriteLine("Welcome, " + Me.Name);

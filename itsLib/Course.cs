@@ -3,9 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
-using System.Web.Script.Serialization;
 using HtmlAgilityPack;
-using itsLib.fs;
 
 namespace itsLib
 {
