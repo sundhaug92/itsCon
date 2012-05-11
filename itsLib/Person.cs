@@ -50,7 +50,9 @@ namespace itsLib
                 Name = Name.Substring(0, Name.IndexOf('('));
             }
             while (Name.EndsWith(" ")) Name = Name.Substring(0, Name.Length - 1);
-            return new Person(sess.Customer, Name);
+            string Forename = Name.Substring(Name.IndexOf(", ") + ", ".Length);
+            string Surname = Name.Substring(0, Name.IndexOf(", "));
+            return new Person(sess.Customer, Forename + " " + Surname);
         }
     }
 }
