@@ -26,6 +26,18 @@ namespace itsLib.fs
         {
             get
             {
+                Parent.setActive();
+                HtmlDocument Document = new HtmlDocument();
+                WebResponse resp = Session.GetHttpWebRequest("/Folder/process_folder.aspx?FolderID=" + Id.ToString()).GetResponse();
+                Document.Load(resp.GetResponseStream());
+                resp.Close();
+                try
+                {
+                    var span = from node in Document.DocumentNode.DescendantNodes() where node.Name == "span" select node;
+                    return span.First().InnerText;
+                }
+                catch (InvalidOperationException) { }
+                return "";
                 throw new NotImplementedException();
             }
         }
