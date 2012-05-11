@@ -40,6 +40,14 @@ namespace itsCon
                             if (sess.ActiveContext.StartsWith("P")) Console.WriteLine(sess.ActiveContext);
                             else Console.WriteLine("Active context is not a project");
                         }
+                        if (orders[1] == "get-root")
+                        {
+                            if (sess.ActiveContext.StartsWith("P"))
+                            {
+                                Console.WriteLine((new Project(sess, uint.Parse(sess.ActiveContext.Substring(1))).getRootDirectory()).Name);
+                            }
+                            else Console.WriteLine("Active context is not a project");
+                        }
                         if (orders[1] == "active-toggle-archive")
                         {
                             if (sess.ActiveContext.StartsWith("P")) new Project(sess, uint.Parse(sess.ActiveContext.Substring(1))).toArchive();
@@ -52,6 +60,14 @@ namespace itsCon
                         if (orders[1] == "get-active")
                         {
                             if (sess.ActiveContext.StartsWith("C")) Console.WriteLine(sess.ActiveContext);
+                            else Console.WriteLine("Active context is not a course");
+                        }
+                        if (orders[1] == "get-root")
+                        {
+                            if (sess.ActiveContext.StartsWith("C"))
+                            {
+                                new Course(sess, uint.Parse(sess.ActiveContext.Substring(1))).getRootDirectory();
+                            }
                             else Console.WriteLine("Active context is not a course");
                         }
                     }
