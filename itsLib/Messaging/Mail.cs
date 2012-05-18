@@ -22,7 +22,7 @@ namespace itsLib.Messaging
         }
 
         public Mail(Session Session, uint Id, int FolderId)
-            : this(Session, "/Messages/View_Message.aspx?MessageFolderID=" + FolderId.ToString() + "&MessageID=" + Id.ToString())
+            : this(Session, "/Messages/View_Message.aspx?MessageFolderID=" + FolderId.ToString() + "&MessageID=" + Id.ToString() + "&ShowAll=1")
         {
         }
 
