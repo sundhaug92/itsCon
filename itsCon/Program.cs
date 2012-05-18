@@ -147,7 +147,7 @@ namespace itsCon
                                 Console.Write("From: " + Mail.From.Name + "\t\t");
                                 foreach (Person Person in Mail.To)
                                 {
-                                    Console.Write(Person.Name + "\t\t");
+                                    if (Person != null) Console.Write(Person.Name + "\t\t");
                                 }
                                 Console.WriteLine(Mail.Subject);
                             }

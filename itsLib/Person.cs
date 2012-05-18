@@ -10,16 +10,19 @@ namespace itsLib
     {
         Customer _Customer;
         string _Name;
+        uint _Id;
+
+        private uint Id
+        {
+            get
+            {
+                return _Id;
+            }
+        }
 
         public string Name
         {
             get { return _Name; }
-        }
-
-        public Person(Customer customer, string Name)
-        {
-            this._Customer = customer;
-            this._Name = Name;
         }
 
         public static Person Me(Session sess)
@@ -34,10 +37,10 @@ namespace itsLib
             Uri user_info_Uri = new Uri(Properties.Settings.Default.urlBase + e.First());
             Uid = uint.Parse(HttpUtility.ParseQueryString(user_info_Uri.Query).Get("PersonId"));
             resp.Close();
-            return fromUid(sess, Uid);
+            return new Person(sess, Uid);
         }
 
-        public static Person fromUid(Session sess, uint Uid)
+        public Person(Session sess, uint Uid)
         {
             HttpWebRequest hwr = sess.GetHttpWebRequest("/Person/show_person.aspx?PersonId=" + Uid.ToString() + "&Customer=" + sess.Customer.Id);
             HttpWebResponse resp = (HttpWebResponse)hwr.GetResponse();
@@ -52,7 +55,8 @@ namespace itsLib
             Name = Name.Trim();
             string Forename = Name.Substring(Name.IndexOf(", ") + ", ".Length);
             string Surname = Name.Substring(0, Name.IndexOf(", "));
-            return new Person(sess.Customer, Forename + " " + Surname);
+            this._Customer = sess.Customer;
+            this._Name = Name;
         }
     }
 }

@@ -32,7 +32,7 @@ namespace itsLib.Messaging
             {
                 var nodesWithJSOnclick = from node in Document.DocumentNode.DescendantNodes() where node.GetAttributeValue("onclick", "").StartsWith("javascript:") select node;
                 var nodesWithJSOnclickToPersons = from node in nodesWithJSOnclick where node.GetAttributeValue("onclick", "").StartsWith("javascript:window.open('/Person/show_person.aspx") select node;
-                return Person.fromUid(_Session, uint.Parse(nodesWithJSOnclickToPersons.First().GetAttributeValue("onclick", "").Substring("javascript:window.open('/Person/show_person.aspx?".Length).Split(new char[] { '=', '&' })[1]));
+                return new Person(_Session, uint.Parse(nodesWithJSOnclickToPersons.First().GetAttributeValue("onclick", "").Substring("javascript:window.open('/Person/show_person.aspx?".Length).Split(new char[] { '=', '&' })[1]));
             }
         }
 
@@ -40,14 +40,15 @@ namespace itsLib.Messaging
         {
             get
             {
-                var recipients = (from node in Document.DocumentNode.DescendantNodes() where node.Name == "table" && node.GetAttributeValue("class", "") == "description" select node).First();
-                var recipientList = (from node in recipients.DescendantNodes() where node.Name == "td" select node.InnerText).Last();
+                var Description = (from node in Document.DocumentNode.DescendantNodes() where node.Name == "table" && node.GetAttributeValue("class", "") == "description" select node).First();
+                var recipientList = (from node in Description.DescendantNodes() where node.Name == "td" select node.InnerText).ToArray()[1];
                 string[] Names = recipientList.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
                 Person[] r = new Person[Names.Length];
                 int i = 0;
                 foreach (string s in Names)
                 {
-                    r[i++] = new Person(_Session.Customer, s.Trim());
+                    //r[i++] = new Person(_Session.Customer, s.Trim());
+                    //Get Person id!
                 }
                 return r;
             }
