@@ -93,7 +93,7 @@ namespace itsLib.Messaging
                         if (v.Name != "span") continue;
                         if (v.Id == "ctl05_TT") return v.InnerText;
                     }
-                    throw new Exception();
+                    return "";
                 }
                 finally
                 {

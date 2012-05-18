@@ -10,13 +10,21 @@ namespace itsLib.fs
     {
         Session Session;
         ICourseProjectCommons Parent;
-        uint Id;
+        uint _Id;
+
+        public uint Id
+        {
+            get
+            {
+                return _Id;
+            }
+        }
 
         public Directory(Session Session, ICourseProjectCommons Parent, uint Id)
         {
             this.Session = Session;
             this.Parent = Parent;
-            this.Id = Id;
+            this._Id = Id;
         }
 
         public string Name
@@ -25,7 +33,7 @@ namespace itsLib.fs
             {
                 Parent.setActive();
                 HtmlDocument Document = new HtmlDocument();
-                WebResponse resp = Session.GetHttpWebRequest("/Folder/process_folder.aspx?FolderID=" + Id.ToString()).GetResponse();
+                WebResponse resp = Session.GetHttpWebRequest("/Folder/process_folder.aspx?FolderID=" + _Id.ToString()).GetResponse();
                 Document.Load(resp.GetResponseStream());
                 resp.Close();
                 try
@@ -42,7 +50,7 @@ namespace itsLib.fs
         public Directory[] Subdirectories()
         {
             HtmlDocument Document = new HtmlDocument();
-            WebResponse resp = Session.GetHttpWebRequest("/Folder/process_folder.aspx?FolderID=" + Id.ToString()).GetResponse();
+            WebResponse resp = Session.GetHttpWebRequest("/Folder/process_folder.aspx?FolderID=" + _Id.ToString()).GetResponse();
             Document.Load(resp.GetResponseStream());
             resp.Close();
             var nodesWithHrefToDirectory = from node in Document.DocumentNode.DescendantNodes() where node.Name == "a" && node.GetAttributeValue("href", "").Contains("/Folder/process_folder.aspx") select node.GetAttributeValue("href", "");

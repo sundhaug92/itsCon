@@ -50,7 +50,7 @@ namespace itsLibMembershipProvider
         {
             get
             {
-                throw new NotImplementedException();
+                return MembershipPasswordFormat.Hashed;
             }
         }
 

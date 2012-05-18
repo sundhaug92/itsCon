@@ -8,7 +8,7 @@ using HtmlAgilityPack;
 
 namespace itsLib
 {
-    public class Session
+    public class Session : IDisposable
     {
         string _Id = "";
         public CookieContainer Cookies = new CookieContainer();
@@ -173,6 +173,25 @@ namespace itsLib
         {
             GetHttpWebRequest("/log_out.aspx").GetResponse().Close();
             _LoggedIn = false;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _KeepAlive.Dispose();
+            }
+        }
+
+        ~Session()
+        {
+            Dispose(false);
         }
     }
 }
