@@ -416,7 +416,7 @@ ul#social li {
         text-decoration: none;
     }
 
-a.facebook, a.twitter, a.github {
+a.facebook, a.twitter, a.github, a.itslearning {
     display: block;
     float: left;
     height: 24px;
@@ -435,6 +435,10 @@ a.twitter {
 
 a.github {
     background: url("../Images/github.png") no-repeat;
+}
+
+a.itslearning {
+    background: url("../Images/itslearning.png") no-repeat;
 }
 
 /********************
@@ -594,7 +598,7 @@ a.github {
         margin: 0;
     }
 
-    a.facebook, a.twitter {
+    a.facebook, a.twitter, a.github, a.itslearning {
         background: none;
         display: inline;
         float: none;
