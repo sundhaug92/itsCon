@@ -7,7 +7,8 @@
             <%:Page.Title %>.</h1>
         <h2>Enter your user name and password below.</h2>
     </hgroup>
-    <asp:Login runat="server" ViewStateMode="Disabled" RenderOuterTable="false">
+    <asp:Login ID="loginCtl" runat="server" ViewStateMode="Disabled" RenderOuterTable="false"
+        OnAuthenticate="Login_OnAuthentificate">
         <LayoutTemplate>
             <p class="validation-summary-errors">
                 <asp:Literal runat="server" ID="FailureText" />
@@ -16,10 +17,16 @@
                 <legend>Log in Form</legend>
                 <ol>
                     <li>
+                        <asp:Label runat="server" AssociatedControlID="UserName">Customer</asp:Label>
+                        <asp:TextBox runat="server" ID="CustomerId" />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="CustomerId"
+                            CssClass="field-validation-error" ErrorMessage="The customer field is required." />
+                    </li>
+                    <li>
                         <asp:Label runat="server" AssociatedControlID="UserName">User name</asp:Label>
                         <asp:TextBox runat="server" ID="UserName" />
-                        <asp:RequiredFieldValidator runat="server" ControlToValidate="UserName" CssClass="field-validation-error"
-                            ErrorMessage="The user name field is required." />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="UserName"
+                            CssClass="field-validation-error" ErrorMessage="The user name field is required." />
                     </li>
                     <li>
                         <asp:Label runat="server" AssociatedControlID="Password">Password</asp:Label>

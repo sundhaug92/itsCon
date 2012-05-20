@@ -21,15 +21,28 @@ namespace Xporter
         }
 
         [OperationContract]
-        public void setCustomer(itsLib.Customer Customer)
+        public void setCustomer(Customer Customer)
         {
-            _Session.Customer = Customer;
+            _Session.Customer = Customer.itsLibCustomer();
         }
 
         [OperationContract]
         public itsLib.Customer getCustomer()
         {
             return _Session.Customer;
+        }
+
+        [OperationContract]
+        public bool Login(string Username, string Password)
+        {
+            _Session.Login(Username, Password);
+            return getLoginState();
+        }
+
+        [OperationContract]
+        public bool getLoginState()
+        {
+            return _Session.LoggedIn;
         }
 
         // Add more operations here and mark them with [OperationContract]

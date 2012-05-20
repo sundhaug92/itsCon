@@ -7,16 +7,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "itsLib", "itsLib\itsLib.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BD688F2E-D411-4957-A657-CDBF60AC9D2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xporter", "Xporter\Xporter.csproj", "{4D0F0181-1CA2-42E1-9519-CB8BAD40FC64}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webApp", "webApp\webApp.csproj", "{BFFA2BED-6E8E-478C-8761-C62A7180009D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "itsLibMembershipProvider", "itsLibMembershipProvider\itsLibMembershipProvider.csproj", "{532D23B0-B567-4A3C-8CEA-99A44EDF2DCB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{BE9F5D84-5B4A-48B3-8CFB-48FF2D117FDF}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xporter", "Xporter\Xporter.csproj", "{4D0F0181-1CA2-42E1-9519-CB8BAD40FC64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,16 +48,6 @@ Global
 		{4D0F0181-1CA2-42E1-9519-CB8BAD40FC64}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4D0F0181-1CA2-42E1-9519-CB8BAD40FC64}.Release|x64.ActiveCfg = Release|Any CPU
 		{4D0F0181-1CA2-42E1-9519-CB8BAD40FC64}.Release|x86.ActiveCfg = Release|Any CPU
-		{532D23B0-B567-4A3C-8CEA-99A44EDF2DCB}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{532D23B0-B567-4A3C-8CEA-99A44EDF2DCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{532D23B0-B567-4A3C-8CEA-99A44EDF2DCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{532D23B0-B567-4A3C-8CEA-99A44EDF2DCB}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{532D23B0-B567-4A3C-8CEA-99A44EDF2DCB}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{532D23B0-B567-4A3C-8CEA-99A44EDF2DCB}.Release|ARM.ActiveCfg = Release|Any CPU
-		{532D23B0-B567-4A3C-8CEA-99A44EDF2DCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{532D23B0-B567-4A3C-8CEA-99A44EDF2DCB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{532D23B0-B567-4A3C-8CEA-99A44EDF2DCB}.Release|x64.ActiveCfg = Release|Any CPU
-		{532D23B0-B567-4A3C-8CEA-99A44EDF2DCB}.Release|x86.ActiveCfg = Release|Any CPU
 		{BFFA2BED-6E8E-478C-8761-C62A7180009D}.Debug|ARM.ActiveCfg = Debug|Any CPU
 		{BFFA2BED-6E8E-478C-8761-C62A7180009D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BFFA2BED-6E8E-478C-8761-C62A7180009D}.Debug|Any CPU.Build.0 = Debug|Any CPU

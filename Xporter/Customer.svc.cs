@@ -32,6 +32,12 @@ namespace Xporter
             _Customer = new itsLib.Customer(new itsLib.Session(), Id);
         }
 
+        [OperationContract]
+        public itsLib.Customer itsLibCustomer()
+        {
+            return _Customer;
+        }
+
         // Add more operations here and mark them with [OperationContract]
     }
 }
