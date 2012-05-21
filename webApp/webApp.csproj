@@ -173,6 +173,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Course\" />
+    <Folder Include="Person\" />
+    <Folder Include="Project\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />
