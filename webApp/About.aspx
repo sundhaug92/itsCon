@@ -1,6 +1,24 @@
 ﻿<%@ Page Title="About" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
     CodeBehind="About.aspx.cs" Inherits="webApp.About" %>
 
+<asp:Content runat="server" ID="FeaturedContent" ContentPlaceHolderID="FeaturedContent">
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>
+                    <%: Page.Title %>. </h1>
+                <h2>Virtual Learning. Defined </h2>
+            </hgroup>
+            <p>
+                To learn more about this new world of applications, visit <a href="http://github.com/sundhaug92/itscon/"
+                    title="itsCon website">http://github.com/sundhaug92/itscon/ </a>. The page features
+                <span class="highlight">documentation, forums, and links</span>to help you get the
+                most from itsCon. If you have any questions about itsCon <a href="mailto:martinsundhaug@gmail.com"
+                    title="send an email to me">send an email to me</a>.
+            </p>
+        </div>
+    </section>
+</asp:Content>
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
     <hgroup class="title">
         <h1>

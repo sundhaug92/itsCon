@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
+﻿<%@ Page Title="Home" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
     CodeBehind="Default.aspx.cs" Inherits="webApp._Default" %>
 
 <asp:Content runat="server" ID="FeaturedContent" ContentPlaceHolderID="FeaturedContent">
@@ -7,14 +7,11 @@
             <hgroup class="title">
                 <h1>
                     <%: Page.Title %>.</h1>
-                <h2>Modify this template to jump-start your ASP.NET application.</h2>
+                <h2>Where inspiration begins.</h2>
             </hgroup>
             <p>
-                To learn more about ASP.NET, visit <a href="http://asp.net" title="ASP.NET Website">
-                    http://asp.net</a>. The page features <span class="highlight">videos, tutorials, and
-                        samples</span>to help you get the most from ASP.NET. If you have any questions
-                about ASP.NET visit <a href="http://forums.asp.net/18.aspx" title="ASP.NET Forum">our
-                    forums</a>.
+                This is your home, your sanctuary, where you find most important and up-to-date
+                information regarding your learning.
             </p>
         </div>
     </section>
