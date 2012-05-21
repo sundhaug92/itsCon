@@ -57,6 +57,7 @@ namespace itsLib
             string Surname = Name.Substring(0, Name.IndexOf(", "));
             this._Customer = sess.Customer;
             this._Name = Name;
+            this._Id = Uid;
         }
     }
 }
