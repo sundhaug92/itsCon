@@ -12,7 +12,7 @@ namespace itsLib
         string _Name;
         uint _Id;
 
-        private uint Id
+        public uint Id
         {
             get
             {

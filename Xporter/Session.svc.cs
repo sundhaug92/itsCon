@@ -9,6 +9,14 @@ namespace Xporter
     {
         itsLib.Session _Session;
 
+        public itsLib.Session itslibSession
+        {
+            get
+            {
+                return _Session;
+            }
+        }
+
         // To use HTTP GET, add [WebGet] attribute. (Default ResponseFormat is WebMessageFormat.Json)
         // To create an operation that returns XML,
         //     add [WebGet(ResponseFormat=WebMessageFormat.Xml)],
@@ -43,6 +51,14 @@ namespace Xporter
         public bool getLoginState()
         {
             return _Session.LoggedIn;
+        }
+
+        [OperationContract]
+        public Person getMe()
+        {
+            Person Person = new Person();
+            Person.fromId(this, _Session.Me.Id);
+            return Person;
         }
 
         // Add more operations here and mark them with [OperationContract]

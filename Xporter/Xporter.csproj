@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Customer.svc" />
+    <Content Include="Person.svc" />
     <Content Include="Session.svc" />
     <Content Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.4.js" />
@@ -79,6 +80,9 @@
   <ItemGroup>
     <Compile Include="Customer.svc.cs">
       <DependentUpon>Customer.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Person.svc.cs">
+      <DependentUpon>Person.svc</DependentUpon>
     </Compile>
     <Compile Include="Session.svc.cs">
       <DependentUpon>Session.svc</DependentUpon>
