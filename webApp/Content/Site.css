@@ -98,7 +98,7 @@ h5, h6 {
 }
 
 .featured + .main-content {
-    background: url("../Images/heroAccent.png") no-repeat;
+    background: url("../Images/heroAccent2.png") no-repeat;
 }
 
 footer {
@@ -191,11 +191,31 @@ ul#menu {
 
     .featured .content-wrapper {
         background-color: #7ac0da;
-        background-image: -ms-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
+        /*background-image: -ms-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
         background-image: -o-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
         background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #7ac0da), color-stop(1, #a4d4e6));
         background-image: -webkit-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
-        background-image: linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
+        background-image: linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);*/
+        /* IE10 */
+        background-image: -ms-linear-gradient(right, #FFF 0%, #DA5700 100%);
+        /* Mozilla Firefox */
+        background-image: -moz-linear-gradient(right, #FFF 0%, #DA5700 100%);
+        -moz-border-radius-topleft: 30px;
+        -moz-border-radius-bottomright: 30px;
+        /* Opera */
+        background-image: -o-linear-gradient(right, #FFF 0%, #DA5700 100%);
+        -o-border-border-top-left-radius: 30px;
+        -o-border-border-bottom-right-radius: 30px;
+        /* Webkit (Safari/Chrome 10) */
+        background-image: -webkit-gradient(linear, right top, left top, color-stop(0, #FFF), color-stop(1, #DA5700));
+        -webkit-border-top-left-radius: 30px;
+        -webkit-border-bottom-right-radius: 30px;
+        /* Webkit (Chrome 11+) */
+        background-image: -webkit-linear-gradient(right, #FFF 0%, #DA5700 100%);
+        /* Proposed W3C Markup */
+        background-image: linear-gradient(right, #FFF 0%, #DA5700 100%);
+        border-top-left-radius: 30px;
+        border-bottom-right-radius: 30px;
         color: #3e5667;
         padding: 20px 40px 30px 40px;
     }
