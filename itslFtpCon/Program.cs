@@ -20,9 +20,8 @@ namespace itslFtpCon
             StreamReader sr = new StreamReader(ns);
             StreamWriter sw = new StreamWriter(ns);
             Session sess = new Session();
-            sess.Create();
             string user = "", pass = "";
-            uint CustomerId;
+            uint CustomerId = 0;
 
             sw.WriteLine("220 its ftpd");
             while (tc.Connected)
@@ -32,19 +31,24 @@ namespace itslFtpCon
                 string cmd = command.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[0].ToUpper();
                 if (cmd == "USER")
                 {
-                    user = command.Substring(cmd.IndexOf("USER ") + "USER ".Length).Split('@')[0];
+                    user = command.Substring(cmd.IndexOf("USER ") + "USER ".Length + 1).Split('@')[0];
                     CustomerId = uint.Parse(command.Substring(cmd.IndexOf("USER ") + "USER ".Length).Split('@')[1]);
-                    Customer Customer = new Xporter.Customer();
-                    Customer.fromId(CustomerId);
-                    sess.setCustomer(Customer);
                     sw.WriteLine("331 Password required");
                 }
                 if (cmd == "PASS")
                 {
-                    pass = command.Substring(cmd.IndexOf("PASS ") + "PASS ".Length);
-                    sess.Login(user, pass);
-                    if (sess.getLoginState()) sw.WriteLine("230 You may continue");
-                    else sw.WriteLine("530 Denied");
+                    pass = command.Substring(cmd.IndexOf("PASS ") + "PASS ".Length + 1);
+                    try
+                    {
+                        sess.Create();
+                        Customer Customer = new Xporter.Customer();
+                        Customer.fromId(CustomerId);
+                        sess.setCustomer(Customer);
+                        sess.Login(user, pass);
+                        if (sess.getLoginState()) sw.WriteLine("230 You may continue");
+                        else sw.WriteLine("530 Denied");
+                    }
+                    catch (Exception e) { sw.WriteLine("530 " + e.Message); }
                 }
             }
         }
