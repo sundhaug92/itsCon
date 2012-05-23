@@ -22,6 +22,7 @@ namespace itslFtpCon
             Session sess = new Session();
             string user = "", pass = "", usernameEncoded, usernameDecoded;
             uint CustomerId = 0;
+            string cwd = "/";
 
             sw.WriteLine("220 its ftpd");
             while (tc.Connected)
@@ -57,6 +58,11 @@ namespace itslFtpCon
                         else sw.WriteLine("530 Denied");
                     }
                     catch (Exception e) { sw.WriteLine("530 " + e.Message); }
+                    continue;
+                }
+                if (cmd == "CWD")
+                {
+                    sw.WriteLine(cwd);
                     continue;
                 }
                 Console.WriteLine("UNKNOWN \"" + cmd + "\" in \"" + command.Substring(cmd.Length + 2));
