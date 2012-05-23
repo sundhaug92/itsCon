@@ -27,13 +27,18 @@ namespace itslFtpCon
             while (tc.Connected)
             {
                 sw.Flush();
+                if ((sr == null) || (sw == null)) return;
                 string command = sr.ReadLine().Trim();
                 string cmd = command.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[0].ToUpper();
                 if (cmd == "USER")
                 {
-                    user = command.Substring(cmd.IndexOf("USER ") + "USER ".Length + 1).Split('@')[0];
-                    CustomerId = uint.Parse(command.Substring(cmd.IndexOf("USER ") + "USER ".Length).Split('@')[1]);
-                    sw.WriteLine("331 Password required");
+                    try
+                    {
+                        user = command.Substring(cmd.IndexOf("USER ") + "USER ".Length + 1).Split('@')[0];
+                        CustomerId = uint.Parse(command.Substring(cmd.IndexOf("USER ") + "USER ".Length).Split('@')[1]);
+                        sw.WriteLine("331 Password required");
+                    }
+                    catch (Exception e) { sw.WriteLine("530 " + e.Message); }
                 }
                 if (cmd == "PASS")
                 {
