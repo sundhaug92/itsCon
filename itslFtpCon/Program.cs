@@ -22,7 +22,7 @@ namespace itslFtpCon
             Session sess = new Session();
             string user = "", pass = "", usernameEncoded, usernameDecoded;
             uint CustomerId = 0;
-            string cwd = "/";
+            string wd = "/";
 
             sw.WriteLine("220 its ftpd");
             while (tc.Connected)
@@ -60,10 +60,16 @@ namespace itslFtpCon
                     catch (Exception e) { sw.WriteLine("530 " + e.Message); }
                     continue;
                 }
+                if (cmd == "PWD")
+                {
+                    sw.WriteLine("257 \"" + wd + "\"");
+                    continue;
+                }
                 if (cmd == "CWD")
                 {
-                    sw.WriteLine(cwd);
-                    continue;
+                    wd = command.Substring("CWD ".Length + 1);
+                    if (wd == "") wd = "/";
+                    sw.WriteLine("250 " + wd);
                 }
                 Console.WriteLine("UNKNOWN \"" + cmd + "\" in \"" + command.Substring(cmd.Length + 2));
             }
