@@ -16,22 +16,30 @@ namespace itslFtpCon
         private static void Connection(object o)
         {
             TcpClient tc = (TcpClient)o;
+            TcpListener pasvListener = null;
             NetworkStream ns = new NetworkStream(tc.Client);
             StreamReader sr = new StreamReader(ns);
             StreamWriter sw = new StreamWriter(ns);
             Session sess = new Session();
             string user = "", pass = "", usernameEncoded, usernameDecoded;
+            sw.AutoFlush = true;
             string tmpS = "";
             uint CustomerId = 0;
             string wd = "/";
             bool binaryFlag = false;
+            short Port = 0;
 
             sw.WriteLine("220 its ftpd");
             while (tc.Connected)
             {
-                sw.Flush();
-                if ((sr == null) || (sw == null)) return;
-                string command = sr.ReadLine().Trim();
+                string command;
+                try
+                {
+                    sw.Flush();
+                    if ((sr == null) || (sw == null)) return;
+                    command = sr.ReadLine().Trim();
+                }
+                catch (IOException) { return; }
                 string cmd = command.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[0].ToUpper();
                 if (cmd == "USER")
                 {
@@ -82,7 +90,48 @@ namespace itslFtpCon
                     sw.WriteLine("200 " + binaryFlag.ToString());
                     continue;
                 }
-                Console.WriteLine("UNKNOWN \"" + cmd + "\" in \"" + command.Substring(cmd.Length + 2));
+                if (cmd == "PASV")
+                {
+                    if (pasvListener != null)
+                    {
+                        try
+                        {
+                            pasvListener.Stop();
+                        }
+                        catch (SocketException) { }
+                    }
+                    pasvListener = null;
+                    Random r = new Random();
+                    while (pasvListener == null)
+                    {
+                        try
+                        {
+                            pasvListener = new TcpListener(IPAddress.Loopback, r.Next() & 65535);
+                            pasvListener.Start();
+                        }
+                        catch (SocketException) { }
+                    }
+                    tmpS = pasvListener.LocalEndpoint.ToString();
+                    Port = (short)ushort.Parse(tmpS.Substring(tmpS.IndexOf(':') + 1));
+                    tmpS = tmpS.Replace(".", ",").Substring(0, tmpS.IndexOf(':'));
+                    tmpS += ("," + (Port / 256).ToString());
+                    tmpS += ("," + ((short)((Port << 8) / 256)).ToString());
+                    sw.WriteLine("227 =" + tmpS);
+                    new Thread(Connection).Start(pasvListener.AcceptTcpClient());
+                    continue;
+                }
+                if (cmd == "SYST")
+                {
+                    sw.WriteLine("215 ITSL");
+                    continue;
+                }
+                if (cmd == "EPSV")
+                {
+                    sw.WriteLine("502 NO IPv6");
+                    continue;
+                }
+                if (command.Length >= (cmd.Length + 2)) Console.WriteLine("UNKNOWN \"" + cmd + "\" in \"" + command.Substring(cmd.Length + 2) + "\"");
+                else Console.WriteLine("UNKNOWN \"" + cmd + "\"");
             }
         }
 
