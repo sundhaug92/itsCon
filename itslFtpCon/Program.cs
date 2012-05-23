@@ -20,7 +20,7 @@ namespace itslFtpCon
             StreamReader sr = new StreamReader(ns);
             StreamWriter sw = new StreamWriter(ns);
             Session sess = new Session();
-            string user = "", pass = "";
+            string user = "", pass = "", usernameEncoded, usernameDecoded;
             uint CustomerId = 0;
 
             sw.WriteLine("220 its ftpd");
@@ -34,8 +34,10 @@ namespace itslFtpCon
                 {
                     try
                     {
-                        user = command.Substring(cmd.IndexOf("USER ") + "USER ".Length + 1).Split('@')[0];
-                        CustomerId = uint.Parse(command.Substring(cmd.IndexOf("USER ") + "USER ".Length).Split('@')[1]);
+                        usernameEncoded = command.Substring(cmd.IndexOf("USER ") + "USER ".Length + 1);
+                        usernameDecoded = Base16.from16(usernameEncoded);
+                        user = usernameDecoded.Split('@')[0];
+                        CustomerId = uint.Parse(usernameDecoded.Split('@')[1]);
                         sw.WriteLine("331 Password required");
                     }
                     catch (Exception e) { sw.WriteLine("530 " + e.Message); }
@@ -49,7 +51,7 @@ namespace itslFtpCon
                         Customer Customer = new Xporter.Customer();
                         Customer.fromId(CustomerId);
                         sess.setCustomer(Customer);
-                        sess.Login(user, pass);
+                        sess.Login(user, Base16.from16(pass));
                         if (sess.getLoginState()) sw.WriteLine("230 You may continue");
                         else sw.WriteLine("530 Denied");
                     }
