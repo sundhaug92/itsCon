@@ -41,6 +41,7 @@ namespace itslFtpCon
                         sw.WriteLine("331 Password required");
                     }
                     catch (Exception e) { sw.WriteLine("530 " + e.Message); }
+                    continue;
                 }
                 if (cmd == "PASS")
                 {
@@ -56,7 +57,9 @@ namespace itslFtpCon
                         else sw.WriteLine("530 Denied");
                     }
                     catch (Exception e) { sw.WriteLine("530 " + e.Message); }
+                    continue;
                 }
+                Console.WriteLine("UNKNOWN \"" + cmd + "\" in \"" + command.Substring(cmd.Length + 2));
             }
         }
 
