@@ -21,8 +21,10 @@ namespace itslFtpCon
             StreamWriter sw = new StreamWriter(ns);
             Session sess = new Session();
             string user = "", pass = "", usernameEncoded, usernameDecoded;
+            string tmpS = "";
             uint CustomerId = 0;
             string wd = "/";
+            bool binaryFlag = false;
 
             sw.WriteLine("220 its ftpd");
             while (tc.Connected)
@@ -70,6 +72,15 @@ namespace itslFtpCon
                     wd = command.Substring("CWD ".Length + 1);
                     if (wd == "") wd = "/";
                     sw.WriteLine("250 " + wd);
+                    continue;
+                }
+                if (cmd == "TYPE")
+                {
+                    tmpS = command.Substring("TYPE ".Length + 1);
+                    if ((tmpS == "A") || (tmpS == "A N")) binaryFlag = false;
+                    if ((tmpS == "I") || (tmpS == "L 8")) binaryFlag = true;
+                    sw.WriteLine("200 " + binaryFlag.ToString());
+                    continue;
                 }
                 Console.WriteLine("UNKNOWN \"" + cmd + "\" in \"" + command.Substring(cmd.Length + 2));
             }
