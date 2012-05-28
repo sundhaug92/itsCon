@@ -59,5 +59,13 @@ namespace itsLib
             this._Name = Name;
             this._Id = Uid;
         }
+
+        public string ePortfolio
+        {
+            get
+            {
+                return "http://files.itslearning.com/data/" + this._Customer.Id.ToString() + "/" + _Id.ToString();
+            }
+        }
     }
 }
