@@ -1,6 +1,4 @@
-*.exe
-*.dll
-*.pdb
+﻿*.pdb
 *.cache
 *.csproj.*
 TemporaryGeneratedFile_*
