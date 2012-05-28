@@ -60,11 +60,11 @@ namespace itsLib
             this._Id = Uid;
         }
 
-        public string ePortfolio
+        public Uri ePortfolio
         {
             get
             {
-                return "http://files.itslearning.com/data/" + this._Customer.Id.ToString() + "/" + _Id.ToString();
+                return new Uri("http://files.itslearning.com/data/" + this._Customer.Id.ToString() + "/" + _Id.ToString());
             }
         }
     }
