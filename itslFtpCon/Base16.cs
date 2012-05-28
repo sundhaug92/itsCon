@@ -26,5 +26,15 @@ namespace itslFtpCon
             }
             return r;
         }
+
+        public static string to16(string s)
+        {
+            string r = "";
+            foreach (char c in r.ToCharArray())
+            {
+                r += new StringBuilder().AppendFormat("{0:X02}", c).ToString();
+            }
+            return r;
+        }
     }
 }
