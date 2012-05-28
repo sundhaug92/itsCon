@@ -70,6 +70,8 @@
     </Compile>
     <Compile Include="Messaging\Mail.cs" />
     <Compile Include="Messaging\MailBox.cs" />
+    <Compile Include="PersonSearch.cs" />
+    <Compile Include="PersonType.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
