@@ -60,7 +60,7 @@ namespace itsLib
             this._Id = Uid;
         }
 
-        public Uri ePortfolio
+        public Uri PublicFilesBaseUri
         {
             get
             {
