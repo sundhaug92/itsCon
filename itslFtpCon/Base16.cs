@@ -1,4 +1,6 @@
-﻿namespace itslFtpCon
+﻿using System.Text;
+
+namespace itslFtpCon
 {
     internal static class Base16
     {

@@ -1,24 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net;
-using HtmlAgilityPack;
 using System.Web;
+using HtmlAgilityPack;
 
 namespace itsLib
 {
     public class PersonSearch
     {
-        public Person[] Result
-        {
-            get
-            {
-                return _Result.ToArray();
-            }
-        }
-        List<Person> _Result;
+        private List<Person> _Result;
+
         public PersonSearch(Session Session, string Forname, string Surname, int HierarchyId, Course Course, PersonType PersonType)
         {
             HttpWebRequest InitialLoginRequest = Session.GetHttpWebRequest("/search/search_person.aspx");
@@ -78,7 +70,7 @@ namespace itsLib
                     doc.Load(loginResp.GetResponseStream());
                     loginResp.Close();
                     _Result = new List<Person>(10);
-                    foreach(var row in (from element in doc.DocumentNode.DescendantNodes() where element.GetAttributeValue("id","").StartsWith("row_") select element))
+                    foreach (var row in (from element in doc.DocumentNode.DescendantNodes() where element.GetAttributeValue("id", "").StartsWith("row_") select element))
                     {
                         string href = row.ChildNodes[1].FirstChild.GetAttributeValue("href", "");
                         _Result.Add(new Person(Session, uint.Parse(HttpUtility.ParseQueryString(new Uri(Properties.Settings.Default.urlBase + href.Substring(href.IndexOf('/'))).Query).Get("PersonID"))));
@@ -86,19 +78,28 @@ namespace itsLib
                 }
             }
         }
+
         public PersonSearch(Session Session, string Forname, string Surname, int HierarchyId, Course Course)
-            :this(Session, Forname, Surname, HierarchyId, Course, PersonType.administrator| PersonType.employee | PersonType.examinator | PersonType.guest| PersonType.parent| PersonType.student | PersonType.sysadmin)
+            : this(Session, Forname, Surname, HierarchyId, Course, PersonType.administrator | PersonType.employee | PersonType.examinator | PersonType.guest | PersonType.parent | PersonType.student | PersonType.sysadmin)
         {
         }
 
         public PersonSearch(Session Session, string Forname, string Surname, int HierarchyId)
-            : this(Session, Forname, Surname, HierarchyId, new Course(Session,-1))
+            : this(Session, Forname, Surname, HierarchyId, new Course(Session, -1))
         {
         }
 
         public PersonSearch(Session Session, string Forname, string Surname)
             : this(Session, Forname, Surname, -1)
         {
+        }
+
+        public Person[] Result
+        {
+            get
+            {
+                return _Result.ToArray();
+            }
         }
 
         public static PersonSearch GetAll(Session Session)

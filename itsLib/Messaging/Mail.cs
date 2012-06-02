@@ -7,10 +7,9 @@ namespace itsLib.Messaging
 {
     public class Mail
     {
-        string _Path = "";
-
-        Session _Session;
-        HtmlDocument Document = new HtmlDocument();
+        private string _Path = "";
+        private Session _Session;
+        private HtmlDocument Document = new HtmlDocument();
 
         public Mail(Session Session, string Path)
         {
@@ -26,6 +25,15 @@ namespace itsLib.Messaging
         {
         }
 
+        public string Contents
+        {
+            get
+            {
+                var contents = from node in Document.DocumentNode.DescendantNodes() where node.Name == "div" && node.GetAttributeValue("class", "") == "userinput" select node;
+                return contents.First().InnerHtml;
+            }
+        }
+
         public Person From
         {
             get
@@ -33,6 +41,15 @@ namespace itsLib.Messaging
                 var nodesWithJSOnclick = from node in Document.DocumentNode.DescendantNodes() where node.GetAttributeValue("onclick", "").StartsWith("javascript:") select node;
                 var nodesWithJSOnclickToPersons = from node in nodesWithJSOnclick where node.GetAttributeValue("onclick", "").StartsWith("javascript:window.open('/Person/show_person.aspx") select node;
                 return new Person(_Session, uint.Parse(nodesWithJSOnclickToPersons.First().GetAttributeValue("onclick", "").Substring("javascript:window.open('/Person/show_person.aspx?".Length).Split(new char[] { '=', '&' })[1]));
+            }
+        }
+
+        public string Subject
+        {
+            get
+            {
+                var titles = from node in Document.DocumentNode.DescendantNodes() where node.Name == "span" && node.GetAttributeValue("id", "") == "ctl05_TT" select node;
+                return titles.First().InnerText;
             }
         }
 
@@ -51,24 +68,6 @@ namespace itsLib.Messaging
                     //Get Person id!
                 }
                 return r;
-            }
-        }
-
-        public string Contents
-        {
-            get
-            {
-                var contents = from node in Document.DocumentNode.DescendantNodes() where node.Name == "div" && node.GetAttributeValue("class", "") == "userinput" select node;
-                return contents.First().InnerHtml;
-            }
-        }
-
-        public string Subject
-        {
-            get
-            {
-                var titles = from node in Document.DocumentNode.DescendantNodes() where node.Name == "span" && node.GetAttributeValue("id", "") == "ctl05_TT" select node;
-                return titles.First().InnerText;
             }
         }
     }

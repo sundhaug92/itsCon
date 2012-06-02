@@ -9,18 +9,13 @@ namespace itsLib
 {
     public class Project : ICourseProjectCommons
     {
-        uint Id;
-        Session Session;
+        private uint Id;
+        private Session Session;
 
         public Project(Session Session, uint Id)
         {
             this.Id = Id;
             this.Session = Session;
-        }
-
-        public void setActive()
-        {
-            Session.GetHttpWebRequest("/main.aspx?ProjectID=" + Id).GetResponse().Close();
         }
 
         public string getDashboardPath()
@@ -44,6 +39,11 @@ namespace itsLib
             string DirectoryLinkString = (from node in sidebar_menu.DocumentNode.DescendantNodes() where node.Name == "a" && node.GetAttributeValue("href", "").Contains("/process_folder.aspx") select node.GetAttributeValue("href", "")).First();
             Uri uri = DirectoryLinkString.StartsWith("/") ? new Uri(Properties.Settings.Default.urlBase + DirectoryLinkString) : new Uri(DirectoryLinkString);
             return new fs.Directory(Session, this, uint.Parse(HttpUtility.ParseQueryString(uri.Query).Get("FolderID")));
+        }
+
+        public void setActive()
+        {
+            Session.GetHttpWebRequest("/main.aspx?ProjectID=" + Id).GetResponse().Close();
         }
 
         public void toArchive()

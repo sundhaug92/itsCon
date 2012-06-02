@@ -8,8 +8,38 @@ namespace itsLib.Messaging
 {
     public class MailBox
     {
-        Session Session;
-        int MessageFolderId;
+        private int MessageFolderId;
+        private Session Session;
+
+        public MailBox(Session Session, int MessageFolderId)
+        {
+            this.Session = Session;
+            this.MessageFolderId = MessageFolderId;
+        }
+
+        public string Name
+        {
+            get
+            {
+                HttpWebRequest hwr = Session.GetHttpWebRequest("/Messages/InternalMessages.aspx?MessageFolderId=" + MessageFolderId);
+                HttpWebResponse resp = (HttpWebResponse)hwr.GetResponse();
+                HtmlDocument Doc = new HtmlDocument();
+                try
+                {
+                    Doc.Load(resp.GetResponseStream());
+                    foreach (var v in Doc.DocumentNode.DescendantNodes())
+                    {
+                        if (v.Name != "span") continue;
+                        if (v.Id == "ctl05_TT") return v.InnerText;
+                    }
+                    return "";
+                }
+                finally
+                {
+                    resp.Close();
+                }
+            }
+        }
 
         public uint Pagesize
         {
@@ -57,12 +87,6 @@ namespace itsLib.Messaging
             }
         }
 
-        public MailBox(Session Session, int MessageFolderId)
-        {
-            this.Session = Session;
-            this.MessageFolderId = MessageFolderId;
-        }
-
         public Mail[] GetMails()
         {
             //Pagesize = 50; //Set Pagesize to a sensible, low value
@@ -76,30 +100,6 @@ namespace itsLib.Messaging
                 Mails[uint.Parse(v.GetAttributeValue("id", "").Substring("_table_".Length)) - 1] = new Mail(Session, uint.Parse(v.ChildNodes[5].GetAttributeValue("onclick", "").Split(new string[] { "'" }, StringSplitOptions.RemoveEmptyEntries)[1]), MessageFolderId);
             }
             return Mails;
-        }
-
-        public string Name
-        {
-            get
-            {
-                HttpWebRequest hwr = Session.GetHttpWebRequest("/Messages/InternalMessages.aspx?MessageFolderId=" + MessageFolderId);
-                HttpWebResponse resp = (HttpWebResponse)hwr.GetResponse();
-                HtmlDocument Doc = new HtmlDocument();
-                try
-                {
-                    Doc.Load(resp.GetResponseStream());
-                    foreach (var v in Doc.DocumentNode.DescendantNodes())
-                    {
-                        if (v.Name != "span") continue;
-                        if (v.Id == "ctl05_TT") return v.InnerText;
-                    }
-                    return "";
-                }
-                finally
-                {
-                    resp.Close();
-                }
-            }
         }
     }
 }

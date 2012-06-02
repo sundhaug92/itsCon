@@ -10,10 +10,60 @@ namespace itsLib
 {
     public class Session : IDisposable
     {
-        string _Id = "";
         public CookieContainer Cookies = new CookieContainer();
-        KeepAlive _KeepAlive;
-        string _UserAgent = Properties.Settings.Default.UA_String;
+        public Customer Customer;
+        private string _ActiveContext = "";
+        private string _Id = "";
+        private KeepAlive _KeepAlive;
+        private bool _LoggedIn = false;
+        private string _UserAgent = Properties.Settings.Default.UA_String;
+
+        public Session()
+        {
+            MakeHttpGetRequestGetCookies("/XmlHttp/SessionLessApi.aspx");
+        }
+
+        ~Session()
+        {
+            Dispose(false);
+        }
+
+        public string ActiveContext
+        {
+            get
+            {
+                return _ActiveContext;
+            }
+        }
+
+        public string Id
+        {
+            get
+            {
+                return _Id;
+            }
+        }
+
+        public KeepAlive KeepAlive
+        {
+            get { return _KeepAlive; }
+        }
+
+        public bool LoggedIn
+        {
+            get
+            {
+                return _LoggedIn;
+            }
+        }
+
+        public Person Me
+        {
+            get
+            {
+                return Person.Me(this);
+            }
+        }
 
         public string UserAgent
         {
@@ -27,39 +77,10 @@ namespace itsLib
             }
         }
 
-        public KeepAlive KeepAlive
+        public void Dispose()
         {
-            get { return _KeepAlive; }
-        }
-
-        public string Id
-        {
-            get
-            {
-                return _Id;
-            }
-        }
-
-        public Session()
-        {
-            MakeHttpGetRequestGetCookies("/XmlHttp/SessionLessApi.aspx");
-        }
-
-        private void MakeHttpGetRequestGetCookies(string p)
-        {
-            HttpWebResponse resp = (HttpWebResponse)GetHttpWebRequest(p).GetResponse();
-            _Id = resp.Cookies["ASP.NET_SessionId"].Value;
-            resp.Close();
-        }
-
-        string _ActiveContext = "";
-
-        public string ActiveContext
-        {
-            get
-            {
-                return _ActiveContext;
-            }
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         public HttpWebRequest GetHttpWebRequest(string p)
@@ -86,16 +107,6 @@ namespace itsLib
             hwr.ContinueTimeout = 60 * 1000;
             hwr.CookieContainer = Cookies;
             return hwr;
-        }
-
-        public Customer Customer;
-
-        public Person Me
-        {
-            get
-            {
-                return Person.Me(this);
-            }
         }
 
         public void Login(string Username, string Password)
@@ -159,26 +170,10 @@ namespace itsLib
             }
         }
 
-        bool _LoggedIn = false;
-
-        public bool LoggedIn
-        {
-            get
-            {
-                return _LoggedIn;
-            }
-        }
-
         public void Logout()
         {
             GetHttpWebRequest("/log_out.aspx").GetResponse().Close();
             _LoggedIn = false;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
 
         protected virtual void Dispose(bool disposing)
@@ -189,9 +184,11 @@ namespace itsLib
             }
         }
 
-        ~Session()
+        private void MakeHttpGetRequestGetCookies(string p)
         {
-            Dispose(false);
+            HttpWebResponse resp = (HttpWebResponse)GetHttpWebRequest(p).GetResponse();
+            _Id = resp.Cookies["ASP.NET_SessionId"].Value;
+            resp.Close();
         }
     }
 }

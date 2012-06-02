@@ -9,6 +9,7 @@ namespace itsLib
     public class KeepAlive : Timer
     {
         public delegate void uintChangedEventHandler(object o, uint e);
+
         public delegate void intChangedEventHandler(object o, uint e);
 
         private event uintChangedEventHandler OnlineUsersChange;
@@ -19,7 +20,7 @@ namespace itsLib
 
         private event intChangedEventHandler UnreadCloudEmailMessagesChange;
 
-        Session _Session;
+        private Session _Session;
 
         public Session Session
         {
@@ -75,8 +76,8 @@ namespace itsLib
             this.Start();
         }
 
-        uint _OnlineUsers, _UnreadMessages, _MessengerStatus;
-        int _UnreadCloudEmailMessages;
+        private uint _OnlineUsers, _UnreadMessages, _MessengerStatus;
+        private int _UnreadCloudEmailMessages;
 
         public uint OnlineUsers
         {

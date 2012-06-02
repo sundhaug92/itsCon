@@ -9,8 +9,8 @@ namespace itsLib
 {
     public class Course : ICourseProjectCommons
     {
-        int _Id;
-        Session Session;
+        private int _Id;
+        private Session Session;
 
         public Course(Session Session, int Id)
         {
@@ -18,9 +18,12 @@ namespace itsLib
             this.Session = Session;
         }
 
-        public void setActive()
+        public int Id
         {
-            Session.GetHttpWebRequest("/main.aspx?CourseID=" + _Id).GetResponse().Close();
+            get
+            {
+                return _Id;
+            }
         }
 
         public string getDashboardPath()
@@ -28,6 +31,7 @@ namespace itsLib
             setActive();
             return "/Course/course.aspx";
         }
+
         public fs.Directory getRootDirectory()
         {
             setActive();
@@ -44,12 +48,10 @@ namespace itsLib
             Uri uri = DirectoryLinkString.StartsWith("/") ? new Uri(Properties.Settings.Default.urlBase + DirectoryLinkString) : new Uri(DirectoryLinkString);
             return new fs.Directory(Session, this, uint.Parse(HttpUtility.ParseQueryString(uri.Query).Get("FolderID")));
         }
-        public int Id
+
+        public void setActive()
         {
-            get
-            {
-                return _Id;
-            }
+            Session.GetHttpWebRequest("/main.aspx?CourseID=" + _Id).GetResponse().Close();
         }
     }
 }
