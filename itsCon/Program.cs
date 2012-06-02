@@ -166,6 +166,17 @@ namespace itsCon
                             }
                         }
                     }
+                    if(orders[0]=="find-person")
+                    {
+                        if(orders[1]=="any")
+                        {
+                            PersonSearch ps = PersonSearch.GetAll(sess);
+                            foreach(Person Person in ps.Result)
+                            {
+                                Console.WriteLine(Person.Name);
+                            }
+                        }
+                    }
                 }
                 catch (Exception e) { Console.WriteLine(e.Message); }
             }

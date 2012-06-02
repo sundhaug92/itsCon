@@ -5,11 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using HtmlAgilityPack;
+using System.Web;
 
 namespace itsLib
 {
-    internal class PersonSearch
+    public class PersonSearch
     {
+        public Person[] Result
+        {
+            get
+            {
+                return _Result.ToArray();
+            }
+        }
+        List<Person> _Result;
         public PersonSearch(Session Session, string Forname, string Surname, int HierarchyId, Course Course, PersonType PersonType)
         {
             HttpWebRequest InitialLoginRequest = Session.GetHttpWebRequest("/search/search_person.aspx");
@@ -24,13 +33,13 @@ namespace itsLib
             LoginFormData.Add("CourseID", Course.Id.ToString());
             LoginFormData.Add("HierarchyId", HierarchyId.ToString());
 
-            LoginFormData.Add("idProfileID_7", (((PersonType & PersonType.sysadmin) > 0) ? 1 : 0).ToString());
-            LoginFormData.Add("idProfileID_14", (((PersonType & PersonType.examinator) > 0) ? 1 : 0).ToString());
-            LoginFormData.Add("idProfileID_8", (((PersonType & PersonType.administrator) > 0) ? 1 : 0).ToString());
-            LoginFormData.Add("idProfileID_9", (((PersonType & PersonType.employee) > 0) ? 1 : 0).ToString());
-            LoginFormData.Add("idProfileID_10", (((PersonType & PersonType.student) > 0) ? 1 : 0).ToString());
-            LoginFormData.Add("idProfileID_62007", (((PersonType & PersonType.parent) > 0) ? 1 : 0).ToString());
-            LoginFormData.Add("idProfileID_11", (((PersonType & PersonType.guest) > 0) ? 1 : 0).ToString());
+            LoginFormData.Add("idProfileID_7", (((PersonType & PersonType.sysadmin) > 0) ? 7 : 0).ToString());
+            LoginFormData.Add("idProfileID_14", (((PersonType & PersonType.examinator) > 0) ? 14 : 0).ToString());
+            LoginFormData.Add("idProfileID_8", (((PersonType & PersonType.administrator) > 0) ? 8 : 0).ToString());
+            LoginFormData.Add("idProfileID_9", (((PersonType & PersonType.employee) > 0) ? 9 : 0).ToString());
+            LoginFormData.Add("idProfileID_10", (((PersonType & PersonType.student) > 0) ? 10 : 0).ToString());
+            LoginFormData.Add("idProfileID_62007", (((PersonType & PersonType.parent) > 0) ? 62007 : 0).ToString());
+            LoginFormData.Add("idProfileID_11", (((PersonType & PersonType.guest) > 0) ? 11 : 0).ToString());
 
             LoginFormData.Add("Search", "Søk");
             LoginFormData.Add("Advanced", "0");
@@ -64,8 +73,16 @@ namespace itsLib
                     secondRequest.ContentLength = System.Text.ASCIIEncoding.ASCII.GetByteCount(data);
                     secondRequest.GetRequestStream().Write(System.Text.ASCIIEncoding.ASCII.GetBytes(data), 0, (int)secondRequest.ContentLength);
                     HttpWebResponse loginResp = (HttpWebResponse)secondRequest.GetResponse();
-                    loginResp.Close();
 
+                    HtmlDocument doc = new HtmlDocument();
+                    doc.Load(loginResp.GetResponseStream());
+                    loginResp.Close();
+                    _Result = new List<Person>(10);
+                    foreach(var row in (from element in doc.DocumentNode.DescendantNodes() where element.GetAttributeValue("id","").StartsWith("row_") select element))
+                    {
+                        string href = row.ChildNodes[1].FirstChild.GetAttributeValue("href", "");
+                        _Result.Add(new Person(Session, uint.Parse(HttpUtility.ParseQueryString(new Uri(Properties.Settings.Default.urlBase + href.Substring(href.IndexOf('/'))).Query).Get("PersonID"))));
+                    }
                 }
             }
         }
