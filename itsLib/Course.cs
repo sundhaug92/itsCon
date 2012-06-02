@@ -9,18 +9,18 @@ namespace itsLib
 {
     public class Course : ICourseProjectCommons
     {
-        uint Id;
+        uint _Id;
         Session Session;
 
         public Course(Session Session, uint Id)
         {
-            this.Id = Id;
+            this._Id = Id;
             this.Session = Session;
         }
 
         public void setActive()
         {
-            Session.GetHttpWebRequest("/main.aspx?CourseID=" + Id).GetResponse().Close();
+            Session.GetHttpWebRequest("/main.aspx?CourseID=" + _Id).GetResponse().Close();
         }
 
         public string getDashboardPath()
@@ -28,12 +28,11 @@ namespace itsLib
             setActive();
             return "/Course/course.aspx";
         }
-
         public fs.Directory getRootDirectory()
         {
             setActive();
             HtmlDocument Document = new HtmlDocument();
-            WebResponse resp = Session.GetHttpWebRequest("/ContentArea/ContentAreaTreeMenu.aspx?LocationID=" + Id.ToString() + "&LocationType=1").GetResponse();
+            WebResponse resp = Session.GetHttpWebRequest("/ContentArea/ContentAreaTreeMenu.aspx?LocationID=" + _Id.ToString() + "&LocationType=1").GetResponse();
             Document.Load(resp.GetResponseStream());
             resp.Close();
             var jsFunction = (from node in Document.DocumentNode.DescendantNodes() where node.Name == "script" select node.InnerHtml).Last();
@@ -44,6 +43,13 @@ namespace itsLib
             string DirectoryLinkString = (from node in sidebar_menu.DocumentNode.DescendantNodes() where node.Name == "a" && node.GetAttributeValue("href", "").Contains("/process_folder.aspx") select node.GetAttributeValue("href", "")).First();
             Uri uri = DirectoryLinkString.StartsWith("/") ? new Uri(Properties.Settings.Default.urlBase + DirectoryLinkString) : new Uri(DirectoryLinkString);
             return new fs.Directory(Session, this, uint.Parse(HttpUtility.ParseQueryString(uri.Query).Get("FolderID")));
+        }
+        uint Id
+        {
+            get
+            {
+                return _Id;
+            }
         }
     }
 }
