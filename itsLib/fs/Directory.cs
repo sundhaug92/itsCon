@@ -8,9 +8,9 @@ namespace itsLib.fs
 {
     public class Directory
     {
-        Session Session;
-        ICourseProjectCommons Parent;
-        uint _Id;
+        private Session Session;
+        private ICourseProjectCommons Parent;
+        private uint _Id;
 
         public uint Id
         {

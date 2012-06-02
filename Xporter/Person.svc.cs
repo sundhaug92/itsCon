@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
+﻿using System.ServiceModel;
 using System.ServiceModel.Activation;
-using System.ServiceModel.Web;
-using System.Text;
 
 namespace Xporter
 {
@@ -13,7 +7,7 @@ namespace Xporter
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
     public class Person
     {
-        itsLib.Person _Person;
+        private itsLib.Person _Person;
 
         // To use HTTP GET, add [WebGet] attribute. (Default ResponseFormat is WebMessageFormat.Json)
         // To create an operation that returns XML,

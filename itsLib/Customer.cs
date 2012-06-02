@@ -6,8 +6,8 @@ namespace itsLib
 {
     public class Customer
     {
-        uint _Id;
-        string _Name;
+        private uint _Id;
+        private string _Name;
 
         public Customer(Session Session, uint Id)
         {

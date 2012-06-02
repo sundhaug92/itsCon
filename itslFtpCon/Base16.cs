@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace itslFtpCon
 {
     internal static class Base16
     {
-        static string alphaDigits = "0123456789ABCDEF";
+        private static string alphaDigits = "0123456789ABCDEF";
 
         public static string from16(string b16)
         {

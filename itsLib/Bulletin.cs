@@ -8,9 +8,9 @@ namespace itsLib
 {
     public class Bulletin
     {
-        uint Id = 0;
-        Session Session;
-        ICourseProjectCommons Parent;
+        private uint Id = 0;
+        private Session Session;
+        private ICourseProjectCommons Parent;
 
         public Bulletin(Session Session, ICourseProjectCommons Parent, uint Id)
         {

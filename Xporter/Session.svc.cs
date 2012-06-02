@@ -7,7 +7,7 @@ namespace Xporter
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
     public class Session
     {
-        itsLib.Session _Session;
+        private itsLib.Session _Session;
 
         public itsLib.Session itslibSession
         {
