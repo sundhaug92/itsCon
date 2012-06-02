@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace itsLib
 {
-    internal enum PersonType
+    public enum PersonType
     {
         sysadmin = 1,
         examinator = 2,
