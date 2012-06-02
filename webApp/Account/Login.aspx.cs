@@ -6,10 +6,6 @@ namespace webApp.Account
 {
     public partial class Login : Page
     {
-        protected void Page_Load(object sender, EventArgs e)
-        {
-        }
-
         protected void Login_OnAuthentificate(object sender, System.Web.UI.WebControls.AuthenticateEventArgs e)
         {
             bool auth = LogMeIn(uint.Parse(Request["ctl00$MainContent$loginCtl$CustomerId"]), loginCtl.UserName, loginCtl.Password, loginCtl.RememberMeSet);
@@ -17,6 +13,10 @@ namespace webApp.Account
             {
                 FormsAuthentication.RedirectFromLoginPage(loginCtl.UserName, loginCtl.RememberMeSet);
             }
+        }
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
         }
 
         private bool LogMeIn(uint p1, string p2, string p3, bool b)

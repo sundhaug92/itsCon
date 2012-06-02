@@ -4,10 +4,10 @@ namespace itsLib
 {
     public interface ICourseProjectCommons
     {
-        void setActive();
-
         string getDashboardPath();
 
         Directory getRootDirectory();
+
+        void setActive();
     }
 }

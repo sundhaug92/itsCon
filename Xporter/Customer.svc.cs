@@ -9,6 +9,12 @@ namespace Xporter
     {
         private itsLib.Customer _Customer;
 
+        [OperationContract]
+        public void fromId(uint Id)
+        {
+            _Customer = new itsLib.Customer(new itsLib.Session(), Id);
+        }
+
         // To use HTTP GET, add [WebGet] attribute. (Default ResponseFormat is WebMessageFormat.Json)
         // To create an operation that returns XML,
         //     add [WebGet(ResponseFormat=WebMessageFormat.Xml)],
@@ -18,12 +24,6 @@ namespace Xporter
         public void fromName(string Name)
         {
             _Customer = new itsLib.Customer(new itsLib.Session(), Name);
-        }
-
-        [OperationContract]
-        public void fromId(uint Id)
-        {
-            _Customer = new itsLib.Customer(new itsLib.Session(), Id);
         }
 
         [OperationContract]

@@ -5,11 +5,6 @@ namespace webApp
 {
     public class Global : HttpApplication
     {
-        private void Application_Start(object sender, EventArgs e)
-        {
-            // Code that runs on application startup
-        }
-
         private void Application_End(object sender, EventArgs e)
         {
             //  Code that runs on application shutdown
@@ -20,11 +15,9 @@ namespace webApp
             // Code that runs when an unhandled error occurs
         }
 
-        private void Session_Start(object sender, EventArgs e)
+        private void Application_Start(object sender, EventArgs e)
         {
-            // Code that runs when a new session is started
-            Session.Add("Xporter::Session", new Xporter.Session());
-            ((Xporter.Session)Session["Xporter::Session"]).Create();
+            // Code that runs on application startup
         }
 
         private void Session_End(object sender, EventArgs e)
@@ -33,6 +26,13 @@ namespace webApp
             // Note: The Session_End event is raised only when the sessionstate mode
             // is set to InProc in the Web.config file. If session mode is set to StateServer
             // or SQLServer, the event is not raised.
+        }
+
+        private void Session_Start(object sender, EventArgs e)
+        {
+            // Code that runs when a new session is started
+            Session.Add("Xporter::Session", new Xporter.Session());
+            ((Xporter.Session)Session["Xporter::Session"]).Create();
         }
     }
 }

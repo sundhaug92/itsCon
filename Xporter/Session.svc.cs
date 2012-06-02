@@ -29,22 +29,9 @@ namespace Xporter
         }
 
         [OperationContract]
-        public void setCustomer(Customer Customer)
-        {
-            _Session.Customer = Customer.itsLibCustomer();
-        }
-
-        [OperationContract]
         public itsLib.Customer getCustomer()
         {
             return _Session.Customer;
-        }
-
-        [OperationContract]
-        public bool Login(string Username, string Password)
-        {
-            _Session.Login(Username, Password);
-            return getLoginState();
         }
 
         [OperationContract]
@@ -59,6 +46,19 @@ namespace Xporter
             Person Person = new Person();
             Person.fromId(this, _Session.Me.Id);
             return Person;
+        }
+
+        [OperationContract]
+        public bool Login(string Username, string Password)
+        {
+            _Session.Login(Username, Password);
+            return getLoginState();
+        }
+
+        [OperationContract]
+        public void setCustomer(Customer Customer)
+        {
+            _Session.Customer = Customer.itsLibCustomer();
         }
 
         // Add more operations here and mark them with [OperationContract]

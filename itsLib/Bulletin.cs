@@ -9,8 +9,8 @@ namespace itsLib
     public class Bulletin
     {
         private uint Id = 0;
-        private Session Session;
         private ICourseProjectCommons Parent;
+        private Session Session;
 
         public Bulletin(Session Session, ICourseProjectCommons Parent, uint Id)
         {
@@ -19,7 +19,7 @@ namespace itsLib
             this.Parent = Parent;
         }
 
-        public string Title
+        public Person By
         {
             get
             {
@@ -28,13 +28,9 @@ namespace itsLib
                 WebResponse resp = Session.GetHttpWebRequest("/Bulletin/View.aspx?BulletinId=" + Id.ToString() + "&LocationType=2").GetResponse();
                 Document.Load(resp.GetResponseStream());
                 resp.Close();
-                try
-                {
-                    var ctl05_TT = from node in Document.DocumentNode.DescendantNodes() where node.GetAttributeValue("id", "") == "ctl05_TT" && node.Name == "span" select node;
-                    return ctl05_TT.First().InnerText;
-                }
-                catch (InvalidOperationException) { }
-                return "";
+                var nodesWithJSOnclick = from node in Document.DocumentNode.DescendantNodes() where node.GetAttributeValue("onclick", "").StartsWith("javascript:") select node;
+                var nodesWithJSOnclickToPersons = from node in nodesWithJSOnclick where node.GetAttributeValue("onclick", "").StartsWith("javascript:window.open('/Person/show_person.aspx") select node;
+                return new Person(Session, uint.Parse(nodesWithJSOnclickToPersons.First().GetAttributeValue("onclick", "").Substring("javascript:window.open('/Person/show_person.aspx?".Length).Split(new char[] { '=', '&' })[1]));
             }
         }
 
@@ -57,7 +53,7 @@ namespace itsLib
             }
         }
 
-        public Person By
+        public string Title
         {
             get
             {
@@ -66,15 +62,14 @@ namespace itsLib
                 WebResponse resp = Session.GetHttpWebRequest("/Bulletin/View.aspx?BulletinId=" + Id.ToString() + "&LocationType=2").GetResponse();
                 Document.Load(resp.GetResponseStream());
                 resp.Close();
-                var nodesWithJSOnclick = from node in Document.DocumentNode.DescendantNodes() where node.GetAttributeValue("onclick", "").StartsWith("javascript:") select node;
-                var nodesWithJSOnclickToPersons = from node in nodesWithJSOnclick where node.GetAttributeValue("onclick", "").StartsWith("javascript:window.open('/Person/show_person.aspx") select node;
-                return new Person(Session, uint.Parse(nodesWithJSOnclickToPersons.First().GetAttributeValue("onclick", "").Substring("javascript:window.open('/Person/show_person.aspx?".Length).Split(new char[] { '=', '&' })[1]));
+                try
+                {
+                    var ctl05_TT = from node in Document.DocumentNode.DescendantNodes() where node.GetAttributeValue("id", "") == "ctl05_TT" && node.Name == "span" select node;
+                    return ctl05_TT.First().InnerText;
+                }
+                catch (InvalidOperationException) { }
+                return "";
             }
-        }
-
-        public static Bulletin[] inProject(Session Session, Project Project)
-        {
-            return inCP(Session, Project);
         }
 
         public static Bulletin[] inCourse(Session Session, Course Course)
@@ -98,6 +93,11 @@ namespace itsLib
                 Bulletins[i++] = new Bulletin(Session, Parent, uint.Parse(HttpUtility.ParseQueryString(uri.Query).Get("BulletinId")));
             }
             return Bulletins;
+        }
+
+        public static Bulletin[] inProject(Session Session, Project Project)
+        {
+            return inCP(Session, Project);
         }
     }
 }

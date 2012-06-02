@@ -37,19 +37,19 @@ namespace itsLib
             if ((_Name == null) || (_Name == "")) throw new ArgumentException("No customer found", "Id");
         }
 
-        public string Name
-        {
-            get
-            {
-                return _Name;
-            }
-        }
-
         public uint Id
         {
             get
             {
                 return _Id;
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                return _Name;
             }
         }
     }

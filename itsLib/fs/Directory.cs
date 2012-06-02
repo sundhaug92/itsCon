@@ -8,9 +8,16 @@ namespace itsLib.fs
 {
     public class Directory
     {
-        private Session Session;
-        private ICourseProjectCommons Parent;
         private uint _Id;
+        private ICourseProjectCommons Parent;
+        private Session Session;
+
+        public Directory(Session Session, ICourseProjectCommons Parent, uint Id)
+        {
+            this.Session = Session;
+            this.Parent = Parent;
+            this._Id = Id;
+        }
 
         public uint Id
         {
@@ -18,13 +25,6 @@ namespace itsLib.fs
             {
                 return _Id;
             }
-        }
-
-        public Directory(Session Session, ICourseProjectCommons Parent, uint Id)
-        {
-            this.Session = Session;
-            this.Parent = Parent;
-            this._Id = Id;
         }
 
         public string Name
