@@ -103,7 +103,7 @@ namespace itsCon
                     }
                     if (orders[0] == "course")
                     {
-                        if (orders[1] == "set-active") new Course(sess, uint.Parse(orders[2])).setActive();
+                        if (orders[1] == "set-active") new Course(sess, int.Parse(orders[2])).setActive();
                         if (orders[1] == "get-active")
                         {
                             if (sess.ActiveContext.StartsWith("C")) Console.WriteLine(sess.ActiveContext);
@@ -113,7 +113,7 @@ namespace itsCon
                         {
                             if (sess.ActiveContext.StartsWith("C"))
                             {
-                                new Course(sess, uint.Parse(sess.ActiveContext.Substring(1))).getRootDirectory();
+                                new Course(sess, int.Parse(sess.ActiveContext.Substring(1))).getRootDirectory();
                             }
                             else Console.WriteLine("Active context is not a course");
                         }
@@ -158,7 +158,7 @@ namespace itsCon
                         if (orders[1] == "in-active")
                         {
                             Bulletin[] bulletins;
-                            if (sess.ActiveContext.StartsWith("C")) bulletins = Bulletin.inCP(sess, new Course(sess, uint.Parse(sess.ActiveContext.Substring(1))));
+                            if (sess.ActiveContext.StartsWith("C")) bulletins = Bulletin.inCP(sess, new Course(sess, int.Parse(sess.ActiveContext.Substring(1))));
                             else bulletins = Bulletin.inCP(sess, new Project(sess, uint.Parse(sess.ActiveContext.Substring(1))));
                             foreach (Bulletin bulletin in bulletins)
                             {

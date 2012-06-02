@@ -10,7 +10,7 @@ namespace itsLib
 {
     internal class PersonSearch
     {
-        public PersonSearch(Session Session, string Forname, string Surname, int HierarchyId, int CourseID, PersonType PersonType)
+        public PersonSearch(Session Session, string Forname, string Surname, int HierarchyId, Course Course, PersonType PersonType)
         {
             HttpWebRequest InitialLoginRequest = Session.GetHttpWebRequest("/search/search_person.aspx");
             HtmlDocument initialLoginScreen = new HtmlDocument();
@@ -21,7 +21,7 @@ namespace itsLib
 
             LoginFormData.Add("FirstName", Forname);
             LoginFormData.Add("Lastname", Surname);
-            LoginFormData.Add("CourseID", CourseID.ToString());
+            LoginFormData.Add("CourseID", Course.Id.ToString());
             LoginFormData.Add("HierarchyId", HierarchyId.ToString());
 
             LoginFormData.Add("idProfileID_7", (((PersonType&PersonType.sysadmin)>0)?1:0).ToString());
@@ -68,13 +68,13 @@ namespace itsLib
                 }
         }
             }
-        public PersonSearch(Session Session, string Forname, string Surname, int HierarchyId, int CourseId)
-            :this(Session, Forname, Surname, HierarchyId, CourseId, PersonType.administrator| PersonType.employee | PersonType.examinator | PersonType.guest| PersonType.parent| PersonType.student | PersonType.sysadmin)
+        public PersonSearch(Session Session, string Forname, string Surname, int HierarchyId, Course Course)
+            :this(Session, Forname, Surname, HierarchyId, Course, PersonType.administrator| PersonType.employee | PersonType.examinator | PersonType.guest| PersonType.parent| PersonType.student | PersonType.sysadmin)
         {
         }
 
         public PersonSearch(Session Session, string Forname, string Surname, int HierarchyId)
-            : this(Session, Forname, Surname, HierarchyId, -1)
+            : this(Session, Forname, Surname, HierarchyId, new Course(Session,-1))
         {
         }
 

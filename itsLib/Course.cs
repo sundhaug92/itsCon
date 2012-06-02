@@ -9,10 +9,10 @@ namespace itsLib
 {
     public class Course : ICourseProjectCommons
     {
-        uint _Id;
+        int _Id;
         Session Session;
 
-        public Course(Session Session, uint Id)
+        public Course(Session Session, int Id)
         {
             this._Id = Id;
             this.Session = Session;
@@ -44,7 +44,7 @@ namespace itsLib
             Uri uri = DirectoryLinkString.StartsWith("/") ? new Uri(Properties.Settings.Default.urlBase + DirectoryLinkString) : new Uri(DirectoryLinkString);
             return new fs.Directory(Session, this, uint.Parse(HttpUtility.ParseQueryString(uri.Query).Get("FolderID")));
         }
-        uint Id
+        public int Id
         {
             get
             {
