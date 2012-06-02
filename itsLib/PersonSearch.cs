@@ -24,7 +24,7 @@ namespace itsLib
             LoginFormData.Add("CourseID", Course.Id.ToString());
             LoginFormData.Add("HierarchyId", HierarchyId.ToString());
 
-            LoginFormData.Add("idProfileID_7", (((PersonType&PersonType.sysadmin)>0)?1:0).ToString());
+            LoginFormData.Add("idProfileID_7", (((PersonType & PersonType.sysadmin) > 0) ? 1 : 0).ToString());
             LoginFormData.Add("idProfileID_14", (((PersonType & PersonType.examinator) > 0) ? 1 : 0).ToString());
             LoginFormData.Add("idProfileID_8", (((PersonType & PersonType.administrator) > 0) ? 1 : 0).ToString());
             LoginFormData.Add("idProfileID_9", (((PersonType & PersonType.employee) > 0) ? 1 : 0).ToString());
@@ -37,7 +37,7 @@ namespace itsLib
 
             foreach (var Form in initialLoginScreen.DocumentNode.Descendants("form"))
             {
-                if (Form.GetAttributeValue("id", "") == "Form")
+                if (Form.GetAttributeValue("name", "") == "form")
                 {
                     Dictionary<string, string> NewLoginFormData = new Dictionary<string, string>();
 
@@ -50,7 +50,7 @@ namespace itsLib
                         NewLoginFormData.Add(inp.Key, WebUtility.UrlEncode(inp.Value));
                     }
                     LoginFormData = NewLoginFormData;
-                    string LoginUrl = Properties.Settings.Default.urlBase+"/search/search_person.aspx";
+                    string LoginUrl = Properties.Settings.Default.urlBase + "/search/search_person.aspx";
                     LoginUrl += Form.GetAttributeValue("action", "")[0] != '/' ? "/" + Form.GetAttributeValue("action", "") : Form.GetAttributeValue("action", "");
                     HttpWebRequest secondRequest = Session.GetHttpWebRequest("/search/search_person.aspx");
                     secondRequest.Method = "POST";
@@ -65,9 +65,10 @@ namespace itsLib
                     secondRequest.GetRequestStream().Write(System.Text.ASCIIEncoding.ASCII.GetBytes(data), 0, (int)secondRequest.ContentLength);
                     HttpWebResponse loginResp = (HttpWebResponse)secondRequest.GetResponse();
                     loginResp.Close();
+
                 }
-        }
             }
+        }
         public PersonSearch(Session Session, string Forname, string Surname, int HierarchyId, Course Course)
             :this(Session, Forname, Surname, HierarchyId, Course, PersonType.administrator| PersonType.employee | PersonType.examinator | PersonType.guest| PersonType.parent| PersonType.student | PersonType.sysadmin)
         {
