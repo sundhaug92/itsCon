@@ -8,12 +8,12 @@ namespace itsLib
 {
     internal enum PersonType
     {
-        sysadmin,
-        examinator,
-        administrator,
-        employee,
-        student,
-        parent,
-        guest
+        sysadmin = 1,
+        examinator = 2,
+        administrator = 4,
+        employee = 8,
+        student = 16,
+        parent = 32,
+        guest = 64
     }
 }
