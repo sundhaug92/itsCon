@@ -68,6 +68,7 @@
     <Compile Include="KeepAlive.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="MailCreator.cs" />
     <Compile Include="Messaging\Mail.cs" />
     <Compile Include="Messaging\MailBox.cs" />
     <Compile Include="PersonSearch.cs" />
