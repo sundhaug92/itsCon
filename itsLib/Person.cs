@@ -14,11 +14,7 @@ namespace itsLib
 
         public Person(Session sess, uint Uid)
         {
-            HttpWebRequest hwr = sess.GetHttpWebRequest("/Person/show_person.aspx?PersonId=" + Uid.ToString() + "&Customer=" + sess.Customer.Id);
-            HttpWebResponse resp = (HttpWebResponse)hwr.GetResponse();
-            HtmlDocument Personalia = new HtmlDocument();
-            Personalia.Load(resp.GetResponseStream());
-            resp.Close();
+            HtmlDocument Personalia = sess.GetDocument("/Person/show_person.aspx?PersonId=" + Uid.ToString() + "&Customer=" + sess.Customer.Id);
             string Name = (from v in Personalia.DocumentNode.Descendants("span") where v.Id == "ctl00_PageHeader_TT" select v.InnerText).First();
             if (Name.Contains('('))
             {
@@ -56,15 +52,10 @@ namespace itsLib
         public static Person Me(Session sess)
         {
             uint Uid = 0;
-
-            HttpWebRequest hwr = sess.GetHttpWebRequest("/TopMenu.aspx?Course=&CPHFrame=1&item=menu_intranet");
-            HtmlDocument top_menu = new HtmlDocument();
-            HttpWebResponse resp = (HttpWebResponse)hwr.GetResponse();
-            top_menu.Load(resp.GetResponseStream());
+            HtmlDocument top_menu = sess.GetDocument("/TopMenu.aspx?Course=&CPHFrame=1&item=menu_intranet");
             var e = from element in top_menu.DocumentNode.Descendants("a") where element.GetAttributeValue("class", "") == "user_name" select element.GetAttributeValue("href", "");
             Uri user_info_Uri = new Uri(Properties.Settings.Default.urlBase + e.First());
             Uid = uint.Parse(HttpUtility.ParseQueryString(user_info_Uri.Query).Get("PersonId"));
-            resp.Close();
             return new Person(sess, Uid);
         }
     }
