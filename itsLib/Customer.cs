@@ -11,10 +11,8 @@ namespace itsLib
 
         public Customer(Session Session, uint Id)
         {
-            HtmlDocument Doc = new HtmlDocument();
+            HtmlDocument Doc = Session.GetDocument("/");
             _Id = Id;
-            HttpWebRequest hwr = (HttpWebRequest)Session.GetHttpWebRequest("/");
-            Doc.Load(hwr.GetResponse().GetResponseStream());
             foreach (var v in Doc.DocumentNode.Descendants("option"))
             {
                 if (v.ParentNode.GetAttributeValue("id", "") != "ctl00_ContentPlaceHolder1_LoginSection1_ChooseSite_site_input") continue;
@@ -26,9 +24,7 @@ namespace itsLib
         public Customer(Session Session, string Name)
         {
             _Name = Name;
-            HtmlDocument Doc = new HtmlDocument();
-            HttpWebRequest hwr = (HttpWebRequest)Session.GetHttpWebRequest("/");
-            Doc.Load(hwr.GetResponse().GetResponseStream());
+            HtmlDocument Doc = Session.GetDocument("/");
             foreach (var v in Doc.DocumentNode.Descendants("option"))
             {
                 if (v.ParentNode.GetAttributeValue("id", "") != "ctl00_ContentPlaceHolder1_LoginSection1_ChooseSite_site_input") continue;
