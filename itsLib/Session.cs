@@ -83,6 +83,15 @@ namespace itsLib
             GC.SuppressFinalize(this);
         }
 
+        public HtmlDocument GetDocument(string p)
+        {
+            HtmlDocument Document = new HtmlDocument();
+            HttpWebResponse hwr = (HttpWebResponse)GetHttpWebRequest(p).GetResponse();
+            Document.Load(hwr.GetResponseStream());
+            hwr.Close();
+            return Document;
+        }
+
         public HttpWebRequest GetHttpWebRequest(string p)
         {
             if (!(p.Contains("XmlHttp") || (p == "/")))
