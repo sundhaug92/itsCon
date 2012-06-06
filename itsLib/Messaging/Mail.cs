@@ -15,9 +15,7 @@ namespace itsLib.Messaging
         {
             _Path = Path;
             _Session = Session;
-            WebResponse resp = _Session.GetHttpWebRequest(Path).GetResponse();
-            Document.Load(resp.GetResponseStream());
-            resp.Close();
+            HttpWebResponse resp = Session.GetDocument(Path);
         }
 
         public Mail(Session Session, uint Id, int FolderId)
