@@ -120,10 +120,8 @@ namespace itsLib
 
         public void Login(string Username, string Password)
         {
-            HttpWebRequest InitialLoginRequest = (HttpWebRequest)HttpWebRequest.Create(Properties.Settings.Default.urlBase + "/");
+            HttpWebRequest InitialLoginRequest = GetHttpWebRequest("/");
             Cookies.Add(new Cookie("login", "CustomerId=" + Customer.Id + "&LanguageId=0&ssl=True", "/", Properties.Settings.Default.urlBase.Substring("https://".Length)));
-            InitialLoginRequest.CookieContainer = Cookies;
-            InitialLoginRequest.UserAgent = UserAgent;
             HtmlDocument initialLoginScreen = new HtmlDocument();
             HttpWebResponse FirstResponse = (HttpWebResponse)InitialLoginRequest.GetResponse();
             initialLoginScreen.Load(FirstResponse.GetResponseStream());
@@ -138,42 +136,20 @@ namespace itsLib
             {
                 if (Form.GetAttributeValue("id", "") == "Form")
                 {
-                    Dictionary<string, string> NewLoginFormData = new Dictionary<string, string>();
-
-                    foreach (var inp in initialLoginScreen.DocumentNode.Descendants("input"))
-                    {
-                        if (!LoginFormData.ContainsKey(inp.GetAttributeValue("name", ""))) LoginFormData.Add(inp.GetAttributeValue("name", ""), inp.GetAttributeValue("value", ""));
-                    }
-                    foreach (var inp in LoginFormData)
-                    {
-                        NewLoginFormData.Add(inp.Key, WebUtility.UrlEncode(inp.Value));
-                    }
-                    LoginFormData = NewLoginFormData;
-                    string LoginUrl = Properties.Settings.Default.urlBase;
+                    string LoginUrl = "";
                     LoginUrl += Form.GetAttributeValue("action", "")[0] != '/' ? "/" + Form.GetAttributeValue("action", "") : Form.GetAttributeValue("action", "");
-                    HttpWebRequest secondRequest = (HttpWebRequest)HttpWebRequest.Create(LoginUrl);
-                    secondRequest.CookieContainer = Cookies;
-                    secondRequest.UserAgent = UserAgent;
-                    secondRequest.Method = "POST";
-                    secondRequest.ContentType = "application/x-www-form-urlencoded";
-                    string data = "";
-                    foreach (var inp in LoginFormData)
+                    foreach (HtmlNode Input in initialLoginScreen.DocumentNode.Descendants("input"))
                     {
-                        data += inp.Key + "=" + inp.Value + "&";
+                        if (!LoginFormData.ContainsKey(Input.GetAttributeValue("name", "")))
+                            LoginFormData.Add(Input.GetAttributeValue("name", ""), Input.GetAttributeValue("value", ""));
                     }
-                    if (data[data.Length - 1] == '&') data.Substring(0, data.Length - 1);
-                    secondRequest.ContentLength = System.Text.ASCIIEncoding.ASCII.GetByteCount(data);
-                    secondRequest.GetRequestStream().Write(System.Text.ASCIIEncoding.ASCII.GetBytes(data), 0, (int)secondRequest.ContentLength);
-                    HttpWebResponse loginResp = (HttpWebResponse)secondRequest.GetResponse();
+                    PostData(LoginUrl, LoginFormData);
 
-                    if ((loginResp.ResponseUri.PathAndQuery.Contains("StartUrl")))
-                    {
-                        _LoggedIn = true;
-                        _KeepAlive = new KeepAlive(this);
-                        _KeepAlive.Start();
-                        return;
-                    }
-                    loginResp.Close();
+                    _LoggedIn = true;
+                    _KeepAlive = new KeepAlive(this);
+                    _KeepAlive.Start();
+
+                    return;
                 }
                 throw new Exception("Login failed");
             }
@@ -183,6 +159,35 @@ namespace itsLib
         {
             GetHttpWebRequest("/log_out.aspx").GetResponse().Close();
             _LoggedIn = false;
+        }
+
+        public HtmlDocument PostData(string Path, Dictionary<string, string> Data)
+        {
+            Dictionary<string, string> _Data = new Dictionary<string, string>();
+            foreach (var inp in Data)
+            {
+                if (!_Data.ContainsKey(inp.Key)) _Data.Add(inp.Key, inp.Value);
+            }
+            string data = "";
+            foreach (var inp in _Data)
+            {
+                data += inp.Key + "=" + WebUtility.UrlEncode(inp.Value) + "&";
+            }
+            return PostDocument(Path, data, "application/x-www-form-urlencoded");
+        }
+
+        public HtmlDocument PostDocument(string Path, string Content, string ContentType)
+        {
+            HttpWebRequest secondRequest = GetHttpWebRequest(Path);
+            secondRequest.Method = "POST";
+            secondRequest.ContentType = ContentType;
+            secondRequest.ContentLength = System.Text.ASCIIEncoding.ASCII.GetByteCount(Content);
+            secondRequest.GetRequestStream().Write(System.Text.ASCIIEncoding.ASCII.GetBytes(Content), 0, (int)secondRequest.ContentLength);
+            HttpWebResponse loginResp = (HttpWebResponse)secondRequest.GetResponse();
+            HtmlDocument Document = new HtmlDocument();
+            Document.Load(loginResp.GetResponseStream());
+            loginResp.Close();
+            return Document;
         }
 
         protected virtual void Dispose(bool disposing)
