@@ -155,7 +155,7 @@ namespace itsLib
             }
         }
 
-        public void Logout()
+        public void Logout()  //Log out
         {
             GetHttpWebRequest("/log_out.aspx").GetResponse().Close();
             _LoggedIn = false;
@@ -176,7 +176,6 @@ namespace itsLib
             return PostDocument(Path, data, "application/x-www-form-urlencoded");
         }
 
-        //Log out
         public HtmlDocument PostDocument(string Path, string Content, string ContentType) //Post content to server
         {
             HttpWebRequest secondRequest = GetHttpWebRequest(Path);
