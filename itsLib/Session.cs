@@ -125,6 +125,7 @@ namespace itsLib
             HtmlDocument initialLoginScreen = new HtmlDocument();
             HttpWebResponse FirstResponse = (HttpWebResponse)InitialLoginRequest.GetResponse();
             initialLoginScreen.Load(FirstResponse.GetResponseStream());
+            FirstResponse.Close();
 
             Dictionary<string, string> LoginFormData = new Dictionary<string, string>();
 
