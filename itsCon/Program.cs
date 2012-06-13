@@ -147,19 +147,19 @@ namespace itsCon
                     }
                     if (orders[0] == "mail")
                     {
-                        if (orders[1] == "get-in-folder")
+                        if (orders[1] == "get-in-folder")       //Get mails in folder by id
                         {
                             itsLib.Messaging.MailBox mb = new itsLib.Messaging.MailBox(sess, int.Parse(orders[2]));
-                            Console.WriteLine("Messages in folder \"" + mb.Name + "\"");
-                            Mail[] mails = mb.GetMails();
+                            Console.WriteLine("Messages in folder \"" + mb.Name + "\"");    //Print folder name
+                            Mail[] mails = mb.GetMails();   //Get the mails in message folder
                             foreach (Mail Mail in mails)
                             {
-                                Console.Write("From: " + Mail.From.Name + "\t\t");
+                                Console.Write("From: " + Mail.From.Name + "\t\t");  //Output who sent the mail
                                 foreach (Person Person in Mail.To)
                                 {
-                                    if (Person != null) Console.Write(Person.Name + "\t\t");
+                                    if (Person != null) Console.Write(Person.Name + "\t\t"); //And all recipients
                                 }
-                                Console.WriteLine(Mail.Subject);
+                                Console.WriteLine(Mail.Subject);    //And lastly the subject
                             }
                         }
                     }
