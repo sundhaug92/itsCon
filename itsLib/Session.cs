@@ -118,10 +118,10 @@ namespace itsLib
             return hwr;
         }
 
-        public void Login(string Username, string Password)
+        public void Login(string Username, string Password) //Attempt log in
         {
             HttpWebRequest InitialLoginRequest = GetHttpWebRequest("/");
-            Cookies.Add(new Cookie("login", "CustomerId=" + Customer.Id + "&LanguageId=0&ssl=True", "/", Properties.Settings.Default.urlBase.Substring("https://".Length)));
+            Cookies.Add(new Cookie("login", "CustomerId=" + Customer.Id + "&LanguageId=0&ssl=True", "/", Properties.Settings.Default.urlBase.Substring("https://".Length))); //Create login-cookie
             HtmlDocument initialLoginScreen = new HtmlDocument();
             HttpWebResponse FirstResponse = (HttpWebResponse)InitialLoginRequest.GetResponse();
             initialLoginScreen.Load(FirstResponse.GetResponseStream());
@@ -161,7 +161,7 @@ namespace itsLib
             _LoggedIn = false;
         }
 
-        public HtmlDocument PostData(string Path, Dictionary<string, string> Data)
+        public HtmlDocument PostData(string Path, Dictionary<string, string> Data) //Post dictionary to server
         {
             Dictionary<string, string> _Data = new Dictionary<string, string>();
             foreach (var inp in Data)
@@ -176,7 +176,8 @@ namespace itsLib
             return PostDocument(Path, data, "application/x-www-form-urlencoded");
         }
 
-        public HtmlDocument PostDocument(string Path, string Content, string ContentType)
+        //Log out
+        public HtmlDocument PostDocument(string Path, string Content, string ContentType) //Post content to server
         {
             HttpWebRequest secondRequest = GetHttpWebRequest(Path);
             secondRequest.Method = "POST";
@@ -198,7 +199,7 @@ namespace itsLib
             }
         }
 
-        private void MakeHttpGetRequestGetCookies(string p)
+        private void MakeHttpGetRequestGetCookies(string p)//Get cookies set by the server when a get request to the path p
         {
             HttpWebResponse resp = (HttpWebResponse)GetHttpWebRequest(p).GetResponse();
             _Id = resp.Cookies["ASP.NET_SessionId"].Value;
