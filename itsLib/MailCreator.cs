@@ -4,8 +4,6 @@ namespace itsLib
 {
     internal class MailCreator
     {
-        public string Subject = "";
-
         public Person Bcc
         {
             get
@@ -15,6 +13,14 @@ namespace itsLib
         }
 
         public Person Cc
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string Subject
         {
             get
             {
