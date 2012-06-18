@@ -4,65 +4,15 @@ namespace itsLib
 {
     internal class MailCreator
     {
-        public Person Bcc
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public Person Bcc { get; set; }
 
-        public Person Cc
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public Person Cc { get; set; }
 
-        public string Subject
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public string Subject { get; set; }
 
-        public string Text
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public string Text { get; set; }
 
-        public Person To
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public Person To { get; set; }
 
         public void SendMessage()
         {
