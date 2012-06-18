@@ -5,6 +5,13 @@ namespace itsLib
 {
     public class MailCreator
     {
+        public MailCreator()
+        {
+            To = new List<Person>();
+            Cc = new List<Person>();
+            Bcc = new List<Person>();
+        }
+
         public List<Person> Bcc { get; set; }
 
         public List<Person> Cc { get; set; }
