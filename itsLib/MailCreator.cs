@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace itsLib
 {
-    internal class MailCreator
+    public class MailCreator
     {
         public Person[] Bcc { get; set; }
 
