@@ -4,15 +4,15 @@ namespace itsLib
 {
     internal class MailCreator
     {
-        public Person Bcc { get; set; }
+        public Person[] Bcc { get; set; }
 
-        public Person Cc { get; set; }
+        public Person[] Cc { get; set; }
 
         public string Subject { get; set; }
 
         public string Text { get; set; }
 
-        public Person To { get; set; }
+        public Person[] To { get; set; }
 
         public void SendMessage()
         {
