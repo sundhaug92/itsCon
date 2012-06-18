@@ -162,28 +162,69 @@ namespace itsCon
                                 Console.WriteLine(Mail.Subject);    //And lastly the subject
                             }
                         }
-                    }
-                    if (orders[0] == "bulletin")
-                    {
-                        if (orders[1] == "in-active")   //Get bulletin (by id) in the currently active context (project or course)
+                        if (orders[1] == "create")
                         {
-                            Bulletin[] bulletins;
-                            if (sess.ActiveContext.StartsWith("C")) bulletins = Bulletin.inCP(sess, new Course(sess, int.Parse(sess.ActiveContext.Substring(1))));
-                            else bulletins = Bulletin.inCP(sess, new Project(sess, uint.Parse(sess.ActiveContext.Substring(1))));
-                            foreach (Bulletin bulletin in bulletins)
+                            MailCreator NewMail = new MailCreator();
+                            do
                             {
-                                Console.WriteLine(bulletin.By.ShortName + ":" + bulletin.Title + ":" + bulletin.Text);
+                                Console.Write("To: ");
+                                order = Console.ReadLine().Trim();
+                                if (order != "") NewMail.To.Add(new Person(sess, uint.Parse(order)));
+                                else break;
+                                Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 1);
+                                Console.WriteLine("To: " + NewMail.To[NewMail.To.Count - 1].Name);
+                            } while (true);
+                            do
+                            {
+                                Console.Write("Cc: ");
+                                order = Console.ReadLine().Trim();
+                                if (order != "") NewMail.Cc.Add(new Person(sess, uint.Parse(order)));
+                                else break;
+                                Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 1);
+                                Console.WriteLine("Cc: " + NewMail.Cc[NewMail.Cc.Count - 1].Name);
+                            } while (true);
+                            do
+                            {
+                                Console.Write("Bcc: ");
+                                order = Console.ReadLine().Trim();
+                                if (order != "") NewMail.Bcc.Add(new Person(sess, uint.Parse(order)));
+                                else break;
+                                Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 1);
+                                Console.WriteLine("Bcc " + NewMail.Bcc[NewMail.Bcc.Count - 1].Name);
+                            } while (true);
+                            Console.Write("Subject: ");
+                            NewMail.Subject = Console.ReadLine();
+                            do
+                            {
+                                Console.Write("Text: ");
+                                order = Console.ReadLine();
+                                if (order != "") NewMail.Text += order + '\n'.ToString();
+                                else break;
+                            } while (true);
+                            NewMail.SendMessage(sess);
+                        }
+                        if (orders[0] == "bulletin")
+                        {
+                            if (orders[1] == "in-active")   //Get bulletin (by id) in the currently active context (project or course)
+                            {
+                                Bulletin[] bulletins;
+                                if (sess.ActiveContext.StartsWith("C")) bulletins = Bulletin.inCP(sess, new Course(sess, int.Parse(sess.ActiveContext.Substring(1))));
+                                else bulletins = Bulletin.inCP(sess, new Project(sess, uint.Parse(sess.ActiveContext.Substring(1))));
+                                foreach (Bulletin bulletin in bulletins)
+                                {
+                                    Console.WriteLine(bulletin.By.ShortName + ":" + bulletin.Title + ":" + bulletin.Text);
+                                }
                             }
                         }
-                    }
-                    if (orders[0] == "find-person")
-                    {
-                        if (orders[1] == "any")         //List all persons
+                        if (orders[0] == "find-person")
                         {
-                            PersonSearch ps = PersonSearch.GetAll(sess);
-                            foreach (Person Person in ps.Result)
+                            if (orders[1] == "any")         //List all persons
                             {
-                                Console.WriteLine(Person.Name);
+                                PersonSearch ps = PersonSearch.GetAll(sess);
+                                foreach (Person Person in ps.Result)
+                                {
+                                    Console.WriteLine(Person.Name);
+                                }
                             }
                         }
                     }
