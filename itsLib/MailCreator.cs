@@ -62,6 +62,7 @@ namespace itsLib
             MailData.Add("operationId", (1000).ToString());
             MailData.Add("id", (0).ToString());
             MailData.Add("text", Text);
+            MailData.Add("subject", Text);
             MailData.Add("files", "");
             MailData.Add("messageMeasurement", (2).ToString());
             MailData.Add("_", "");
