@@ -17,6 +17,7 @@ namespace itsLib
         private KeepAlive _KeepAlive;
         private bool _LoggedIn = false;
         private string _UserAgent = Properties.Settings.Default.UA_String;
+        private string _UserName;
 
         public Session()
         {
@@ -77,13 +78,22 @@ namespace itsLib
             }
         }
 
+        public string UserName
+        {
+            get
+            {
+                return _UserName;
+            }
+        }
+
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
-        public HtmlDocument GetDocument(string p)
+        //Get/set the UserAgent
+        public HtmlDocument GetDocument(string p)//Get HtmlDocument at path p
         {
             HtmlDocument Document = new HtmlDocument();
             HttpWebResponse hwr = (HttpWebResponse)GetHttpWebRequest(p).GetResponse();
@@ -92,6 +102,7 @@ namespace itsLib
             return Document;
         }
 
+        //Get the
         public HttpWebRequest GetHttpWebRequest(string p)
         {
             if (!(p.Contains("XmlHttp") || (p == "/")))
@@ -149,13 +160,14 @@ namespace itsLib
                     _LoggedIn = true;
                     _KeepAlive = new KeepAlive(this);
                     _KeepAlive.Start();
-
+                    _UserName = Username;
                     return;
                 }
                 throw new Exception("Login failed");
             }
         }
 
+        //Create a HttpRequest to the path p
         public void Logout()  //Log out
         {
             GetHttpWebRequest("/log_out.aspx").GetResponse().Close();

@@ -11,10 +11,12 @@ namespace itsLib
         private Customer _Customer;
         private uint _Id;
         private string _Name;
+        private HtmlDocument Personalia;
+        private Session sess;
 
         public Person(Session sess, uint Uid)
         {
-            HtmlDocument Personalia = sess.GetDocument("/Person/show_person.aspx?PersonId=" + Uid.ToString() + "&Customer=" + sess.Customer.Id);
+            Personalia = sess.GetDocument("/Person/show_person.aspx?PersonId=" + Uid.ToString() + "&Customer=" + sess.Customer.Id);
             string Name = (from v in Personalia.DocumentNode.Descendants("span") where v.Id == "ctl00_PageHeader_TT" select v.InnerText).First();
             if (Name.Contains('('))
             {
@@ -26,6 +28,7 @@ namespace itsLib
             this._Customer = sess.Customer;
             this._Name = Name;
             this._Id = Uid;
+            this.sess = sess;
         }
 
         public uint Id
@@ -46,6 +49,22 @@ namespace itsLib
             get
             {
                 return new Uri("http://files.itslearning.com/data/" + this._Customer.Id.ToString() + "/" + _Id.ToString());
+            }
+        }
+
+        public string ShortName
+        {
+            get
+            {
+                var _shortname = "";
+                var ShortNames = (from node in Personalia.DocumentNode.DescendantNodes() where node.GetAttributeValue("onclick", "").Contains("messages/sendmessage.aspx") select node.GetAttributeValue("onclick", "").Substring(node.GetAttributeValue("onclick", "").IndexOf("TextTo=") + "TextTo=".Length));
+                if (ShortNames.Count() > 0) _shortname = ShortNames.First().Substring(0, ShortNames.First().Length - 2);
+                else if (_Id == sess.Me.Id)
+                {
+                    _shortname = sess.UserName;
+                }
+
+                return _shortname;
             }
         }
 
