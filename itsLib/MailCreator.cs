@@ -10,11 +10,19 @@ namespace itsLib
             {
                 throw new NotImplementedException();
             }
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public Person Cc
         {
             get
+            {
+                throw new NotImplementedException();
+            }
+            set
             {
                 throw new NotImplementedException();
             }
@@ -26,6 +34,10 @@ namespace itsLib
             {
                 throw new NotImplementedException();
             }
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public string Text
@@ -34,11 +46,19 @@ namespace itsLib
             {
                 throw new NotImplementedException();
             }
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public Person To
         {
             get
+            {
+                throw new NotImplementedException();
+            }
+            set
             {
                 throw new NotImplementedException();
             }
