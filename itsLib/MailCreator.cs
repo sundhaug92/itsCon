@@ -14,7 +14,7 @@ namespace itsLib
 
         public Person[] To { get; set; }
 
-        public void SendMessage()
+        public void SendMessage(Session Session)
         {
             /*
              * /XmlHttp/Api.aspx?Function=MessagingValidateRecipients
