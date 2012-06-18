@@ -5,15 +5,15 @@ namespace itsLib
 {
     public class MailCreator
     {
-        public Person[] Bcc { get; set; }
+        public List<Person> Bcc { get; set; }
 
-        public Person[] Cc { get; set; }
+        public List<Person> Cc { get; set; }
 
         public string Subject { get; set; }
 
         public string Text { get; set; }
 
-        public Person[] To { get; set; }
+        public List<Person> To { get; set; }
 
         public void SendMessage(Session Session)
         {
