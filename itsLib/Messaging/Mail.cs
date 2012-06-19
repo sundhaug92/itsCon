@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -52,14 +53,14 @@ namespace itsLib.Messaging
             }
         }
 
-        public Person[] To
+        public List<Person> To
         {
             get
             {
                 var Description = (from node in Document.DocumentNode.DescendantNodes() where node.Name == "table" && node.GetAttributeValue("class", "") == "description" select node).First();
                 var recipientList = (from node in Description.DescendantNodes() where node.Name == "td" select node.InnerText).ToArray()[1];
                 string[] Names = recipientList.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-                Person[] r = new Person[Names.Length];
+                List<Person> r = new List<Person>(Names.Length);
                 int i = 0;
                 foreach (string s in Names)
                 {
