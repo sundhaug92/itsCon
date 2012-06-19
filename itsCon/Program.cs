@@ -78,7 +78,7 @@ namespace itsCon
             sess.Login(Username, Password); //Login
 
             Person Me = itsLib.Person.Me(sess);     //Who am I?
-            Console.WriteLine("Welcome, " + Me.Name);//Print my name
+            Console.WriteLine("Welcome, " + Me.Name + "!");//Print my name
 
             while (true) //Until the user exits
             {
