@@ -64,6 +64,9 @@ namespace itsLib.Messaging
                 int i = 0;
                 foreach (string s in Names)
                 {
+                    PersonSearch PS = new PersonSearch(_Session, s.Substring(0, s.LastIndexOf(' ') - 1), s.Substring(s.LastIndexOf(' ') + 1));
+                    if (PS.Result.Count() == 0) throw new Exception("Person \"" + s + "\" not found");
+                    r.Add(PS.Result[0]);
                     //r[i++] = new Person(_Session.Customer, s.Trim());
                     //Get Person id!
                 }

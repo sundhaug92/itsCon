@@ -97,7 +97,7 @@ namespace itsLib.Messaging
             List<Mail> Mails = new List<Mail>(Nodes.Count());
             foreach (var v in Nodes)
             {
-                Mails[int.Parse(v.GetAttributeValue("id", "").Substring("_table_".Length)) - 1] = new Mail(Session, uint.Parse(v.ChildNodes[5].GetAttributeValue("onclick", "").Split(new string[] { "'" }, StringSplitOptions.RemoveEmptyEntries)[1]), MessageFolderId);
+                Mails.Add(new Mail(Session, uint.Parse(v.ChildNodes[5].GetAttributeValue("onclick", "").Split(new string[] { "'" }, StringSplitOptions.RemoveEmptyEntries)[1]), MessageFolderId));
             }
             return Mails;
         }
