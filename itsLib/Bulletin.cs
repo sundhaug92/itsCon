@@ -25,10 +25,7 @@ namespace itsLib
             get
             {
                 Parent.setActive();
-                HtmlDocument Document = new HtmlDocument();
-                WebResponse resp = Session.GetHttpWebRequest("/Bulletin/View.aspx?BulletinId=" + Id.ToString() + "&LocationType=2").GetResponse();
-                Document.Load(resp.GetResponseStream());
-                resp.Close();
+                HtmlDocument Document = Session.GetDocument("/Bulletin/View.aspx?BulletinId=" + Id.ToString() + "&LocationType=2");
                 var nodesWithJSOnclick = from node in Document.DocumentNode.DescendantNodes() where node.GetAttributeValue("onclick", "").StartsWith("javascript:") select node;
                 var nodesWithJSOnclickToPersons = from node in nodesWithJSOnclick where node.GetAttributeValue("onclick", "").StartsWith("javascript:window.open('/Person/show_person.aspx") select node;
                 return new Person(Session, uint.Parse(nodesWithJSOnclickToPersons.First().GetAttributeValue("onclick", "").Substring("javascript:window.open('/Person/show_person.aspx?".Length).Split(new char[] { '=', '&' })[1]));
