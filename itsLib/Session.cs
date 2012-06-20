@@ -132,12 +132,8 @@ namespace itsLib
 
         public void Login(string Username, string Password) //Attempt log in
         {
-            HttpWebRequest InitialLoginRequest = GetHttpWebRequest("/");
             Cookies.Add(new Cookie("login", "CustomerId=" + Customer.Id + "&LanguageId=0&ssl=True", "/", Properties.Settings.Default.urlBase.Substring("https://".Length))); //Create login-cookie
-            HtmlDocument initialLoginScreen = new HtmlDocument();
-            HttpWebResponse FirstResponse = (HttpWebResponse)InitialLoginRequest.GetResponse();
-            initialLoginScreen.Load(FirstResponse.GetResponseStream());
-            FirstResponse.Close();
+            HtmlDocument initialLoginScreen = GetDocument("/");
 
             Dictionary<string, string> LoginFormData = new Dictionary<string, string>();
 
