@@ -132,12 +132,8 @@ namespace itsLib
 
         public void Login(string Username, string Password) //Attempt log in
         {
-            HttpWebRequest InitialLoginRequest = GetHttpWebRequest("/");
             Cookies.Add(new Cookie("login", "CustomerId=" + Customer.Id + "&LanguageId=0&ssl=True", "/", Properties.Settings.Default.urlBase.Substring("https://".Length))); //Create login-cookie
-            HtmlDocument initialLoginScreen = new HtmlDocument();
-            HttpWebResponse FirstResponse = (HttpWebResponse)InitialLoginRequest.GetResponse();
-            initialLoginScreen.Load(FirstResponse.GetResponseStream());
-            FirstResponse.Close();
+            HtmlDocument initialLoginScreen = GetDocument("/");
 
             Dictionary<string, string> LoginFormData = new Dictionary<string, string>();
 
@@ -186,7 +182,7 @@ namespace itsLib
             Encoding targetEncoding = Encoding.GetEncoding("ISO-8859-1");
             foreach (var inp in _Data)
             {
-                data += inp.Key + "=" + HttpUtility.UrlEncode(inp.Value, targetEncoding) + "&";
+                data += HttpUtility.UrlEncode(inp.Key, targetEncoding) + "=" + HttpUtility.UrlEncode(inp.Value, targetEncoding) + "&";
             }
             return PostDocument(Path, data, "application/x-www-form-urlencoded");
         }
