@@ -40,35 +40,11 @@ namespace itsLib
             {
                 if (Form.GetAttributeValue("name", "") == "form")
                 {
-                    Dictionary<string, string> NewLoginFormData = new Dictionary<string, string>();
-
                     foreach (var inp in initialLoginScreen.DocumentNode.Descendants("input"))
                     {
                         if (!LoginFormData.ContainsKey(inp.GetAttributeValue("name", ""))) LoginFormData.Add(inp.GetAttributeValue("name", ""), inp.GetAttributeValue("value", ""));
                     }
-                    foreach (var inp in LoginFormData)
-                    {
-                        NewLoginFormData.Add(inp.Key, WebUtility.UrlEncode(inp.Value));
-                    }
-                    LoginFormData = NewLoginFormData;
-                    string LoginUrl = Properties.Settings.Default.urlBase + "/search/search_person.aspx";
-                    LoginUrl += Form.GetAttributeValue("action", "")[0] != '/' ? "/" + Form.GetAttributeValue("action", "") : Form.GetAttributeValue("action", "");
-                    HttpWebRequest secondRequest = Session.GetHttpWebRequest("/search/search_person.aspx");
-                    secondRequest.Method = "POST";
-                    secondRequest.ContentType = "application/x-www-form-urlencoded";
-                    string data = "";
-                    foreach (var inp in LoginFormData)
-                    {
-                        data += inp.Key + "=" + inp.Value + "&";
-                    }
-                    if (data[data.Length - 1] == '&') data.Substring(0, data.Length - 1);
-                    secondRequest.ContentLength = System.Text.ASCIIEncoding.ASCII.GetByteCount(data);
-                    secondRequest.GetRequestStream().Write(System.Text.ASCIIEncoding.ASCII.GetBytes(data), 0, (int)secondRequest.ContentLength);
-                    HttpWebResponse loginResp = (HttpWebResponse)secondRequest.GetResponse();
-
-                    HtmlDocument doc = new HtmlDocument();
-                    doc.Load(loginResp.GetResponseStream());
-                    loginResp.Close();
+                    HtmlDocument doc = Session.PostData("/search/search_person.aspx", LoginFormData);
                     _Result = new List<Person>(10);
                     foreach (var row in (from element in doc.DocumentNode.DescendantNodes() where element.GetAttributeValue("id", "").StartsWith("row_") select element))
                     {
