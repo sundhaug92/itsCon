@@ -45,11 +45,7 @@ namespace itsLib.Messaging
         {
             set
             {
-                HttpWebRequest hwr = Session.GetHttpWebRequest("/Messages/InternalMessages.aspx?MessageFolderId=" + MessageFolderId.ToString());
-                HttpWebResponse resp = (HttpWebResponse)hwr.GetResponse();
-                HtmlDocument doc = new HtmlDocument();
-                doc.Load(resp.GetResponseStream());
-                resp.Close();
+                HtmlDocument doc = Session.GetDocument("/Messages/InternalMessages.aspx?MessageFolderId=" + MessageFolderId.ToString());
                 Dictionary<string, string> FormData = new Dictionary<string, string>();
 
                 FormData.Add("__EVENTTARGET", "_table$4:Pagesize:" + value.ToString());
