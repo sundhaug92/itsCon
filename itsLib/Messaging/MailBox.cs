@@ -51,6 +51,11 @@ namespace itsLib.Messaging
                 doc.Load(resp.GetResponseStream());
                 resp.Close();
                 Dictionary<string, string> FormData = new Dictionary<string, string>();
+
+                FormData.Add("__EVENTTARGET", "_table$4:Pagesize:" + value.ToString());
+                FormData.Add("__EVENTARGUMENT", "");
+                FormData.Add("_table$4:Pagesize:", value.ToString());
+
                 foreach (var Form in doc.DocumentNode.Descendants("form"))
                 {
                     if (Form.GetAttributeValue("id", "") == "ctl03")
