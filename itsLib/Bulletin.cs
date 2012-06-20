@@ -37,10 +37,7 @@ namespace itsLib
             get
             {
                 Parent.setActive();
-                HtmlDocument Document = new HtmlDocument();
-                WebResponse resp = Session.GetHttpWebRequest("/Bulletin/View.aspx?BulletinId=" + Id.ToString() + "&LocationType=2").GetResponse();
-                Document.Load(resp.GetResponseStream());
-                resp.Close();
+                HtmlDocument Document = Session.GetDocument("/Bulletin/View.aspx?BulletinId=" + Id.ToString() + "&LocationType=2");
                 try
                 {
                     var userinput = from node in Document.DocumentNode.DescendantNodes() where node.GetAttributeValue("class", "") == "userinput" && node.Name == "div" select node;
@@ -56,10 +53,7 @@ namespace itsLib
             get
             {
                 Parent.setActive();
-                HtmlDocument Document = new HtmlDocument();
-                WebResponse resp = Session.GetHttpWebRequest("/Bulletin/View.aspx?BulletinId=" + Id.ToString() + "&LocationType=2").GetResponse();
-                Document.Load(resp.GetResponseStream());
-                resp.Close();
+                HtmlDocument Document = Session.GetDocument("/Bulletin/View.aspx?BulletinId=" + Id.ToString() + "&LocationType=2");
                 try
                 {
                     var ctl05_TT = from node in Document.DocumentNode.DescendantNodes() where node.GetAttributeValue("id", "") == "ctl05_TT" && node.Name == "span" select node;
@@ -78,10 +72,7 @@ namespace itsLib
         public static List<Bulletin> inCP(Session Session, ICourseProjectCommons Parent)
         {
             string path = Parent.getDashboardPath();
-            HtmlDocument Document = new HtmlDocument();
-            WebResponse resp = Session.GetHttpWebRequest(path).GetResponse();
-            Document.Load(resp.GetResponseStream());
-            resp.Close();
+            HtmlDocument Document = Session.GetDocument(path);
             var nodesWithHrefToBulletin = from node in Document.DocumentNode.DescendantNodes() where node.Name == "a" && node.GetAttributeValue("href", "").Contains("/Bulletin/View") select node.GetAttributeValue("href", "");
             List<Bulletin> Bulletins = new List<Bulletin>(nodesWithHrefToBulletin.Count());
             int i = 0;
