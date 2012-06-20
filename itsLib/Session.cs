@@ -186,7 +186,7 @@ namespace itsLib
             Encoding targetEncoding = Encoding.GetEncoding("ISO-8859-1");
             foreach (var inp in _Data)
             {
-                data += inp.Key + "=" + HttpUtility.UrlEncode(inp.Value, targetEncoding) + "&";
+                data += HttpUtility.UrlEncode(inp.Key, targetEncoding) + "=" + HttpUtility.UrlEncode(inp.Value, targetEncoding) + "&";
             }
             return PostDocument(Path, data, "application/x-www-form-urlencoded");
         }
