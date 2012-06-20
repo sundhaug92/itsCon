@@ -59,9 +59,7 @@ namespace itsLib.Messaging
         public List<Mail> GetMails()
         {
             Pagesize = 50; //Set Pagesize to a sensible, low value
-            HttpWebResponse resp = (HttpWebResponse)Session.GetHttpWebRequest("/Messages/InternalMessages.aspx?MessageFolderId=" + MessageFolderId).GetResponse();
-            HtmlDocument Document = new HtmlDocument();
-            Document.Load(resp.GetResponseStream());
+            HtmlDocument Document = Session.GetDocument("/Messages/InternalMessages.aspx?MessageFolderId=" + MessageFolderId);
             var Nodes = from m in Document.DocumentNode.DescendantNodes() where (m.Name == "tr") && (m.GetAttributeValue("id", "").StartsWith("_table_")) && (m.GetAttributeValue("id", "") != "_table_0") select m;
             List<Mail> Mails = new List<Mail>(Nodes.Count());
             foreach (var v in Nodes)
