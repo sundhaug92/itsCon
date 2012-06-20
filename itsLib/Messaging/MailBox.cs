@@ -21,23 +21,13 @@ namespace itsLib.Messaging
         {
             get
             {
-                HttpWebRequest hwr = Session.GetHttpWebRequest("/Messages/InternalMessages.aspx?MessageFolderId=" + MessageFolderId);
-                HttpWebResponse resp = (HttpWebResponse)hwr.GetResponse();
-                HtmlDocument Doc = new HtmlDocument();
-                try
+                HtmlDocument Doc = Session.GetDocument("/Messages/InternalMessages.aspx?MessageFolderId=" + MessageFolderId);
+                foreach (var v in Doc.DocumentNode.DescendantNodes())
                 {
-                    Doc.Load(resp.GetResponseStream());
-                    foreach (var v in Doc.DocumentNode.DescendantNodes())
-                    {
-                        if (v.Name != "span") continue;
-                        if (v.Id == "ctl05_TT") return v.InnerText;
-                    }
-                    return "";
+                    if (v.Name != "span") continue;
+                    if (v.Id == "ctl05_TT") return v.InnerText;
                 }
-                finally
-                {
-                    resp.Close();
-                }
+                return "";
             }
         }
 
