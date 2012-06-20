@@ -87,17 +87,17 @@ namespace itsLib.Messaging
             }
         }
 
-        public Mail[] GetMails()
+        public List<Mail> GetMails()
         {
             //Pagesize = 50; //Set Pagesize to a sensible, low value
             HttpWebResponse resp = (HttpWebResponse)Session.GetHttpWebRequest("/Messages/InternalMessages.aspx?MessageFolderId=" + MessageFolderId).GetResponse();
             HtmlDocument Document = new HtmlDocument();
             Document.Load(resp.GetResponseStream());
             var Nodes = from m in Document.DocumentNode.DescendantNodes() where (m.Name == "tr") && (m.GetAttributeValue("id", "").StartsWith("_table_")) && (m.GetAttributeValue("id", "") != "_table_0") select m;
-            Mail[] Mails = new Mail[Nodes.Count()];
+            List<Mail> Mails = new List<Mail>(Nodes.Count());
             foreach (var v in Nodes)
             {
-                Mails[uint.Parse(v.GetAttributeValue("id", "").Substring("_table_".Length)) - 1] = new Mail(Session, uint.Parse(v.ChildNodes[5].GetAttributeValue("onclick", "").Split(new string[] { "'" }, StringSplitOptions.RemoveEmptyEntries)[1]), MessageFolderId);
+                Mails.Add(new Mail(Session, uint.Parse(v.ChildNodes[5].GetAttributeValue("onclick", "").Split(new string[] { "'" }, StringSplitOptions.RemoveEmptyEntries)[1]), MessageFolderId));
             }
             return Mails;
         }

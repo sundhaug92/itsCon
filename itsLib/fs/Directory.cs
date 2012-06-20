@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -47,15 +48,15 @@ namespace itsLib.fs
             }
         }
 
-        public Directory[] Subdirectories()
+        public List<Directory> Subdirectories()
         {
             HtmlDocument Document = new HtmlDocument();
             WebResponse resp = Session.GetHttpWebRequest("/Folder/process_folder.aspx?FolderID=" + _Id.ToString()).GetResponse();
             Document.Load(resp.GetResponseStream());
             resp.Close();
             var nodesWithHrefToDirectory = from node in Document.DocumentNode.DescendantNodes() where node.Name == "a" && node.GetAttributeValue("href", "").Contains("/Folder/process_folder.aspx") select node.GetAttributeValue("href", "");
-            Directory[] Subdirectories = new Directory[nodesWithHrefToDirectory.Count()];
-            uint i = 0;
+            List<Directory> Subdirectories = new List<Directory>(nodesWithHrefToDirectory.Count());
+            int i = 0;
             foreach (string relPath in nodesWithHrefToDirectory)
             {
                 Uri uri = relPath.StartsWith("/") ? new Uri(Properties.Settings.Default.urlBase + relPath) : new Uri(relPath);
