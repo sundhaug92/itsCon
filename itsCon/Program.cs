@@ -203,28 +203,28 @@ namespace itsCon
                             } while (true);
                             NewMail.SendMessage(sess);
                         }
-                        if (orders[0] == "bulletin")
+                    }
+                    if (orders[0] == "bulletin")
+                    {
+                        if (orders[1] == "in-active")   //Get bulletin (by id) in the currently active context (project or course)
                         {
-                            if (orders[1] == "in-active")   //Get bulletin (by id) in the currently active context (project or course)
+                            List<Bulletin> bulletins;
+                            if (sess.ActiveContext.StartsWith("C")) bulletins = Bulletin.inCP(sess, new Course(sess, int.Parse(sess.ActiveContext.Substring(1))));
+                            else bulletins = Bulletin.inCP(sess, new Project(sess, uint.Parse(sess.ActiveContext.Substring(1))));
+                            foreach (Bulletin bulletin in bulletins)
                             {
-                                List<Bulletin> bulletins;
-                                if (sess.ActiveContext.StartsWith("C")) bulletins = Bulletin.inCP(sess, new Course(sess, int.Parse(sess.ActiveContext.Substring(1))));
-                                else bulletins = Bulletin.inCP(sess, new Project(sess, uint.Parse(sess.ActiveContext.Substring(1))));
-                                foreach (Bulletin bulletin in bulletins)
-                                {
-                                    Console.WriteLine(bulletin.By.ShortName + ":" + bulletin.Title + ":" + bulletin.Text);
-                                }
+                                Console.WriteLine(bulletin.By.ShortName + ":" + bulletin.Title + ":" + bulletin.Text);
                             }
                         }
-                        if (orders[0] == "find-person")
+                    }
+                    if (orders[0] == "find-person")
+                    {
+                        if (orders[1] == "any")         //List all persons
                         {
-                            if (orders[1] == "any")         //List all persons
+                            PersonSearch ps = PersonSearch.GetAll(sess);
+                            foreach (Person Person in ps.Result)
                             {
-                                PersonSearch ps = PersonSearch.GetAll(sess);
-                                foreach (Person Person in ps.Result)
-                                {
-                                    Console.WriteLine(Person.Name);
-                                }
+                                Console.WriteLine(Person.Name);
                             }
                         }
                     }
