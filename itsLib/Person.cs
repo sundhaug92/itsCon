@@ -26,7 +26,7 @@ namespace itsLib
             string Forename = Name.Substring(Name.IndexOf(", ") + ", ".Length);
             string Surname = Name.Substring(0, Name.IndexOf(", "));
             this._Customer = sess.Customer;
-            this._Name = Name;
+            this._Name = Forename + " " + Surname;
             this._Id = Uid;
             this.sess = sess;
         }

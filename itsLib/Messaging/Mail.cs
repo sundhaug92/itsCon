@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Web;
 using HtmlAgilityPack;
 
 namespace itsLib.Messaging
@@ -47,21 +49,25 @@ namespace itsLib.Messaging
             get
             {
                 var titles = from node in Document.DocumentNode.DescendantNodes() where node.Name == "span" && node.GetAttributeValue("id", "") == "ctl05_TT" select node;
-                return titles.First().InnerText;
+                return HttpUtility.HtmlDecode(titles.First().InnerText);
             }
         }
 
-        public Person[] To
+        public List<Person> To
         {
             get
             {
                 var Description = (from node in Document.DocumentNode.DescendantNodes() where node.Name == "table" && node.GetAttributeValue("class", "") == "description" select node).First();
                 var recipientList = (from node in Description.DescendantNodes() where node.Name == "td" select node.InnerText).ToArray()[1];
-                string[] Names = recipientList.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-                Person[] r = new Person[Names.Length];
+                string[] _Names = recipientList.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries), Names = new string[_Names.Length];
                 int i = 0;
+                foreach (string s in _Names) { Names[i++] = s.Trim(); }
+                List<Person> r = new List<Person>(Names.Length);
                 foreach (string s in Names)
                 {
+                    PersonSearch PS = new PersonSearch(_Session, s.Substring(0, s.LastIndexOf(' ')), s.Substring(s.LastIndexOf(' ') + 1));
+                    if (PS.Result.Count() == 0) throw new Exception("Person \"" + s + "\" not found");
+                    r.Add(PS.Result[0]);
                     //r[i++] = new Person(_Session.Customer, s.Trim());
                     //Get Person id!
                 }

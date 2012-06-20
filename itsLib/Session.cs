@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Net;
+using System.Text;
 using System.Web;
 using HtmlAgilityPack;
 
@@ -182,9 +183,10 @@ namespace itsLib
                 if (!_Data.ContainsKey(inp.Key)) _Data.Add(inp.Key, inp.Value);
             }
             string data = "";
+            Encoding targetEncoding = Encoding.GetEncoding("ISO-8859-1");
             foreach (var inp in _Data)
             {
-                data += inp.Key + "=" + WebUtility.UrlEncode(inp.Value) + "&";
+                data += inp.Key + "=" + HttpUtility.UrlEncode(inp.Value, targetEncoding) + "&";
             }
             return PostDocument(Path, data, "application/x-www-form-urlencoded");
         }

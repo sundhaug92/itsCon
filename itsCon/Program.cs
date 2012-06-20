@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Collections.Generic;
 using itsLib;
 using itsLib.Messaging;
 
@@ -78,7 +78,7 @@ namespace itsCon
             sess.Login(Username, Password); //Login
 
             Person Me = itsLib.Person.Me(sess);     //Who am I?
-            Console.WriteLine("Welcome, " + Me.Name);//Print my name
+            Console.WriteLine("Welcome, " + Me.Name + "!");//Print my name
 
             while (true) //Until the user exits
             {
@@ -151,7 +151,7 @@ namespace itsCon
                         {
                             itsLib.Messaging.MailBox mb = new itsLib.Messaging.MailBox(sess, int.Parse(orders[2]));
                             Console.WriteLine("Messages in folder \"" + mb.Name + "\"");    //Print folder name
-                            Mail[] mails = mb.GetMails();   //Get the mails in message folder
+                            List<Mail> mails = mb.GetMails();   //Get the mails in message folder
                             foreach (Mail Mail in mails)
                             {
                                 Console.Write("From: " + Mail.From.ShortName + "\t\t");  //Output who sent the mail
@@ -207,7 +207,7 @@ namespace itsCon
                         {
                             if (orders[1] == "in-active")   //Get bulletin (by id) in the currently active context (project or course)
                             {
-                                Bulletin[] bulletins;
+                                List<Bulletin> bulletins;
                                 if (sess.ActiveContext.StartsWith("C")) bulletins = Bulletin.inCP(sess, new Course(sess, int.Parse(sess.ActiveContext.Substring(1))));
                                 else bulletins = Bulletin.inCP(sess, new Project(sess, uint.Parse(sess.ActiveContext.Substring(1))));
                                 foreach (Bulletin bulletin in bulletins)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -72,12 +73,12 @@ namespace itsLib
             }
         }
 
-        public static Bulletin[] inCourse(Session Session, Course Course)
+        public static List<Bulletin> inCourse(Session Session, Course Course)
         {
             return inCP(Session, Course);
         }
 
-        public static Bulletin[] inCP(Session Session, ICourseProjectCommons Parent)
+        public static List<Bulletin> inCP(Session Session, ICourseProjectCommons Parent)
         {
             string path = Parent.getDashboardPath();
             HtmlDocument Document = new HtmlDocument();
@@ -85,7 +86,7 @@ namespace itsLib
             Document.Load(resp.GetResponseStream());
             resp.Close();
             var nodesWithHrefToBulletin = from node in Document.DocumentNode.DescendantNodes() where node.Name == "a" && node.GetAttributeValue("href", "").Contains("/Bulletin/View") select node.GetAttributeValue("href", "");
-            Bulletin[] Bulletins = new Bulletin[nodesWithHrefToBulletin.Count()];
+            List<Bulletin> Bulletins = new List<Bulletin>(nodesWithHrefToBulletin.Count());
             int i = 0;
             foreach (string uri_string in nodesWithHrefToBulletin)
             {
@@ -95,7 +96,7 @@ namespace itsLib
             return Bulletins;
         }
 
-        public static Bulletin[] inProject(Session Session, Project Project)
+        public static List<Bulletin> inProject(Session Session, Project Project)
         {
             return inCP(Session, Project);
         }
