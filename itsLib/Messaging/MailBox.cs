@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using HtmlAgilityPack;
 
 namespace itsLib.Messaging
@@ -61,10 +63,17 @@ namespace itsLib.Messaging
             Pagesize = uint.MaxValue; //Set Pagesize as high as possible (to get all messages)
             HtmlDocument Document = Session.GetDocument("/Messages/InternalMessages.aspx?MessageFolderId=" + MessageFolderId);
             var Nodes = from m in Document.DocumentNode.DescendantNodes() where (m.Name == "tr") && (m.GetAttributeValue("id", "").StartsWith("_table_")) && (m.GetAttributeValue("id", "") != "_table_0") select m;
+
+            ConcurrentBag<Mail> _Mails = new ConcurrentBag<Mail>();
+            Parallel.ForEach(Nodes, (v) =>
+                {
+                    _Mails.Add(new Mail(Session, uint.Parse(v.ChildNodes[5].GetAttributeValue("onclick", "").Split(new string[] { "'" }, StringSplitOptions.RemoveEmptyEntries)[1]), MessageFolderId));
+                });
+
             List<Mail> Mails = new List<Mail>(Nodes.Count());
-            foreach (var v in Nodes)
+            foreach (var v in _Mails)
             {
-                Mails.Add(new Mail(Session, uint.Parse(v.ChildNodes[5].GetAttributeValue("onclick", "").Split(new string[] { "'" }, StringSplitOptions.RemoveEmptyEntries)[1]), MessageFolderId));
+                Mails.Add(v);
             }
             return Mails;
         }
