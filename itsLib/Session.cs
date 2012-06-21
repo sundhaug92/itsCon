@@ -124,8 +124,8 @@ namespace itsLib
             HttpWebRequest hwr = (HttpWebRequest)HttpWebRequest.Create(uri);
             hwr.UserAgent = UserAgent;
 
-            hwr.Timeout = 60 * 1000;
-            hwr.ContinueTimeout = 60 * 1000;
+            hwr.Timeout = 60 * 60 * 1000;
+            hwr.ContinueTimeout = 60 * 60 * 1000;
             hwr.CookieContainer = Cookies;
             return hwr;
         }
