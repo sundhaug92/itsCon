@@ -10,7 +10,7 @@ namespace itsLib
     {
         private Customer _Customer;
         private uint _Id;
-        private string _Name;
+        private string _Name = "Unknown Unkown";
         private System.Threading.Thread LoadingPersonaliaThread;
         private HtmlDocument Personalia;
         private Session sess;
@@ -20,6 +20,7 @@ namespace itsLib
             this._Id = Uid;
             this.sess = sess;
             LoadingPersonaliaThread = new System.Threading.Thread(LoadPersonalia);
+            if (Uid == 0) return;
             LoadingPersonaliaThread.Start();
         }
 
@@ -75,6 +76,11 @@ namespace itsLib
             Uri user_info_Uri = new Uri(Properties.Settings.Default.urlBase + e.First());
             Uid = uint.Parse(HttpUtility.ParseQueryString(user_info_Uri.Query).Get("PersonId"));
             return new Person(sess, Uid);
+        }
+
+        public static Person Nobody(Session sess)
+        {
+            return new Person(sess, 0);
         }
 
         public void LoadPersonalia()
