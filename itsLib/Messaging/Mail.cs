@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using HtmlAgilityPack;
 
@@ -63,11 +65,16 @@ namespace itsLib.Messaging
                 int i = 0;
                 foreach (string s in _Names) { Names[i++] = s.Trim(); }
                 List<Person> r = new List<Person>(Names.Length);
-                foreach (string s in Names)
+                ConcurrentBag<Person> _r = new ConcurrentBag<Person>();
+                Parallel.ForEach(Names, (s) =>
                 {
                     PersonSearch PS = new PersonSearch(_Session, s.Substring(0, s.LastIndexOf(' ')), s.Substring(s.LastIndexOf(' ') + 1));
-                    if (PS.Result.Count() == 0) r.Add(Person.Nobody(_Session));
-                    else r.Add(PS.Result[0]);
+                    if (PS.Result.Count() == 0) _r.Add(Person.Nobody(_Session));
+                    else _r.Add(PS.Result[0]);
+                });
+                foreach (Person p in _r)
+                {
+                    r.Add(p);
                 }
                 return r;
             }
