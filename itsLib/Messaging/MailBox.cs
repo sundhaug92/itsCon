@@ -64,16 +64,19 @@ namespace itsLib.Messaging
             HtmlDocument Document = Session.GetDocument("/Messages/InternalMessages.aspx?MessageFolderId=" + MessageFolderId);
             var Nodes = from m in Document.DocumentNode.DescendantNodes() where (m.Name == "tr") && (m.GetAttributeValue("id", "").StartsWith("_table_")) && (m.GetAttributeValue("id", "") != "_table_0") select m;
 
-            ConcurrentBag<Mail> _Mails = new ConcurrentBag<Mail>();
+            ConcurrentDictionary<uint, Mail> _Mails = new ConcurrentDictionary<uint, Mail>();
             Parallel.ForEach(Nodes, (v) =>
                 {
-                    _Mails.Add(new Mail(Session, uint.Parse(v.ChildNodes[5].GetAttributeValue("onclick", "").Split(new string[] { "'" }, StringSplitOptions.RemoveEmptyEntries)[1]), MessageFolderId));
+                    _Mails.AddOrUpdate(
+                        uint.Parse(v.GetAttributeValue("id", "").Substring("_table_".Length)),
+                        new Mail(Session, uint.Parse(v.ChildNodes[5].GetAttributeValue("onclick", "").Split(new string[] { "'" }, StringSplitOptions.RemoveEmptyEntries)[1]), MessageFolderId),
+                        (key, oldValue) => oldValue);
                 });
 
             List<Mail> Mails = new List<Mail>(Nodes.Count());
             foreach (var v in _Mails)
             {
-                Mails.Add(v);
+                Mails.Add(v.Value);
             }
             return Mails;
         }
