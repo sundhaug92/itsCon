@@ -33,7 +33,7 @@ namespace itsLib.Messaging
             }
         }
 
-        public uint Pagesize
+        public int Pagesize
         {
             set
             {
@@ -59,7 +59,7 @@ namespace itsLib.Messaging
 
         public List<Mail> GetMails()
         {
-            Pagesize = uint.MaxValue; //Set Pagesize as high as possible (to get all messages)
+            Pagesize = int.MaxValue; //Set Pagesize as high as possible (to get all messages)
             HtmlDocument Document = Session.GetDocument("/Messages/InternalMessages.aspx?MessageFolderId=" + MessageFolderId);
             var Nodes = from m in Document.DocumentNode.DescendantNodes() where (m.Name == "tr") && (m.GetAttributeValue("id", "").StartsWith("_table_")) && (m.GetAttributeValue("id", "") != "_table_0") select m;
 
