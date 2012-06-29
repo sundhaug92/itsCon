@@ -41,21 +41,21 @@ namespace itsLib
             string Persons = "";
             foreach (Person Person in To)
             {
-                Persons += Person.ShortName + ";";
+                Persons += Person.Username + ";";
             }
             MailData.Add("to", Persons);
 
             Persons = "";
             foreach (Person Person in Cc)
             {
-                Persons += Person.ShortName + ";";
+                Persons += Person.Username + ";";
             }
             MailData.Add("cc", Persons);
 
             Persons = "";
             foreach (Person Person in Bcc)
             {
-                Persons += Person.ShortName + ";";
+                Persons += Person.Username + ";";
             }
             MailData.Add("bcc", Persons);
 

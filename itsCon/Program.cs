@@ -154,10 +154,10 @@ namespace itsCon
                             List<Mail> mails = mb.GetMails();   //Get the mails in message folder
                             foreach (Mail Mail in mails)
                             {
-                                Console.Write("From: " + Mail.From.ShortName + "\t\t");  //Output who sent the mail
+                                Console.Write("From: " + Mail.From.Username + "\t\t");  //Output who sent the mail
                                 foreach (Person Person in Mail.To)
                                 {
-                                    if (Person != null) Console.Write(Person.ShortName + "\t\t"); //And all recipients
+                                    if (Person != null) Console.Write(Person.Username + "\t\t"); //And all recipients
                                 }
                                 Console.WriteLine(Mail.Subject);    //And lastly the subject
                             }
@@ -213,7 +213,7 @@ namespace itsCon
                             else bulletins = Bulletin.inCP(sess, new Project(sess, uint.Parse(sess.ActiveContext.Substring(1))));
                             foreach (Bulletin bulletin in bulletins)
                             {
-                                Console.WriteLine(bulletin.By.ShortName + ":" + bulletin.Title + ":" + bulletin.Text);
+                                Console.WriteLine(bulletin.By.Username + ":" + bulletin.Title + ":" + bulletin.Text);
                             }
                         }
                     }

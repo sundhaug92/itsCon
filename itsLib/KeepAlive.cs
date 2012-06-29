@@ -8,19 +8,63 @@ namespace itsLib
 {
     public class KeepAlive : Timer
     {
-        public delegate void uintChangedEventHandler(object o, uint e);
+        private uint _OnlineUsers, _UnreadMessages, _MessengerStatus;
+
+        private Session _Session;
+
+        private int _UnreadCloudEmailMessages;
+
+        public KeepAlive(Session Session)
+            : base(100)
+        {
+            this._Session = Session;
+            this.Elapsed += Timer_Elapsed;
+            this.AutoReset = true;
+        }
 
         public delegate void intChangedEventHandler(object o, uint e);
 
-        private event uintChangedEventHandler OnlineUsersChange;
+        public delegate void uintChangedEventHandler(object o, uint e);
 
         private event uintChangedEventHandler MessengerStatusChange;
 
-        private event uintChangedEventHandler UnreadMessagesChange;
+        private event uintChangedEventHandler OnlineUsersChange;
 
         private event intChangedEventHandler UnreadCloudEmailMessagesChange;
 
-        private Session _Session;
+        private event uintChangedEventHandler UnreadMessagesChange;
+
+        public uint MessengerStatus
+        {
+            set
+            {
+                if (value != MessengerStatus)
+                {
+                    try
+                    {
+                        HttpWebRequest hwr = Session.GetHttpWebRequest("/OnlineUsers.aspx?Status=" + value);
+                        hwr.Referer = Properties.Settings.Default.urlBase + "/OnlineUsers.aspx?Status=" + ((value == 0) ? 1 : 0).ToString();
+                        HttpWebResponse resp = (HttpWebResponse)hwr.GetResponse();
+                        if (resp.ResponseUri.OriginalString != Properties.Settings.Default.urlBase + "/OnlineUsers.aspx?Status=" + value) throw new Exception("MessengerStatus error");
+                        resp.Close();
+                        SendKeepAlive();
+                    }
+                    catch (WebException) { Console.WriteLine("Retrying MessengerStatus"); MessengerStatus = value; }
+                }
+            }
+            get
+            {
+                return _MessengerStatus;
+            }
+        }
+
+        public uint OnlineUsers
+        {
+            get
+            {
+                return _OnlineUsers;
+            }
+        }
 
         public Session Session
         {
@@ -30,12 +74,20 @@ namespace itsLib
             }
         }
 
-        public KeepAlive(Session Session)
-            : base(100)
+        public int UnreadCloudEmailMessages
         {
-            this._Session = Session;
-            this.Elapsed += Timer_Elapsed;
-            this.AutoReset = true;
+            get
+            {
+                return _UnreadCloudEmailMessages;
+            }
+        }
+
+        public uint UnreadMessages
+        {
+            get
+            {
+                return _UnreadMessages;
+            }
         }
 
         public void SendKeepAlive()
@@ -74,57 +126,6 @@ namespace itsLib
             this.Stop();
             this.SendKeepAlive();
             this.Start();
-        }
-
-        private uint _OnlineUsers, _UnreadMessages, _MessengerStatus;
-        private int _UnreadCloudEmailMessages;
-
-        public uint OnlineUsers
-        {
-            get
-            {
-                return _OnlineUsers;
-            }
-        }
-
-        public uint UnreadMessages
-        {
-            get
-            {
-                return _UnreadMessages;
-            }
-        }
-
-        public uint MessengerStatus
-        {
-            set
-            {
-                if (value != MessengerStatus)
-                {
-                    try
-                    {
-                        HttpWebRequest hwr = Session.GetHttpWebRequest("/OnlineUsers.aspx?Status=" + value);
-                        hwr.Referer = Properties.Settings.Default.urlBase + "/OnlineUsers.aspx?Status=" + ((value == 0) ? 1 : 0).ToString();
-                        HttpWebResponse resp = (HttpWebResponse)hwr.GetResponse();
-                        if (resp.ResponseUri.OriginalString != Properties.Settings.Default.urlBase + "/OnlineUsers.aspx?Status=" + value) throw new Exception("MessengerStatus error");
-                        resp.Close();
-                        SendKeepAlive();
-                    }
-                    catch (WebException) { Console.WriteLine("Retrying MessengerStatus"); MessengerStatus = value; }
-                }
-            }
-            get
-            {
-                return _MessengerStatus;
-            }
-        }
-
-        public int UnreadCloudEmailMessages
-        {
-            get
-            {
-                return _UnreadCloudEmailMessages;
-            }
         }
     }
 }
