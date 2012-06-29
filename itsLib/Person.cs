@@ -19,16 +19,13 @@ namespace itsLib
         {
             this._Id = Uid;
             this.sess = sess;
-            LoadingPersonaliaThread = new System.Threading.Thread(LoadPersonalia);
             if (Uid == 0) return;
-            LoadingPersonaliaThread.Start();
         }
 
         public uint Id
         {
             get
             {
-                if (LoadingPersonaliaThread.IsAlive) LoadingPersonaliaThread.Join();
                 return _Id;
             }
         }
@@ -37,7 +34,13 @@ namespace itsLib
         {
             get
             {
-                if (LoadingPersonaliaThread.IsAlive) LoadingPersonaliaThread.Join();
+                if (_Id != 0)
+                {
+                    if (Personalia == null)
+                    {
+                        LoadPersonalia();
+                    }
+                }
                 return _Name;
             }
         }
@@ -46,7 +49,6 @@ namespace itsLib
         {
             get
             {
-                if (LoadingPersonaliaThread.IsAlive) LoadingPersonaliaThread.Join();
                 return new Uri("http://files.itslearning.com/data/" + this._Customer.Id.ToString() + "/" + _Id.ToString());
             }
         }
@@ -55,7 +57,13 @@ namespace itsLib
         {
             get
             {
-                if (LoadingPersonaliaThread.IsAlive) LoadingPersonaliaThread.Join();
+                if (_Id != 0)
+                {
+                    if (Personalia == null)
+                    {
+                        LoadPersonalia();
+                    }
+                }
                 var _shortname = "";
                 var ShortNames = (from node in Personalia.DocumentNode.DescendantNodes() where node.GetAttributeValue("onclick", "").Contains("messages/sendmessage.aspx") select node.GetAttributeValue("onclick", "").Substring(node.GetAttributeValue("onclick", "").IndexOf("TextTo=") + "TextTo=".Length));
                 if (ShortNames.Count() > 0) _shortname = ShortNames.First().Substring(0, ShortNames.First().Length - 2);
