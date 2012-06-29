@@ -103,7 +103,7 @@ namespace itsLib
                 this._Name = Forename + " " + Surname;
 
                 var usernames = (from node in Personalia.DocumentNode.DescendantNodes() where node.GetAttributeValue("onclick", "").Contains("messages/sendmessage.aspx") select node.GetAttributeValue("onclick", "").Substring(node.GetAttributeValue("onclick", "").IndexOf("TextTo=") + "TextTo=".Length));
-                if (ShortNames.Count() > 0) _username = ShortNames.First().Substring(0, ShortNames.First().Length - 2);
+                if (usernames.Count() > 0) _username = usernames.First().Substring(0, usernames.First().Length - 2);
             }
         }
     }
