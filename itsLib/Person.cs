@@ -11,7 +11,7 @@ namespace itsLib
         private Customer _Customer;
         private uint _Id;
         private string _Name = "Unknown Unkown";
-        private string _shortname = "unknown";
+        private string _username = "unknown";
         private System.Threading.Thread LoadingPersonaliaThread;
         private HtmlDocument Personalia;
         private Session sess;
@@ -54,7 +54,7 @@ namespace itsLib
             }
         }
 
-        public string ShortName
+        public string Username
         {
             get
             {
@@ -67,7 +67,7 @@ namespace itsLib
                 }
                 if (_Id == sess.Me.Id) return sess.UserName;
 
-                return _shortname;
+                return _username;
             }
         }
 
@@ -102,8 +102,8 @@ namespace itsLib
                 this._Customer = sess.Customer;
                 this._Name = Forename + " " + Surname;
 
-                var ShortNames = (from node in Personalia.DocumentNode.DescendantNodes() where node.GetAttributeValue("onclick", "").Contains("messages/sendmessage.aspx") select node.GetAttributeValue("onclick", "").Substring(node.GetAttributeValue("onclick", "").IndexOf("TextTo=") + "TextTo=".Length));
-                if (ShortNames.Count() > 0) _shortname = ShortNames.First().Substring(0, ShortNames.First().Length - 2);
+                var usernames = (from node in Personalia.DocumentNode.DescendantNodes() where node.GetAttributeValue("onclick", "").Contains("messages/sendmessage.aspx") select node.GetAttributeValue("onclick", "").Substring(node.GetAttributeValue("onclick", "").IndexOf("TextTo=") + "TextTo=".Length));
+                if (ShortNames.Count() > 0) _username = ShortNames.First().Substring(0, ShortNames.First().Length - 2);
             }
         }
     }
