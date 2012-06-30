@@ -20,9 +20,9 @@ namespace itsLib
         private string _UserAgent = Properties.Settings.Default.UA_String;
         private string _UserName;
 
-        public Session()
+        public Session(bool Anonymous)
         {
-            MakeHttpGetRequestGetCookies("/XmlHttp/SessionLessApi.aspx");
+            if (!Anonymous) MakeHttpGetRequestGetCookies("/XmlHttp/SessionLessApi.aspx");
         }
 
         ~Session()
