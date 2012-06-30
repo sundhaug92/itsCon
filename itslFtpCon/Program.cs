@@ -13,7 +13,7 @@ namespace itslFtpCon
             TcpClient tc = (TcpClient)o;
             TcpClient dataClient = null;
             TcpListener pasvListener = null;
-            TcpClient pasvClient;
+
             NetworkStream ns = new NetworkStream(tc.Client);
             StreamReader sr = new StreamReader(ns);
             StreamWriter sw = new StreamWriter(ns);
@@ -27,7 +27,6 @@ namespace itslFtpCon
             uint CustomerId = 0;
             string wd = "/";
             bool binaryFlag = false;
-            short Port = 0;
 
             sw.WriteLine("220 its ftpd");
             while (tc.Connected)
