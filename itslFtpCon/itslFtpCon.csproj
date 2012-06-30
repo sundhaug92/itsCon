@@ -50,9 +50,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Xporter\Xporter.csproj">
-      <Project>{4d0f0181-1ca2-42e1-9519-cb8bad40fc64}</Project>
-      <Name>Xporter</Name>
+    <ProjectReference Include="..\itsLib\itsLib.csproj">
+      <Project>{c310486f-c87d-4418-80fa-1ce65ba36045}</Project>
+      <Name>itsLib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

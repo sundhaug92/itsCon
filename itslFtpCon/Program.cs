@@ -2,7 +2,7 @@
 using System.IO;
 using System.Net.Sockets;
 using System.Threading;
-using Xporter;
+using itsLib;
 
 namespace itslFtpCon
 {
@@ -60,12 +60,10 @@ namespace itslFtpCon
                     pass = command.Substring(cmd.IndexOf("PASS ") + "PASS ".Length + 1);
                     try
                     {
-                        sess.Create();
-                        Customer Customer = new Xporter.Customer();
-                        Customer.fromId(CustomerId);
-                        sess.setCustomer(Customer);
+                        Customer Customer = new Customer(sess, CustomerId);
+                        sess.Customer = Customer;
                         sess.Login(user, Base16.from16(pass));
-                        if (sess.getLoginState()) sw.WriteLine("230 You may continue");
+                        if (sess.LoggedIn) sw.WriteLine("230 You may continue");
                         else sw.WriteLine("530 Denied");
                     }
                     catch (Exception e) { sw.WriteLine("530 " + e.Message); }

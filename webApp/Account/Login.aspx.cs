@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Security;
 using System.Web.UI;
+using itsLib;
 
 namespace webApp.Account
 {
@@ -23,12 +24,11 @@ namespace webApp.Account
         {
             try
             {
-                Xporter.Session sess = ((Xporter.Session)Session["Xporter::Session"]);
-                Xporter.Customer Customer = new Xporter.Customer();
-                Customer.fromId(p1);
-                sess.setCustomer(Customer);
+                Session sess = ((Session)Session["Xporter::Session"]);
+                Customer Customer = new Customer(sess, p1);
+                sess.Customer = Customer;
                 sess.Login(p2, p3);
-                return sess.getLoginState();
+                return sess.LoggedIn;
             }
             catch (Exception)
             {

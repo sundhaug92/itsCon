@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web;
+using itsLib;
 
 namespace webApp
 {
@@ -31,8 +32,7 @@ namespace webApp
         private void Session_Start(object sender, EventArgs e)
         {
             // Code that runs when a new session is started
-            Session.Add("Xporter::Session", new Xporter.Session());
-            ((Xporter.Session)Session["Xporter::Session"]).Create();
+            Session.Add("Xporter::Session", new Session());
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using itsLib;
 
 namespace webApp.Person
 {
@@ -6,8 +7,8 @@ namespace webApp.Person
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Xporter.Session sess = ((Xporter.Session)Session["Xporter::Session"]);
-            uint Id = sess.getMe().getId();
+            Session sess = ((Session)Session["Xporter::Session"]);
+            uint Id = sess.Me.Id;
             Response.Redirect("Person.aspx?PersonId=" + Id.ToString(), true);
         }
     }
