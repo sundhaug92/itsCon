@@ -11,7 +11,6 @@ namespace itsLib
         private uint _Id;
         private string _Name = "Unknown Unkown";
         private string _username = "unknown";
-        private System.Threading.Thread LoadingPersonaliaThread;
         private HtmlDocument Personalia;
         private Session sess;
 
